@@ -50,7 +50,7 @@ const NavBar = ({ onSearch, searchInput}: Props) => {
       </Box>
       <ColorModeSwitch />
       <Box paddingX={5}>
-        <ProfileButton />
+        {button}
       </Box>
     </Flex>
   );
