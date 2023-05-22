@@ -6,6 +6,7 @@ import {
   Grid,
   GridItem,
   Heading,
+  IconButton,
   Stack,
   StackDivider,
   Text,
@@ -31,6 +32,8 @@ import { RiStarSmileLine } from "react-icons/ri";
 import MyEventsContextProvider from "./MyEventsContextProvider";
 import { Routes, Route } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { AiOutlinePlus } from "react-icons/ai";
+import NewEventBtn from "./Panels/PanelEvents/NewEventBtn";
 
 // interface Props {
 //   idSection:number
@@ -51,6 +54,7 @@ const PrivateUserPage = () => {
       t: "Your organized events here",
       icon: MdEvent,
       panel: PanelEvents,
+      extra: NewEventBtn,
     },
     {
       id: 3,
@@ -126,7 +130,7 @@ const PrivateUserPage = () => {
               />
             </GridItem>
             <GridItem>
-              <PanelContainer heading={currentSection.h}>
+              <PanelContainer heading={currentSection.h} extra={currentSection.extra && <currentSection.extra/>}>
                 <currentSection.panel prop="MA PROP" />
               </PanelContainer>
             </GridItem>

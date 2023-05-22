@@ -10,23 +10,31 @@ import {
   Flex,
   Text,
   Spinner,
+  Button,
+  IconButton,
 } from "@chakra-ui/react";
 import { ReactElement, useContext } from "react";
 import { MyEventsContext } from "./MyEventsContextProvider";
+import { AiOutlinePlus } from "react-icons/ai";
 
 interface Props {
   children?: any;
+  extra?: ReactElement ;
   heading?: string;
 }
 
-const PanelContainer = ({ children, heading }: Props) => {
+const PanelContainer = ({ children, heading, extra }: Props) => {
   
   const [events, reloadEvents, isLoading] = useContext(MyEventsContext)
 
   return (
-    <Card variant="outline" size="sm" overflow="hidden">
+    <Card variant="outline" size="sm" >
       <CardHeader pb="0">
-        <Heading size="lg">{heading}</Heading>
+        <Flex justifyContent={"space-between"} px="3">
+          <Heading size="lg">{heading}</Heading>
+          {extra}
+        </Flex>
+
         {isLoading && <Spinner />}
       </CardHeader>
 
