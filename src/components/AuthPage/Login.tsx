@@ -10,53 +10,60 @@ import {
   Heading,
   Text,
   useColorModeValue,
-} from '@chakra-ui/react';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { accountService } from '../../services/account.service';
+  Spinner,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useLogin } from "../LoginContextProvider";
 
 function Login() {
   const navigate = useNavigate();
+  const [isLogged, isLoading, error, login, logout] = useLogin();
 
   const [credentials, setCredentials] = useState({
-    email: '',
-    password: '',
-  })
+    email: "",
+    password: "",
+  });
 
-
-  const onChange = (e: { target: { name: string; value: string; }; }) => {
+  const onChange = (e: { target: { name: string; value: string } }) => {
     setCredentials({
       ...credentials,
-      [e.target.name]: e.target.value
-    })
-  }
-
-  const onSubmit = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault()
-    accountService.login(credentials).
-      then(res => {
-        accountService.saveToken(res.data.token)
-        navigate('/')
-      })
-      .then(error => console.log(error))
+      [e.target.name]: e.target.value,
+    });
   };
 
+  const onSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    login(credentials);
+
+    // accountService
+    //   .login(credentials)
+    //   .then((res) => {
+    //     accountService.saveToken(res.data.token);
+    //     navigate("/");
+    //   })
+    //   .catch((error) => console.log(error));
+  };
 
   return (
     <Flex
-      minH={'100vh'}
-      align={'center'}
-      justify={'center'}
-      bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'}>Login</Heading>
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Login</Heading>
+          {isLoading && <Spinner/>}
+          {error && <Heading size="md" color="red">{error}</Heading>}
         </Stack>
         <Box
-          rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
-          boxShadow={'lg'}
-          p={8}>
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
+          p={8}
+        >
           <Stack spacing={4}>
             <form onSubmit={onSubmit}>
               <FormControl id="email">
@@ -65,9 +72,9 @@ function Login() {
                   type="email"
                   name="email"
                   value={credentials.email}
-                  onChange={onChange} />
+                  onChange={onChange}
+                />
               </FormControl>
-
 
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
@@ -75,34 +82,36 @@ function Login() {
                   type="password"
                   name="password"
                   value={credentials.password}
-                  onChange={onChange} />
+                  onChange={onChange}
+                />
               </FormControl>
 
               <Stack spacing={10}>
                 <Stack
-                  direction={{ base: 'column', sm: 'row' }}
-                  align={'start'}
-                  justify={'space-between'}>
+                  direction={{ base: "column", sm: "row" }}
+                  align={"start"}
+                  justify={"space-between"}
+                >
                   <Checkbox>Remember me</Checkbox>
                 </Stack>
                 <Button
-                  type='submit'
-                  bg={'blue.400'}
-                  color={'white'}
+                  type="submit"
+                  bg={"blue.400"}
+                  color={"white"}
                   _hover={{
-                    bg: 'blue.500',
-                  }}>
+                    bg: "blue.500",
+                  }}
+                >
                   Login
                 </Button>
               </Stack>
               <Stack pt={6}>
-                <Text align={'center'}>
+                <Text align={"center"}>
                   Not registered ?
-                  <Link style={{ color: 'blue' }} to='/signup'>
+                  <Link style={{ color: "blue" }} to="/signup">
                     Sign up
                   </Link>
                 </Text>
-
               </Stack>
             </form>
           </Stack>
@@ -111,7 +120,5 @@ function Login() {
     </Flex>
   );
 }
-
-
 
 export default Login;

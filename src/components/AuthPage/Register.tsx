@@ -43,8 +43,7 @@ function Register() {
 
   const onSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
-
-    axios.post('http://localhost:3001/users/signup', credentials)
+    axios.post('http://localhost:3000/users/signup', credentials)
       .then(res => {
         console.log(res)
         navigate('/login')
