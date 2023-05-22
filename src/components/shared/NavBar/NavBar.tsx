@@ -5,7 +5,9 @@ import SearchInput from "./SearchInput";
 import ProfileButton from "./ProfileButton";
 import { useNavigate } from "react-router-dom";
 import { Link as ReachLink } from "react-router-dom";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
+import { accountService } from "../../../services/account.service";
+import ConnexionButton from "./ConnexionButton";
 
 interface Props {
   onSearch: (searchText: string) => void;
@@ -14,6 +16,22 @@ interface Props {
 
 const NavBar = ({ onSearch, searchInput}: Props) => {
   const navigate = useNavigate();
+
+  const [isLogged, setIsLogged] = useState(false)
+
+  useEffect(() => {
+    setIsLogged(accountService.isLogged());
+  }, []);
+
+  let button;
+    if (isLogged) {
+      button = <ProfileButton />;
+    } else {
+      button = <Link as={ReachLink} to="/login">
+      <ConnexionButton/>
+    </Link>;
+    }
+    
   return (
     <Flex
       padding="10px"

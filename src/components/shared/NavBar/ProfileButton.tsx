@@ -9,13 +9,18 @@ import {
 } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { accountService } from "../../../services/account.service";
 
 
 const ProfileButton = () => {
 
   const navigate = useNavigate();
 
-
+  const logout = () => {
+    accountService.logout()
+    navigate("/")
+  }
+  
   return (
     <Menu>
       <MenuButton
@@ -32,6 +37,7 @@ const ProfileButton = () => {
           <MenuItem onClick={()=>navigate('/profile/1')} >My informations</MenuItem>
           <MenuItem onClick={()=>navigate('/profile/2')} >My events</MenuItem>
           <MenuItem onClick={()=>navigate('/profile/3')} >More...</MenuItem>
+          <MenuItem onClick={logout}> Déconnexion</MenuItem>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Help">
