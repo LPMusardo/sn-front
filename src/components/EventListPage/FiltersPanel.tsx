@@ -74,15 +74,12 @@ function getStringLocalDateTime(offsetInDays: number = 0) {
 }
 
 const FiltersPanel = ({ close }: Props) => {
-
-  const [search, setSearch] = useContext(SearchContext)
+  const [search, setSearch] = useContext(SearchContext);
   //const watchEventName = watch("event_name"); // Surveiller la valeur de field1
-  
 
   useEffect(() => {
-    setValue("event_name", search)
+    setValue("event_name", search);
   }, [search]);
-
 
   const {
     setValue,
@@ -90,7 +87,7 @@ const FiltersPanel = ({ close }: Props) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange"});
+  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
 
   const bg = useColorModeValue("white", "gray.600");
   const label = useColorModeValue("gray.700", "gray.300");
@@ -107,25 +104,31 @@ const FiltersPanel = ({ close }: Props) => {
           <IconButton
             variant="ghost"
             colorScheme="gray"
-            onClick={() => {reset(), setSearch("")}}
+            onClick={() => {
+              reset(), setSearch("");
+            }}
             icon={<FiTrash2 />}
             aria-label="reset form"
-          ></IconButton>
+          />
           <Heading size="sm">Event filters</Heading>
         </HStack>
       </CardHeader>
       <CardBody pb="3" pt="2">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <HStack align="" spacing={{sm:"2", md:"10", lg:"20"}}>
+          <HStack align="" spacing={{ sm: "2", md: "10", lg: "20" }}>
             <VStack spacing="4">
               <FormControl isInvalid={errors.event_name != undefined}>
                 <FormLabel color={label}>Name</FormLabel>
-                
+
                 <Input
                   type="text"
                   borderColor="gray.400"
                   placeholder="Event name..."
-                  {...register("event_name", {onChange:(e)=>{setSearch(e.target.value)}   })}
+                  {...register("event_name", {
+                    onChange: (e) => {
+                      setSearch(e.target.value);
+                    },
+                  })}
                 />
 
                 <FormHelperText>
@@ -290,7 +293,7 @@ const FiltersPanel = ({ close }: Props) => {
               </FormControl>
             </VStack>
           </HStack>
-          <Divider mt="5" mb="3"/>
+          <Divider mt="5" mb="3" />
           <Center w="100%">
             <Button variant="outline" colorScheme="purple" type="submit">
               Search
