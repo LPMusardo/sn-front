@@ -30,7 +30,7 @@ import {
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
-import * as dateService from "../../../../assets/services/dateService";
+import * as dateService from "../../../../services/dateService";
 import { FiTrash2 } from "react-icons/fi";
 
 const NewEventBtn = () => {
