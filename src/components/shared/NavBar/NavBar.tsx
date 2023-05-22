@@ -6,32 +6,22 @@ import ProfileButton from "./ProfileButton";
 import { useNavigate } from "react-router-dom";
 import { Link as ReachLink } from "react-router-dom";
 import { ReactElement, useEffect, useState } from "react";
-import { accountService } from "../../../services/account.service";
+// import { accountService } from "../../../services/token.service";
 import ConnexionButton from "./ConnexionButton";
+import { useLogin } from "../../LoginContextProvider";
 
 interface Props {
   onSearch: (searchText: string) => void;
   searchInput?: ReactElement;
 }
 
-const NavBar = ({ onSearch, searchInput}: Props) => {
+const NavBar = ({ onSearch, searchInput }: Props) => {
   const navigate = useNavigate();
+  const [isLogged] = useLogin()
 
-  const [isLogged, setIsLogged] = useState(false)
+  // const [isLogged, setIsLogged] = useState(accountService.isLogged());
+  // const logout = () => setIsLogged(false);
 
-  useEffect(() => {
-    setIsLogged(accountService.isLogged());
-  }, []);
-
-  let button;
-    if (isLogged) {
-      button = <ProfileButton />;
-    } else {
-      button = <Link as={ReachLink} to="/login">
-      <ConnexionButton/>
-    </Link>;
-    }
-    
   return (
     <Flex
       padding="10px"
@@ -46,11 +36,17 @@ const NavBar = ({ onSearch, searchInput}: Props) => {
         </Box>
       </Link>
       <Box w="100%" marginX={10}>
-        {searchInput|| <SearchInput onSearch={onSearch}/>}
+        {searchInput || <SearchInput onSearch={onSearch} />}
       </Box>
       <ColorModeSwitch />
       <Box paddingX={5}>
-        {button}
+        {isLogged ? (
+          <ProfileButton />
+        ) : (
+          <Link as={ReachLink} to="/login">
+            <ConnexionButton />
+          </Link>
+        )}
       </Box>
     </Flex>
   );
