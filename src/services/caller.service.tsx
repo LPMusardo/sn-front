@@ -1,17 +1,16 @@
-import axios from 'axios'
-import { accountService } from './account.service'
+import axios from "axios";
+import { tokenService } from "./token.service";
 
 const Axios = axios.create({
-    baseURL: 'http://localhost:3001'
-})
+  baseURL: "http://localhost:3000",
+});
 
-Axios.interceptors.request.use(request => {
-    if(accountService.isLogged()){
-        request.headers.Authorization = 'Bearer '+accountService.getToken()
-    }
-    
-    
-    return request
-})
+Axios.interceptors.request.use((request) => {
+  if (tokenService.getToken) {
+    request.headers.Authorization = "Bearer " + tokenService.getToken();
+  }
 
-export default Axios
+  return request;
+});
+
+export default Axios;
