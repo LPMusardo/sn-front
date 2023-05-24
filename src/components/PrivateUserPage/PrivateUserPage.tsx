@@ -22,7 +22,7 @@ import { MdOutlineThumbUpAlt } from "react-icons/md";
 import { MdEvent } from "react-icons/md";
 import PanelInformations from "./Panels/PanelInformations";
 import PanelEvents from "./Panels/PanelEvents/PanelEvents";
-import PanelApplications from "./Panels/PanelApplications";
+import PanelApplications from "./Panels/PanelApplications/PanelApplications";
 import PanelParticipations from "./Panels/PanelParticipations";
 import { useState } from "react";
 import PanelGivenNotes from "./Panels/PanelGivenNotes";
@@ -34,6 +34,8 @@ import { Routes, Route } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import NewEventBtn from "./Panels/PanelEvents/NewEventBtn";
+import MyApplicationsContextProvider from "./MyParticipationsContextProvider";
+import MyParticipationsContextProvider from "./MyApplicationsContextProvider";
 
 // interface Props {
 //   idSection:number
@@ -105,8 +107,10 @@ const PrivateUserPage = () => {
 
   return (
     <MyEventsContextProvider>
-      <>
-        {/* <Routes>
+      <MyParticipationsContextProvider>
+        <MyApplicationsContextProvider>
+          <>
+            {/* <Routes>
           {sections.map((section) => (
             <Route
               path={section.id.toString()}
@@ -114,33 +118,38 @@ const PrivateUserPage = () => {
             />
           ))}
         </Routes> */}
-        <NavBar onSearch={() => {}} />
+            <NavBar onSearch={() => {}} />
 
-        <Box margin={5} minH="60vh">
-          <Grid
-            templateColumns={{ sm: "1fr", md: "350px 1fr" }}
-            gap={10}
-            my="35"
-          >
-            <GridItem>
-              <Menu
-                sections={sections}
-                selectedId={selectedId}
-                setSelectedId={setSelectedId}
-              />
-            </GridItem>
-            <GridItem>
-              <PanelContainer heading={currentSection.h} extra={currentSection.extra && <currentSection.extra/>}>
-                <currentSection.panel prop="MA PROP" />
-              </PanelContainer>
-            </GridItem>
-          </Grid>
-        </Box>
+            <Box margin={5} minH="60vh">
+              <Grid
+                templateColumns={{ sm: "1fr", md: "350px 1fr" }}
+                gap={10}
+                my="35"
+              >
+                <GridItem>
+                  <Menu
+                    sections={sections}
+                    selectedId={selectedId}
+                    setSelectedId={setSelectedId}
+                  />
+                </GridItem>
+                <GridItem>
+                  <PanelContainer
+                    heading={currentSection.h}
+                    extra={currentSection.extra && <currentSection.extra />}
+                  >
+                    <currentSection.panel prop="MA PROP" />
+                  </PanelContainer>
+                </GridItem>
+              </Grid>
+            </Box>
 
-        <Box marginTop={100}>
-          <Footer />
-        </Box>
-      </>
+            <Box marginTop={100}>
+              <Footer />
+            </Box>
+          </>
+        </MyApplicationsContextProvider>
+      </MyParticipationsContextProvider>
     </MyEventsContextProvider>
   );
 };
