@@ -1,35 +1,58 @@
-import { Card, CardBody, CardFooter, Divider, Heading, Image, Stack, Text, ButtonGroup, Button} from '@chakra-ui/react'
-import React from 'react'
+import { Card, CardBody, CardFooter, Divider, Heading, Image, Stack, Text, ButtonGroup, Button,Link} from '@chakra-ui/react'
+import { Link as ReachLink } from "react-router-dom";
 
-const SoonEventCard = () => {
+
+
+
+
+interface SoonEventCardProps {
+    id: string;
+    name: string;
+    category: string;
+    description: string;
+    image_url: string;
+    participants_number: string;
+    date: string;
+  }
+
+const SoonEventCard = ({ id, name, category, description, image_url,participants_number,date  }: SoonEventCardProps) => {
     return (
+        
         <Card size={"md"}>
             <CardBody>
+            <Link as={ReachLink} to={`/events/${id}`}>
                 <Image
-                    src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+                    src={image_url}
                     alt='Green double couch with wooden legs'
+                    fallbackSrc="https://img.freepik.com/premium-vector/basketball_319667-191.jpg"
                     borderRadius='lg' />
+            </Link>
                 <Stack mt='6' spacing='3'>
-                    <Heading size='md'>Living room Sofa</Heading>
+                    <Heading size='md'>{name}</Heading>
                     <Text>
-                        This sofa is perfect for modern tropical spaces, baroque inspired
-                        spaces, earthy toned spaces and for people who love a chic design with a
-                        sprinkle of vintage design.
+                        {description}
                     </Text>
-                    <Text color='purple.800' fontSize='2xl'>
-                        $450
+                    <Text color='purple.100' fontSize='m'>
+                        participants_number: {participants_number}
                     </Text>
+                    <Text color='purple.300'  fontSize='s'>
+                        {new Date(date).toDateString()}
+                    </Text>
+                    
                 </Stack>
             </CardBody>
             <Divider />
             <CardFooter>
                 <ButtonGroup spacing='2'>
                     <Button variant='solid' colorScheme='purple'>
-                        Buy now
+                        Apply
                     </Button>
+                    <Link as={ReachLink} to={`/events/${id}`}>
+
                     <Button variant='ghost' colorScheme='purple'>
-                        Add to cart
+                        More details
                     </Button>
+                    </Link>
                 </ButtonGroup>
             </CardFooter>
         </Card>
