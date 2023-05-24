@@ -3,8 +3,9 @@ import { createContext, useState } from "react";
 import { tokenService } from "../services/token.service";
 import { useNavigate } from "react-router-dom";
 import Axios from "../services/caller.service";
+import jwt_decode from "jwt-decode";
 
-const LoginContext = createContext<[boolean, boolean, string|null, (credentials:{email: string;password: string;})=>void, Function]>([false, false, null, ()=>{}, ()=>{}]);
+const LoginContext = createContext<[boolean, boolean, string|null, (credentials:{email: string; password: string;})=>void, Function,  ()=>{[key:string]:any}|null         ] >([false, false, null, ()=>{}, ()=>{}, ()=>{return null} ]);
 
 
 
@@ -42,8 +43,17 @@ const LoginContextProvider = ({children}: {children:JSX.Element} ) => {
     navigate("/");
   }
 
+  function getUserData() {
+    let user = null
+    let token = tokenService.getToken();
+    if(token) user = jwt_decode<{[key:string]:string}>(token)
+    // if(typeof user == "string") return null;
+    return user;
+  }
+  
+
   return (
-    <LoginContext.Provider value={[isLogged, isLoading, error, login, logout]}>
+    <LoginContext.Provider value={[isLogged, isLoading, error, login, logout, getUserData]}>
       {children}
     </LoginContext.Provider>
   );
