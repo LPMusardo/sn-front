@@ -27,7 +27,7 @@ const CategoryCard = ({ name, id, imageurl }: CategoryCardProps) => {
           <Center>
             <Image
               src={imageurl}
-              fallbackSrc="https://img.freepik.com/premium-vector/basketball_319667-191.jpg"
+              fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
               borderRadius="lg"
             />
           </Center>

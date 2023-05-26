@@ -1,5 +1,3 @@
-// 
-
 export interface ISoonEventData {
     id: string;
     name: string;

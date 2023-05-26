@@ -24,7 +24,7 @@ const SoonEventCard = ({ id, name, category, description, image_url,participants
                 <Image
                     src={image_url}
                     alt='Green double couch with wooden legs'
-                    fallbackSrc="https://img.freepik.com/premium-vector/basketball_319667-191.jpg"
+                    fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
                     borderRadius='lg' />
             </Link>
                 <Stack mt='6' spacing='3'>
