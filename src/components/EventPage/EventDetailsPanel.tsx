@@ -60,7 +60,7 @@ const EventDetailsPanel = ({
   score_avg,
   nb_places_taken,
 }: IEventDetailsProps) => {
-  console.log("score_avg", typeof score_avg);
+
   return (
     <>
       <Card variant="outline" height={"full"}>
