@@ -4,6 +4,7 @@ import SoonEventCard from "./SoonEventCard";
 import React, { useState, useEffect } from "react";
 import { useAxiosFetch } from "../../services/useAxiosFetch";
 import { ISoonEventData } from "../../models/ISoonEventData.tsx";
+import ParticipantNotesTable from "../PublicUserPage/ParticipantNotesTable.tsx";
 
 export const SoonGrid = () => {
   const [soonEvents, setSoonEvents] = useState<ISoonEventData[]>([]);

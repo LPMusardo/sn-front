@@ -40,7 +40,7 @@ const TabInformations = ({event}:Props) => {
               w="100%"
               objectFit="contain"
               src={event.imageURL}
-              fallbackSrc="https://via.placeholder.com/150"
+              fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
             />
           </Box>
           <Link href="/">link/vers/page/events/{event.id}</Link>
