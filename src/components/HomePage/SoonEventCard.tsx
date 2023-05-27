@@ -54,14 +54,14 @@ const SoonEventCard = ({
             <Text>{description.substring(0, 35) + " ..."}</Text>
           </HStack>
           <HStack>
-            <RiGroupLine />
+            <RiGroupLine  style={{ color: '#E6D9FA' }}/>
             <Text color="purple.100" fontSize="m">
               {participants_number} participants
             </Text>
           </HStack>
 
           <HStack>
-            <BsCalendarEvent />
+            <BsCalendarEvent style={{ color: '#B195EE' }} />
             <Text color="purple.300" fontSize="s">
               {new Date(date).toDateString()}
             </Text>
