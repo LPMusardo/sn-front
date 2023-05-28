@@ -6,16 +6,14 @@ import {
   Th,
   Tbody,
   Td,
-  Tfoot,
   Table,
 } from "@chakra-ui/react";
-import NoteCard from "./NoteCard";
-import Comment from "./Comment";
 import Rating from "../shared/Rating";
 import { IUserData } from "../../models/IUserData";
+import { Link } from "react-router-dom";
 
 interface OrganizerEventsTableProps {
-  user:IUserData;
+  user: IUserData;
 }
 
 // function to calculate the average score of the events with an eventId given
@@ -35,11 +33,8 @@ function calculateAverageScore(eventId: string, user: IUserData) {
   return average;
 }
 
-function OrganizerEventsTable( {user}: OrganizerEventsTableProps ) {
+function OrganizerEventsTable({ user }: OrganizerEventsTableProps) {
   const headers = ["Notes", "Event", "Date"];
-
-  
-
 
   return (
     <TableContainer>
@@ -56,10 +51,16 @@ function OrganizerEventsTable( {user}: OrganizerEventsTableProps ) {
           {user?.organizedEvents?.map((events) => (
             <Tr>
               <Td>
-                <Rating score={calculateAverageScore(events.id,user) ?? ""} total={5} spacing={1} />
+                <Rating
+                  score={calculateAverageScore(events.id, user) ?? ""}
+                  total={5}
+                  spacing={1}
+                />
               </Td>
-              <Td>{events?.name}</Td>
-              <Td>{events?.date}</Td>
+              <Td>
+                <Link style={{ color: "#B195EE" }} to={"/events/" + events.id}>{events?.name}</Link>
+              </Td>
+              <Td>{new Date(events?.date).toLocaleDateString() ?? ""}</Td>
             </Tr>
           )) ?? "No events organized"}
         </Tbody>

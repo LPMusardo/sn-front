@@ -18,7 +18,6 @@ const Rating = ({ score, total, color, size, spacing }: Props) => {
     const components: JSX.Element[] = [];
     if(score ==-1) {
       components.push(<p>No notes yet!</p>);
-
       return components;
     }
     

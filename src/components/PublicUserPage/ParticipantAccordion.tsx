@@ -18,6 +18,24 @@ interface IOrganizeAccordionProps {
 
 
 const OrganizeAccordion: React.FC<IOrganizeAccordionProps> = ({ user }) => {
+
+  let averageNoteAsParticipant = -1;
+  let nbNotesAsParticipant = 0;
+  if (user.receivedNotes) {
+
+    const sumNoteAsParticipant = user.receivedNotes.reduce((acc, obj) => {
+      if (obj.type == "1") {
+        nbNotesAsParticipant++;
+        return acc + parseInt(obj.value, 10);
+      } else {
+        return acc;
+      }
+    }, 0);
+    if (nbNotesAsParticipant != 0)
+      averageNoteAsParticipant = sumNoteAsParticipant / nbNotesAsParticipant;
+  }
+
+
   return (
     <Accordion allowToggle>
       <AccordionItem>
@@ -27,7 +45,7 @@ const OrganizeAccordion: React.FC<IOrganizeAccordionProps> = ({ user }) => {
               text={"Notes"}
               badgeContent={
                 <Box padding={0.5}>
-                  <Rating score={3} total={5} spacing={1} />
+                  <Rating score={averageNoteAsParticipant} total={5} spacing={1} />
                 </Box>
               }
             />
