@@ -11,8 +11,14 @@ import {
   Heading,
   VStack,
 } from "@chakra-ui/react";
+import { IUserData } from "../../models/IUserData";
 
-const LeftPanel = () => {
+
+interface ILeftPanelProps {
+  user: IUserData ;
+}
+
+const LeftPanel : React.FC<ILeftPanelProps> = ({ user }) => {
   return (
     <Tabs>
       <TabList>
@@ -23,10 +29,10 @@ const LeftPanel = () => {
         <TabPanel>
           <VStack spacing={10} align="flex-start">
             <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-              <Avatar name="Charles" src="https://bit.ly/sage-adebayo" />
+              <Avatar name={user.username} src={user?.picture ?? ""} />
               <Box>
-                <Heading size="sm">Charles</Heading>
-                <Text>Since : 01/01/22</Text>
+                <Heading size="sm">{user.username}</Heading>
+                <Text>Since : {new Date( user.creation_date).toLocaleDateString()}</Text>
               </Box>
             </Flex>
             <Box>
@@ -34,9 +40,7 @@ const LeftPanel = () => {
                 Description
               </Heading>
               <Text>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Asperiores quae laudantium illo expedita temporibus inventore
-                iure provident sunt voluptas fugiat
+               {user?.bio ?? ""}
               </Text>
             </Box>
           </VStack>

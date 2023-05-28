@@ -8,49 +8,27 @@ import {
   Td,
   Table,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+
 import NoteCard from "./NoteCard";
 import Comment from "./Comment";
 import Rating from "../shared/Rating";
+import { IUserData } from "../../models/IUserData";
 
-interface Note {
-  score: number;
-  username: string;
-  pictureUrl: string;
-  title: string;
-  comment: string;
-  eventName: string;
-  creationDate: string;
+
+
+interface OrganizerNotesTableProps {
+  user: IUserData;
 }
 
-function ParticipantNotesTable() {
+function ParticipantNotesTable( {user}: OrganizerNotesTableProps) {
   const headers = ["Notes", "From", "Comment", "Event", "Posted"];
-  const notes: Note[] = [
-    {
-      score: 4,
-      username: "Damien",
-      pictureUrl:
-        "https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
-      title: "très bien",
-      comment: "un Super momment au karting",
-      eventName: "Karting au castellet",
-      creationDate: "12/12/22",
-    },
-    {
-      score: 2,
-      username: "Heba",
-      pictureUrl: "",
-      title: "Nul",
-      comment: "L'hote était désagréable",
-      eventName: "Karting au castellet",
-      creationDate: "12/12/22",
-    },
-  ];
 
   return (
     <TableContainer>
       <Table variant="simple">
         <TableCaption>
-          Notes received by Charles as an event participant
+          Notes received by {user.username} as an event participant
         </TableCaption>
         <Thead>
           <Tr>
@@ -60,22 +38,27 @@ function ParticipantNotesTable() {
           </Tr>
         </Thead>
         <Tbody>
-          {notes.map((note) => (
+          {user.receivedNotes?.filter(note => note.type == "1").map((note) => (
             <Tr>
               <Td>
-                <Rating score={note.score} total={5} spacing={1} />
+                <Rating score={parseInt(note.value,10)} total={5} spacing={1} />
               </Td>
               <Td>
                 <NoteCard
-                  username={note.username}
-                  pictureUrl={note.pictureUrl}
+                  username={note.owner.username}
+                  pictureUrl={note.owner.picture}
+                  id={note.owner.id}
                 />
               </Td>
               <Td>
                 <Comment title={note.title} comment={note.comment} />
               </Td>
-              <Td>{note.eventName}</Td>
-              <Td>{note.creationDate}</Td>
+              <Td>
+              <Link  style={{ color: "#B195EE" }} to={`/events/${note.event.id}`}>
+              {note.event.name}
+                  </Link>
+              </Td>
+              <Td>{new Date(note.creationDate).toLocaleDateString()}</Td>
             </Tr>
           ))}
         </Tbody>

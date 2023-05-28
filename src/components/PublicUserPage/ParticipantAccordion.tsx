@@ -8,11 +8,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 import AccordionHeader from "./AccordionHeader";
-import OrganizerEventsTable from "./OrganizerEventsTable";
 import ParticipantNotesTable from "./ParticipantNotesTable";
 import Rating from "../shared/Rating";
+import { IUserData } from "../../models/IUserData";
 
-const OrganizeAccordion = () => {
+interface IOrganizeAccordionProps {
+  user:IUserData;
+}
+
+
+const OrganizeAccordion: React.FC<IOrganizeAccordionProps> = ({ user }) => {
   return (
     <Accordion allowToggle>
       <AccordionItem>
@@ -30,7 +35,7 @@ const OrganizeAccordion = () => {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <ParticipantNotesTable />
+          <ParticipantNotesTable user={user}/>
         </AccordionPanel>
       </AccordionItem>
     </Accordion>

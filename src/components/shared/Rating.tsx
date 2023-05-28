@@ -16,6 +16,13 @@ const Rating = ({ score, total, color, size, spacing }: Props) => {
 
   function starList() {
     const components: JSX.Element[] = [];
+    if(score ==-1) {
+      components.push(<p>No notes yet!</p>);
+
+      return components;
+    }
+    
+
     for (let i = 0; i < filled; i++)
       components.push(<AiFillStar key={`fill_${i}`} {...starProps} />);
     for (let i = 0; i < empty; i++)

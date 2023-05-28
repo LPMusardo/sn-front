@@ -1,8 +1,13 @@
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
 import OrganizeAccordion from "./OrganizeAccordion";
 import ParticipantAccordion from "./ParticipantAccordion";
+import { IUserData } from "../../models/IUserData";
 
-const RightPanel = () => {
+interface IRightPanelProps {
+  user: IUserData ;
+}
+
+const RightPanel : React.FC<IRightPanelProps> = ({ user }) => {
   return (
     <Tabs>
       <TabList>
@@ -12,10 +17,10 @@ const RightPanel = () => {
 
       <TabPanels>
         <TabPanel>
-          <OrganizeAccordion />
+          <OrganizeAccordion user={user} />
         </TabPanel>
         <TabPanel>
-          <ParticipantAccordion/>
+          <ParticipantAccordion user={user}/>
         </TabPanel>
       </TabPanels>
     </Tabs>

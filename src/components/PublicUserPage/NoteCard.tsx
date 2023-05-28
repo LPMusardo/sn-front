@@ -11,13 +11,16 @@ import {
   Box,
   Flex,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+
 
 interface Props {
   username: string;
-  pictureUrl:string
+  pictureUrl:string;
+  id: string;
 }
 
-const NoteCard = ({ username, pictureUrl}: Props) => {
+const NoteCard = ({ username, pictureUrl,id}: Props) => {
   return (
     <Card direction="row" overflow="hidden" variant="unstyled">
       <Image
@@ -29,9 +32,11 @@ const NoteCard = ({ username, pictureUrl}: Props) => {
       <Stack width="100%">
         <CardBody>
           <Flex height="100%" justifyContent="left" alignItems="center">
+          <Link  style={{ color: "#B195EE" }} to={`/users/${id}`}>
             <Text px="4" size="20xs">
               {username}
             </Text>
+          </Link>
           </Flex>
 
           {/* <Text py="2">
