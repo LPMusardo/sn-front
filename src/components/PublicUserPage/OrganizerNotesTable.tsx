@@ -9,8 +9,8 @@ import {
   Tfoot,
   Table,
 } from "@chakra-ui/react";
-import NoteCard from "./NoteCard";
-import Comment from "./Comment";
+import NoteCard from "../shared/NoteCard";
+import Comment from "../shared/Comment";
 import Rating from "../shared/Rating";
 
 interface Note {
