@@ -5,6 +5,9 @@ import "./main.css";
 import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import LoginContextProvider from "./components/LoginContextProvider.tsx";
+import SearchContextProvider from "./components/EventListPage/SearchContextProvider.tsx";
+import FetchSearchContextProvider from "./components/EventListPage/FetchSearchContextProvider.tsx";
+import CategoriesContextProvider from "./components/CategoriesContextProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -12,7 +15,13 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <LoginContextProvider>
-          <App />
+          <SearchContextProvider>
+            <FetchSearchContextProvider>
+              <CategoriesContextProvider>
+                <App />
+              </CategoriesContextProvider>
+            </FetchSearchContextProvider>
+          </SearchContextProvider>
         </LoginContextProvider>
       </BrowserRouter>
     </ChakraProvider>
