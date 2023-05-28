@@ -8,6 +8,9 @@ import {
   Td,
   Table,
 } from "@chakra-ui/react";
+import NoteCard from "../shared/NoteCard";
+import Comment from "../shared/Comment";
+
 import Rating from "../shared/Rating";
 import { IUserData } from "../../models/IUserData";
 import { Link } from "react-router-dom";
