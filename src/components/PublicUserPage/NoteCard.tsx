@@ -15,6 +15,7 @@ interface Props {
   id: string;
 }
 
+
 const NoteCard = ({ username, pictureUrl,id}: Props) => {
   return (
     <Card direction="row" overflow="hidden" variant="unstyled">

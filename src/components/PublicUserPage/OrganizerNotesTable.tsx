@@ -28,7 +28,7 @@ function OrganizerNotesTable({ user }: OrganizerNotesTableProps) {
           Notes received by {user.username} as an event organizer
         </TableCaption>
         <Thead>
-          <Tr  >
+          <Tr>
             {headers.map((headers) => (
               <Th>{headers}</Th>
             ))}
