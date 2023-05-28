@@ -9,9 +9,16 @@ import {
 } from "@chakra-ui/react";
 import FiltersPanel from "./FiltersPanel";
 import { BsSliders } from "react-icons/bs";
+import { useEffect } from "react";
+
+
 
 const FiltersToggle = () => {
   const { isOpen, onToggle } = useDisclosure();
+
+  useEffect(() => {
+    console.log('coucou depuis FiltersToggle');
+  } );
 
   return (
     <>
@@ -26,7 +33,7 @@ const FiltersToggle = () => {
           </Button>
         </HStack>
         <Collapse in={isOpen} animateOpacity>
-          <FiltersPanel close={() => onToggle()} />
+          <FiltersPanel close={() => onToggle()}/>
         </Collapse>
       </VStack>
     </>
