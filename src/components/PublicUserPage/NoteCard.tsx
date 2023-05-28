@@ -2,13 +2,8 @@ import {
   Card,
   Stack,
   CardBody,
-  Heading,
-  CardFooter,
-  Button,
   Image,
   Text,
-  Center,
-  Box,
   Flex,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -19,6 +14,7 @@ interface Props {
   pictureUrl:string;
   id: string;
 }
+
 
 const NoteCard = ({ username, pictureUrl,id}: Props) => {
   return (
