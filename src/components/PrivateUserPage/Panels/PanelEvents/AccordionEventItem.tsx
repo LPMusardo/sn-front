@@ -1,37 +1,22 @@
 import {
-  Text,
-  Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Box,
-  HStack,
-  VStack,
-  Image,
-  Square,
-  Link,
   Tabs,
   Tab,
   TabList,
-  TabPanel,
   TabPanels,
   Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
-import IEvent from "./IEvent";
-import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
-import { RiGroupLine } from "react-icons/ri";
-import { FiMapPin } from "react-icons/fi";
-import { BiCategoryAlt } from "react-icons/bi";
 import TabInformations from "./TabPanelEvent/TabInformations";
 import TabCandidats from "./TabPanelEvent/TabCandidats";
 import TabParticipants from "./TabPanelEvent/TabParticipants";
-import { Dispatch, SetStateAction } from "react";
+import { OrganizedEvent } from "../../MyEventsContextProvider";
 
 interface Props {
-  event: IEvent;
-  //setEvents : Dispatch<SetStateAction<IEvent[]>>
+  event: OrganizedEvent;
 }
 
 const AccordionEventItem = ({ event }: Props) => {
@@ -59,12 +44,10 @@ const AccordionEventItem = ({ event }: Props) => {
           <TabPanels>
             <TabInformations event={event} />
             <TabCandidats
-              candidates={event.candidates}
-              eventName={event.name}
+              event={event}
             />
             <TabParticipants
-              participants={event.participants}
-              eventName={event.name}
+              event={event}
             />
           </TabPanels>
         </Tabs>

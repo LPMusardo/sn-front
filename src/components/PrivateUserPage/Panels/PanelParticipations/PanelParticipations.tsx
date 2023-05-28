@@ -15,18 +15,19 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
-import { useMyApplications } from "../../MyApplicationsContextProvider";
+import { useMyParticipations } from "../../MyParticipationsContextProvider";
 import { BiCategoryAlt } from "react-icons/bi";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { FiMapPin } from "react-icons/fi";
 import { RiGroupLine } from "react-icons/ri";
-import ValidationBtn from "../../../shared/ValidationBtn";
 import { useLogin } from "../../../LoginContextProvider";
+import AddNote from "../../../shared/AddNote";
 import { GiCancel } from "react-icons/gi";
 import { Link as ReachLink } from "react-router-dom";
+import AddNoteAsParticipant from "./AddNoteAsParticipant";
 
-const PanelApplications = () => {
-  const [events, isLoading, error, cancelApplication] = useMyApplications();
+const PanelParticipations = () => {
+  const [events, isLoading, error, cancelParticipation] = useMyParticipations();
   const [isLogged, isl, e, login, logout, getUserData] = useLogin();
   const userData = getUserData();
 
@@ -96,7 +97,6 @@ const PanelApplications = () => {
                     >
                       <Text>{event.MainCategory.name}</Text>
                     </Link>
-
                     <Text> - </Text>
                     <Text>{event.category}</Text>
                   </HStack>
@@ -107,13 +107,15 @@ const PanelApplications = () => {
                     <Text>{event.description}</Text>
                   </HStack>
                 </VStack>
-                <VStack spacing="4" pl="50px" pr="5px">
+                <VStack spacing="4" w="170px" pl="50px" pr="5px">
+                  <AddNoteAsParticipant eventId={event.id} />
                   <Button
+                    w="100%"
                     isLoading={isLoading}
                     colorScheme="red"
                     variant="outline"
                     leftIcon={<GiCancel />}
-                    onClick={() => cancelApplication(event.id)}
+                    onClick={() => cancelParticipation(event.id)}
                   >
                     Cancel
                   </Button>
@@ -127,4 +129,4 @@ const PanelApplications = () => {
   );
 };
 
-export default PanelApplications;
+export default PanelParticipations;

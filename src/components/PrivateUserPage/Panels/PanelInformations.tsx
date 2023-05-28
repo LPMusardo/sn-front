@@ -12,16 +12,20 @@ import {
   Grid,
   GridItem,
   Text,
+  Heading,
+  Spinner,
+  Avatar,
+  Link,
+  Box,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GiCancel } from "react-icons/gi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMyInformations } from "../MyInformationsContextProvider";
+import { Link as ReachLink } from "react-router-dom"
 
-interface Props {
-  prop: string;
-}
 
 const schema = z
   .object({
@@ -30,48 +34,45 @@ const schema = z
       .string()
       .min(1, { message: "This field has to be filled." })
       .min(5, { message: "5 characteres minimum" }),
-    mail: z
+    email: z
       .string()
       .min(1, { message: "This field has to be filled." })
-      .email("This is not a valid email."),
-    pictureURL: z.union([
+      .max(60, { message: "This input is to long" })
+      .regex(new RegExp(/^.*@.*$/), "This is not a valid email."),
+    //.email() ne marche pas avec les adresse AMU
+    picture: z.union([
       z.string().length(0, { message: "Empty or valid URL" }),
       z.string().url({ message: "Empty or valid URL" }),
     ]),
-    description: z.string(),
+    bio: z.string(),
     password: z.string(),
-    confirm: z.string(),
+    confirmpassword: z.string(),
   })
-  .refine((data) => data.password === data.confirm, {
+  .refine((data) => data.password === data.confirmpassword, {
     message: "Passwords don't match",
     path: ["confirm"],
   })
-  .refine((data) => data.password === data.confirm, {
+  .refine((data) => data.password === data.confirmpassword, {
     message: "Passwords don't match",
     path: ["password"],
   });
 
 type FormData = z.infer<typeof schema>;
 
-function buildRequestObj(formObj: { [key: string]: any }) {
-  const requestObj: { [key: string]: any } = {};
-  for (const key in formObj) {
-    if ((key.includes("password") || key.includes("confirm")) && !formObj[key])
-      continue;
-    requestObj[key] = formObj[key];
-  }
+function buildRequestObj(formObj: any) {
+  const requestObj = { ...formObj };
+  delete requestObj.password;
+  delete requestObj.confirmpassword;
+  if (!formObj.password || !formObj.confirmpassword) return requestObj;
+  requestObj.password = {
+    password: formObj.password,
+    confirmpassword: formObj.confirmpassword,
+  };
   return requestObj;
 }
 
-const PanelInformations = ({}: Props) => {
+const PanelInformations = () => {
   const [isEditing, setEditing] = useState(false);
-  const initialData = {
-    username: "username12",
-    creationDate: "12/12/2022",
-    mail: "mail@mail.com",
-    pictureURL: "http://picture",
-    description: "lorem ipsum lorem ipsum",
-  };
 
   const {
     register,
@@ -81,18 +82,22 @@ const PanelInformations = ({}: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     shouldFocusError: false,
-    defaultValues: { ...initialData, password: "", confirm: "" },
   });
+
+  const [initialData, isLoading, error, submitUser, setDefaultFormValues] =
+    useMyInformations();
+
+  useEffect(() => {
+    setDefaultFormValues(reset);
+  }, []);
 
   const label = useColorModeValue("gray.700", "gray.300");
   const since_color = useColorModeValue("gray.500", "gray.500");
 
   const onSubmit = (formObj: { [key: string]: any }) => {
-    //envoi au serveur
+    submitUser(buildRequestObj(formObj))
     console.log(buildRequestObj(formObj));
-    //.then() re-fetch les default values, puis
-    reset({ ...formObj, password: "", confirm: "" }); //reset default values
-    //.then()
+    reset({ ...formObj, password: "", confirmpassword: "" }); //reset default values
     setEditing(false);
   };
 
@@ -102,7 +107,17 @@ const PanelInformations = ({}: Props) => {
 
   return (
     <>
-      <Text color={since_color}>Since {initialData.creationDate}</Text>
+      <Heading size="md" color="red">{error}</Heading>
+      {isLoading && <Spinner />}
+      <HStack spacing="5" pl="7">
+        <HStack spacing="2">
+          <Avatar size="sm" name={initialData.username} src={initialData.picture ? initialData.picture : ""} />
+          <Link as={ReachLink} to={`/users/${initialData.id}`} color="#2256A0" >{initialData.username}</Link>
+        </HStack>
+        <Text color={since_color}>
+          Since {new Date(initialData.creation_date).toLocaleString()}
+        </Text>
+      </HStack>
       <form
         onSubmit={handleSubmit(onSubmit)}
         onChange={handleSubmit(() => console.log(dirtyFields))}
@@ -121,15 +136,15 @@ const PanelInformations = ({}: Props) => {
                 <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={errors.mail != undefined}>
+              <FormControl isInvalid={errors.email != undefined}>
                 <FormLabel color={label}>Mail</FormLabel>
                 <Input
                   type="text"
-                  {...register("mail")}
+                  {...register("email")}
                   readOnly={!isEditing}
                 />
                 <FormHelperText>This is your email</FormHelperText>
-                <FormErrorMessage>{errors.mail?.message}</FormErrorMessage>
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
               </FormControl>
 
               <FormControl
@@ -145,40 +160,34 @@ const PanelInformations = ({}: Props) => {
           </GridItem>
           <GridItem>
             <VStack spacing="10">
-              <FormControl isInvalid={errors.pictureURL != undefined}>
+              <FormControl isInvalid={errors.picture != undefined}>
                 <FormLabel color={label}>Picture URL</FormLabel>
                 <Input
                   type="text"
-                  {...register("pictureURL")}
+                  {...register("picture")}
                   readOnly={!isEditing}
                 />
                 <FormHelperText>Image URL for your picture</FormHelperText>
-                <FormErrorMessage>
-                  {errors.pictureURL?.message}
-                </FormErrorMessage>
+                <FormErrorMessage>{errors.picture?.message}</FormErrorMessage>
               </FormControl>
 
-              <FormControl isInvalid={errors.description != undefined}>
+              <FormControl isInvalid={errors.bio != undefined}>
                 <FormLabel color={label}>Description</FormLabel>
-                <Input
-                  type="text"
-                  {...register("description")}
-                  readOnly={!isEditing}
-                />
-                <FormHelperText>Image URL for your picture</FormHelperText>
-                <FormErrorMessage>
-                  {errors.description?.message}
-                </FormErrorMessage>
+                <Input type="text" {...register("bio")} readOnly={!isEditing} />
+                <FormHelperText>This is your public description</FormHelperText>
+                <FormErrorMessage>{errors.bio?.message}</FormErrorMessage>
               </FormControl>
 
               <FormControl
-                isInvalid={errors.confirm != undefined}
+                isInvalid={errors.confirmpassword != undefined}
                 hidden={!isEditing}
               >
                 <FormLabel color={label}>Confirm Password</FormLabel>
-                <Input type="password" {...register("confirm")} />
+                <Input type="password" {...register("confirmpassword")} />
                 <FormHelperText>Confirm your Password here</FormHelperText>
-                <FormErrorMessage>{errors.confirm?.message}</FormErrorMessage>
+                <FormErrorMessage>
+                  {errors.confirmpassword?.message}
+                </FormErrorMessage>
               </FormControl>
             </VStack>
           </GridItem>

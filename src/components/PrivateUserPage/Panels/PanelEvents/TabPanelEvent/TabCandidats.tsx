@@ -32,7 +32,6 @@ import {
   Button,
   IconButton,
 } from "@chakra-ui/react";
-import { Candidat } from "../IEvent";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { RiGroupLine } from "react-icons/ri";
 import { FiMapPin } from "react-icons/fi";
@@ -42,31 +41,25 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import ValidationBtn from "../../../../shared/ValidationBtn";
 import { useContext } from "react";
-import { MyEventsContext } from "../../../MyEventsContextProvider";
 import { Link as ReachLink } from "react-router-dom"
+import { OrganizedEvent, useMyEvents } from "../../../MyEventsContextProvider";
 
 
 interface Props {
-  candidates: Candidat[];
-  eventName: string;
-  // onAccept: (id:number)=>void
-  // onReject: (id:number)=>void
+  event: OrganizedEvent;
 }
 
-async function sleep() {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-  console.log("5 seconds have passed.");
-}
 
-const TabCandidats = ({ candidates, eventName }: Props) => {
-  const [events, reloadEvents] = useContext(MyEventsContext);
+const TabCandidats = ({ event }: Props) => {
+  const [events, isLoading, error, addNote, submitNewEvent, accept, refuse] = useMyEvents()
+  const candidates = event.candidates;
 
   return (
     <TabPanel>
       <TableContainer>
         <Table variant="simple">
           <TableCaption>
-            Candidates list for the event <strong>{eventName}</strong>
+            Candidates list for the event <strong>{event.name}</strong>
           </TableCaption>
           <Thead>
             <Tr>
@@ -84,18 +77,18 @@ const TabCandidats = ({ candidates, eventName }: Props) => {
                   <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
                     <Avatar
                       name={candidat.username}
-                      src={candidat.imageURL}
+                      src={candidat.picture}
                       size="sm"
                     />
                     <Box>
-                      <Link as={ReachLink} to="/users/id">
+                    <Link as={ReachLink} to={`/users/${candidat.id}`}>
                         <Text size="sm">{candidat.username}</Text>
                       </Link>
                     </Box>
                   </Flex>
                 </Td>
                 <Td>
-                  <Rating score={candidat.note} total={5} spacing={0.5} />
+                  <Rating score={0} total={5} spacing={0.5} /> ?
                 </Td>
                 <Td>
                   <Text whiteSpace="normal" maxW="lg">
@@ -104,6 +97,7 @@ const TabCandidats = ({ candidates, eventName }: Props) => {
                 </Td>
                 <Td>
                   <ValidationBtn
+                    isLoading={isLoading}
                     colorScheme="green"
                     modalBtnValidateTxt="Accept"
                     modalBtnCancelTxt={"Cancel"}
@@ -111,9 +105,7 @@ const TabCandidats = ({ candidates, eventName }: Props) => {
                       "Accept the candidate " + candidat.username + " ?"
                     }
                     modalTxt="This action is irreversible"
-                    onValidate={async function () {
-                      return sleep();
-                    }}
+                    onValidate={()=>accept(event.id, candidat.id)}
                     successToast={{
                       title: candidat.username + " accepted",
                       description: "bli bla blu",
@@ -128,15 +120,14 @@ const TabCandidats = ({ candidates, eventName }: Props) => {
                       duration: 3000,
                       isClosable: true,
                     }}
-                    onFinal={async function () {
-                      reloadEvents();
-                    }}
+                    onFinal={async function (){}}
                   >
                     <Text>Accept</Text>
                   </ValidationBtn>
                 </Td>
                 <Td>
                   <ValidationBtn
+                    isLoading={isLoading}
                     colorScheme="red"
                     modalBtnValidateTxt="Reject"
                     modalBtnCancelTxt={"Cancel"}
@@ -144,9 +135,7 @@ const TabCandidats = ({ candidates, eventName }: Props) => {
                       "Reject the candidate " + candidat.username + " ?"
                     }
                     modalTxt="This action is irreversible"
-                    onValidate={async function () {
-                      return sleep();
-                    }}
+                    onValidate={()=>refuse(event.id, candidat.id)}
                     successToast={{
                       title: candidat.username + " rejected",
                       description: "bli bla blu",
@@ -162,7 +151,7 @@ const TabCandidats = ({ candidates, eventName }: Props) => {
                       isClosable: true,
                     }}
                     onFinal={async function () {
-                      reloadEvents();
+                      //reloadEvents();
                     }}
                   >
                     <Text>Reject</Text>
