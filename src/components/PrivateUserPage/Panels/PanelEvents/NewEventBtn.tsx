@@ -32,9 +32,14 @@ import {
 } from "@chakra-ui/react";
 import * as dateService from "../../../../services/dateService";
 import { FiTrash2 } from "react-icons/fi";
+import { NewEvent, useMyEvents } from "../../MyEventsContextProvider";
+import { useCategories } from "../../../CategoriesContextProvider";
+
+
 
 const NewEventBtn = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
+  
 
   return (
     <>
@@ -60,33 +65,31 @@ const NewEventBtn = () => {
 
 export default NewEventBtn;
 
+
+//------------------------------------------------------------------
+
+
+
 const schema = z.object({
-  event_name: z.string().min(5).max(25),
-  participant_number: z.number().min(1),
+  name: z.string().min(5).max(25),
+  participants_number: z.number().min(1),
   category: z.string().min(1).max(25),
-  main_category: z.enum(["1", "2", "3"]), //TODO utiliser le contexte main category
+  mainCategoryId: z.enum(["1", "2", "3"]), //TODO utiliser le contexte main category
   description: z.string().min(1).max(300),
-  image_url: z.string().optional(),
+  image_url: z.string().url(),
   date: z.coerce.date(),
   street: z.string().min(1),
   city: z.string().min(1),
   country: z.string().min(1),
-  zip: z.string(),
+  zip: z.string().min(1),
 });
 
 type FormData = z.infer<typeof schema>;
 
-function buildRequestObj(formObj: { [key: string]: any }) {
-  const requestObj: { [key: string]: any } = {};
-  for (const key in formObj) {
-    if (key.includes("date")) {
-      requestObj[key] = formObj[key].toISOString();
-    } else requestObj[key] = formObj[key];
-  }
-  return requestObj;
-}
-
 const Form = ({ close }: { close: () => void }) => {
+
+  const [categories] = useCategories();
+
   const {
     register,
     handleSubmit,
@@ -94,11 +97,24 @@ const Form = ({ close }: { close: () => void }) => {
     formState: { errors },
   } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(buildRequestObj(data));
-    //TODO then reload list of my events
-    close();
-  };
+  const [events, isLoading, error, AddNote, submitNewEvent] = useMyEvents();
+
+  function buildRequestObj(formObj:FormData) {
+    const requestObj:any = {...formObj, date:formObj.date.toISOString(), mainCategoryId:(Number.parseInt(formObj.mainCategoryId)|| 0),  address:{street:formObj.street, city:formObj.city, country:formObj.country, zip:formObj.zip} }
+    delete requestObj.street;
+    delete requestObj.city;
+    delete requestObj.country;
+    delete requestObj.zip;
+    return requestObj;
+  }
+
+  
+
+  function onSubmit(newForm:FormData){
+    console.log(buildRequestObj(newForm));
+    submitNewEvent(buildRequestObj(newForm))
+    close()
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,28 +122,28 @@ const Form = ({ close }: { close: () => void }) => {
       <Divider mt="13px" mb="10px" />
       <HStack alignItems="flex-start" spacing={{ sm: "5", md: "10" }}>
         <VStack spacing="4" alignItems="flex-start" maxW="220px">
-          <FormControl isInvalid={errors.event_name != undefined}>
+          <FormControl isInvalid={errors.name != undefined}>
             <FormLabel>Event Name</FormLabel>
             <Input
               size="sm"
               type="text"
               borderColor="gray.400"
               placeholder="Event name..."
-              {...register("event_name")}
+              {...register("name")}
             />
-            <FormErrorMessage>{errors.event_name?.message}</FormErrorMessage>
+            <FormErrorMessage>{errors.name?.message}</FormErrorMessage>
           </FormControl>
-          <FormControl isInvalid={errors.participant_number != undefined}>
+          <FormControl isInvalid={errors.participants_number != undefined}>
             <FormLabel>Participant Number</FormLabel>
             <Input
               size="sm"
               type="number"
               borderColor="gray.400"
               placeholder="Size..."
-              {...register("participant_number", { valueAsNumber: true })}
+              {...register("participants_number", { valueAsNumber: true })}
             />
             <FormErrorMessage>
-              {errors.participant_number?.message}
+              {errors.participants_number?.message}
             </FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.category != undefined}>
@@ -141,18 +157,16 @@ const Form = ({ close }: { close: () => void }) => {
             />
             <FormErrorMessage>{errors.category?.message}</FormErrorMessage>
           </FormControl>
-          <FormControl isInvalid={errors.main_category != undefined}>
+          <FormControl isInvalid={errors.mainCategoryId != undefined}>
             <FormLabel>Category</FormLabel>
             <Select
               placeholder=""
               variant="filled"
-              {...register("main_category")}
+              {...register("mainCategoryId")}
             >
-              <option value={"1"}>Option 1</option>
-              <option value={"2"}>Option 2</option>
-              <option value={"3"}>Option 3</option>
+              {categories.map((categorie)=><option key={categorie.id} value={`${categorie.id}`}>{categorie.name}</option>)}
             </Select>
-            <FormErrorMessage>{errors.main_category?.message}</FormErrorMessage>
+            <FormErrorMessage>{errors.mainCategoryId?.message}</FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={errors.description != undefined}>
             <FormLabel>Description</FormLabel>

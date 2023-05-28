@@ -17,21 +17,24 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReachLink } from "react-router-dom";
 import Rating from "../../../../shared/Rating";
-import { Participant } from "../IEvent";
-import AddNote from "./AddNote";
+import AddNote from "../../../../shared/AddNote";
+import { OrganizedEvent } from "../../../MyEventsContextProvider";
+import AddNoteAsOrganizer from "../AddNoteAsOrganizer";
 
 interface Props {
-  participants: Participant[];
-  eventName: string;
+  event: OrganizedEvent;
 }
 
-const TabParticipants = ({ participants, eventName }: Props) => {
+const TabParticipants = ({ event }: Props) => {
+
+  const participants = event.participants;
+
   return (
     <TabPanel>
       <TableContainer>
         <Table variant="simple">
           <TableCaption>
-            participants list for the event <strong>{eventName}</strong>
+            participants list for the event <strong>{event.name}</strong>
           </TableCaption>
           <Thead>
             <Tr>
@@ -42,32 +45,32 @@ const TabParticipants = ({ participants, eventName }: Props) => {
             </Tr>
           </Thead>
           <Tbody>
-            {participants.map((candidat) => (
-              <Tr key={candidat.id}>
+            {participants.map((participant) => (
+              <Tr key={participant.id}>
                 <Td>
                   <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
                     <Avatar
-                      name={candidat.username}
-                      src={candidat.imageURL}
+                      name={participant.username}
+                      src={participant.picture}
                       size="sm"
                     />
                     <Box>
-                      <Link as={ReachLink} to="/users/id">
-                        <Text size="sm">{candidat.username}</Text>
+                      <Link as={ReachLink} to={`/users/${participant.id}`}>
+                        <Text size="sm">{participant.username}</Text>
                       </Link>
                     </Box>
                   </Flex>
                 </Td>
                 <Td>
-                  <Rating score={candidat.note} total={5} spacing={0.5} />
+                  <Rating score={0} total={5} spacing={0.5} />?
                 </Td>
                 <Td>
                   <Text whiteSpace="normal" maxW="lg">
-                    {candidat.bio}
+                    {participant.bio}
                   </Text>
                 </Td>
                 <Td>
-                  <AddNote/>
+                  <AddNoteAsOrganizer eventId={event.id} targetId={participant.id}/>
                   {/* <Button>Rate (check pas deja fait)</Button> */}
                 </Td>
               </Tr>

@@ -72,7 +72,9 @@ const MyApplicationsContextProvider = ({ children }: Props) => {
       params: {id:idUser, include_candidateEvents:true},
     })
       .then((res) => {
-        setEvents(res.data.user.candidateEvents);
+        if(res && res.data){
+          setEvents(res.data.user.candidateEvents);
+        }
       })
       .catch((err) => {
         if (!(err instanceof CanceledError)) {
@@ -92,6 +94,7 @@ const MyApplicationsContextProvider = ({ children }: Props) => {
     Axios.post(`/events/${eventId}/unapply`, {
     })
       .then((res) => {
+        if(!res ) return;
         const controller = new AbortController();
         fetchData(controller, user.id)
       })

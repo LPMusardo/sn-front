@@ -1,211 +1,163 @@
-import { ReactElement } from 'react';
-import {createContext, useState} from 'react'
-import IEvent from './Panels/PanelEvents/IEvent';
+import { ReactElement, useContext, useEffect } from "react";
+import { createContext, useState } from "react";
+import Axios from "../../services/caller.service";
+import {useLogin} from "../LoginContextProvider"
+import { CanceledError } from "axios";
+import { NoteForm } from "./MyEventsContextProvider";
 
 
-
-
-const es: IEvent[] = [
-    {
-      id: 0,
-      name: "Event A",
-      number: 25,
-      size: 25,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Hugo32",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-      participants: [
-        {
-          id: 0,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Hugo32",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: "Event B",
-      number: 5,
-      size: 8,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-      participants: [
-        {
-          id: 1,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-    },
-  ];
-
-
-
-
-  const es2: IEvent[] = [
-    {
-      id: 0,
-      name: "Event A",
-      number: 25,
-      size: 25,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "Hamilton",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Russel",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-      participants:[
-        {
-          id: 0,
-          username: "Hamilton",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Russel",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: "Event B",
-      number: 5,
-      size: 8,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "Verstappen",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-      participants: [
-        {
-          id: 1,
-          username: "Verstappen",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-    },
-  ];
-
-
-  
-export const MyParticipationsContext = createContext<[IEvent[], ()=>void, boolean]>([[],()=>{}, false]);
-
-
-async function sleep() {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-  console.log("5 seconds have passed.");
+export interface NoteInterParticipation extends NoteForm {
+  eventId: number;
 }
+
+export interface Note extends NoteInterParticipation {
+  ownerId: number;
+}
+
+
+
+interface Response {
+  user: {
+    participantEvents: ParticipantEvent[];
+  };
+}
+
+export interface ParticipantEvent {
+  id: number;
+  participants_number: number;
+  category: string;
+  description: string;
+  image_url: string;
+  name: string;
+  date: string;
+  creation_date: string;
+  organizerId: number;
+  MainCategoryId: number;
+  AddressId: number;
+  MainCategory: {
+    id: number;
+    name: string;
+  };
+  Address: {
+    id: number;
+    street: string;
+    city: string;
+    country: string;
+    zip: string;
+  };
+}
+
+
+
+
+const MyParticipationsContext = createContext<[ParticipantEvent[], boolean, string, (eventId:number)=>void, (note:NoteInterParticipation)=>void]>([
+  [],
+  false,
+  "",
+  () => {},
+  () => {},
+]);
+
+export const useMyParticipations = () => {
+  return useContext(MyParticipationsContext)
+};
+
 
 interface Props {
-    children : ReactElement
+  children: ReactElement;
 }
 
-const MyParticipationsContextProvider = ({children}:Props) => {
+const MyParticipationsContextProvider = ({ children }: Props) => {
+  const [events, setEvents] = useState<ParticipantEvent[]>([]);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const [isLogged, isL, e, login, logout, getUserData] = useLogin();
+
+
+  const fetchData = (controller: AbortController, idUser:number) => {
+    setLoading(true);
+    return Axios.get<Response>(`/users`, {
+      signal: controller.signal,
+      params: {id:idUser, include_participantEvents:true},
+    })
+      .then((res) => {
+        setEvents(res.data.user.participantEvents);
+      })
+      .catch((err) => {
+        if (!(err instanceof CanceledError)) {
+          setError(err.message);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   
-    const [events, setEvents] = useState(es)
-    const [isLoading, setLoading] = useState(false)
-    //TODO error
-    
-    const reloadEvents = ()=>{
-      setLoading(true)
-      sleep()
-      .then(()=>{setEvents(es2); setLoading(false)})
-      .catch(()=>{setLoading(false)})
+
+  function reFetchMyParticipations(): Promise<any>{
+    const controller = new AbortController();
+    const user = getUserData();
+    if(!user) {
+      setError("problem with token, try to log-in again")
+      return Promise.reject("problem with token, try to log-in again")
+  }
+    return fetchData(controller, user.id )
+  }
+  
+  useEffect(() => {
+    reFetchMyParticipations()
+  }, []);
+  
+  
+    const cancelParticipation = (eventId:number) => {
+      const user = getUserData();
+      if(!user) return
+      setLoading(true);
+      Axios.post(`/events/${eventId}/unparticipate`, {
+      })
+        .then((res) => {
+          if(!res || !res.data) return;
+          const controller = new AbortController();
+          fetchData(controller, user.id)
+        })
+        .catch((err) => {
+          if (!(err instanceof CanceledError)) {
+            setError(err.message);
+            setLoading(false);
+          }
+        })
+    };
+  
+
+    function addNote(note:NoteInterParticipation){
+      const user = getUserData();
+      if(!user) {
+        setError("problem with token, try to log-in again")
+        return
+     }
+      const final_note:Note = {...note, ownerId:user.id}
+      console.log("FINAL NOTE:", final_note);
+      setLoading(true);
+      return Axios.post(`/notes/addnotefromparticipant`, final_note)
+        .then((res) => {
+          reFetchMyParticipations()
+        })
+        .catch((err) => {
+          if (!(err instanceof CanceledError)) {
+            setError(err.message);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }
-  
-    return (
-        <MyParticipationsContext.Provider value={[events, reloadEvents, isLoading]} >
-            {children}
-        </MyParticipationsContext.Provider>
-  );
-}
 
-export default MyParticipationsContextProvider
+  return (
+    <MyParticipationsContext.Provider value={[events, isLoading, error, cancelParticipation, addNote]}>
+      {children}
+    </MyParticipationsContext.Provider>
+  );
+};
+
+export default MyParticipationsContextProvider;
