@@ -6,14 +6,12 @@ import LeftPanel from "./LeftPanel";
 import { useAxiosFetch } from "../../services/useAxiosFetch";
 import { IUserData } from "../../models/IUserData";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import {  useParams, useNavigate } from "react-router-dom";
 
 const PublicUserPage = () => {
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-
+  const { id } = useParams<{ id: string }>();
   const [user, setUser] = useState<IUserData>({} as IUserData);
-  const [data, error, loading] = useAxiosFetch({
+  const [data, error, loading, fetchData] = useAxiosFetch({
     method: "GET",
     url:
       "/users?id=" +
@@ -45,8 +43,7 @@ const PublicUserPage = () => {
   }, [loading]);
 
   useEffect(() => {
-    // Fetch user data whenever the id parameter changes
-    setUser({} as IUserData);
+    fetchData();
   }, [id]);
 
   return (
