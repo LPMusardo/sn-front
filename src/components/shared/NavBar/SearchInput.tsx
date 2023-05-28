@@ -1,26 +1,46 @@
-import { Flex, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { useContext, useRef } from "react";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { FormEvent, useContext, useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SearchContext } from "../../EventListPage/SearchContextProvider";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
+import { useFetchSearch} from "../../EventListPage/FetchSearchContextProvider";
+import { FormulaireData, buildRequestObj } from "../../EventListPage/EventListPage"
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
+const SearchInput = () => {
+  const [events, error, isLoading, fetchEvents] = useFetchSearch()
+  const [search, setSearch] = useContext(SearchContext);
+  const navigate = useNavigate();
 
-const SearchInput = ({ onSearch }: Props) => {
-  const ref = useRef<HTMLInputElement>(null);
+  
+  const onSubmit = () => {
+    console.log("submit form for search from outside");
+    if(search){
+      fetchEvents({event_name:search});
+      navigate({
+        pathname: "/search",
+        search: `?${createSearchParams({ event_name:search})}`,
+      });
+      return;
+    }
+    fetchEvents({});
+    navigate({
+      pathname: "/search",
+    });
+    // const [searchParams, setSearchParams] = useSearchParams();
+    // setSearchParams({ event_name:search});
+  };
+
+
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (ref.current) onSearch(ref.current.value);
-      }}
-    >
+    <form onSubmit={ onSubmit }>
       <InputGroup>
         <InputLeftElement children={<BsSearch />} />
         <Input
-          ref={ref}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          value={search}
           borderRadius={10}
           placeholder="Search events..."
           variant="filled"

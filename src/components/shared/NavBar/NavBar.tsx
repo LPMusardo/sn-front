@@ -10,12 +10,11 @@ import { ReactElement, useEffect, useState } from "react";
 import ConnexionButton from "./ConnexionButton";
 import { useLogin } from "../../LoginContextProvider";
 
-interface Props {
-  onSearch: (searchText: string) => void;
+type Props = {
   searchInput?: ReactElement;
 }
 
-const NavBar = ({ onSearch, searchInput }: Props) => {
+const NavBar = ({searchInput }: Props) => {
   const navigate = useNavigate();
   const [isLogged] = useLogin()
 
@@ -36,7 +35,7 @@ const NavBar = ({ onSearch, searchInput }: Props) => {
         </Box>
       </Link>
       <Box w="100%" marginX={10}>
-        {searchInput || <SearchInput onSearch={onSearch} />}
+        {searchInput || <SearchInput/>}
       </Box>
       <ColorModeSwitch />
       <Box paddingX={5}>

@@ -32,6 +32,7 @@ interface Props {
   disabled?: boolean;
   successToast: ToastType;
   failToast: ToastType;
+  isLoading : boolean;
 }
 
 const ValidationBtn = ({
@@ -46,9 +47,9 @@ const ValidationBtn = ({
   disabled,
   successToast,
   failToast,
+  isLoading,
 }: Props) => {
   const [isOpen, setOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const cancelRef = useRef(null);
 
   const onOpen = () => {
@@ -89,8 +90,8 @@ const ValidationBtn = ({
                   onClick={onValidate}
                   successToast={successToast}
                   failToast={failToast}
-                  preJob={()=>{setIsLoading(true)}}
-                  postJob={()=>{setIsLoading(false)}}
+                  preJob={()=>{}}
+                  postJob={()=>{}}
                   final={() => {setOpen(false); onFinal()}}
                   isDisabled={isLoading}
                 >
