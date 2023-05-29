@@ -8,17 +8,14 @@ import {
   Box,
 } from "@chakra-ui/react";
 import AccordionEventItem from "./AccordionEventItem";
-import IEvent from "./IEvent";
 import { useContext, useState } from "react";
-import { MyEventsContext } from "../../MyEventsContextProvider";
+import { useMyEvents } from "../../MyEventsContextProvider";
 
-interface Props {
-  prop: string;
-}
 
-const PanelEvents = ({ prop }: Props) => {
+
+const PanelEvents = () => {
   
-  const [events, reloadEvents, isLoading] = useContext(MyEventsContext)
+  const [events, isLoading, error] = useMyEvents()
 
   return (
     <>

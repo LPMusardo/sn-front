@@ -1,85 +1,39 @@
 import {
-  Box,
-  Text,
-  Card,
-  CardBody,
-  CardHeader,
-  Heading,
-  HStack,
-  VStack,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
-  Select,
-  useColorModeValue,
-  Button,
-  CloseButton,
-  Center,
-  Divider,
-  FormErrorMessage,
-  IconButton,
+  Box, Text, Divider, Card, CardBody, CardHeader, Heading, HStack, VStack, FormControl, FormHelperText, FormLabel, Input, Select, useColorModeValue, Button, CloseButton, Center, FormErrorMessage, IconButton,
 } from "@chakra-ui/react";
-import CustomNumberInput from "./CustomNumberInput";
-import { FieldValues, useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { FieldValues, useForm, useFormContext } from "react-hook-form";
 import { FiTrash2 } from "react-icons/fi";
 import { useContext, useEffect } from "react";
 import { SearchContext } from "./SearchContextProvider";
+import { getStringLocalDateTime } from "../../services/dateService";
+import { useLocation } from "react-router-dom";
+import { FormulaireData, buildRequestObj } from './EventListPage'
+import { useFetchSearch } from "./FetchSearchContextProvider";
+import { useSearchParams } from "react-router-dom";
+import { useCategories } from "../CategoriesContextProvider";
 
-const schema = z.object({
-  event_name: z.string(),
-  description: z.string(),
-  category: z.string(),
-  date_min: z.coerce.date(), // max>min
-  date_max: z.coerce.date(),
-  main_category: z.enum(["1", "2", "3", ""]),
-  participants_min: z.string().regex(/^[0-9]*$/), //max>min
-  participants_max: z.string().regex(/^[0-9]*$/),
-  street: z.string(),
-  city: z.string(),
-  country: z.string(),
-  zip: z.string(),
-});
 
-type FormData = z.infer<typeof schema>;
 
 interface Props {
   close: () => void;
 }
 
-function buildRequestObj(formObj: { [key: string]: any }) {
-  const requestObj: { [key: string]: any } = {};
-  for (const key in formObj) {
-    if (!formObj[key]) continue;
-    if (key.includes("date")) {
-      requestObj[key] = formObj[key].toISOString();
-    } else requestObj[key] = formObj[key];
-  }
-  return requestObj;
-}
 
-function getStringLocalDateTime(offsetInDays: number = 0) {
-  const MIN_TO_MS = 60 * 1_000;
-  const DAY_TO_MS = 24 * 60 * 60 * 1_000;
-  let tzoffset = new Date().getTimezoneOffset(); //offset in milliseconds
-  let localISOTime = new Date(
-    Date.now() + offsetInDays * DAY_TO_MS - tzoffset * MIN_TO_MS
-  )
-    .toISOString()
-    .slice(0, 16);
-  // alert(localISOTime)
-  return localISOTime;
-}
 
 const FiltersPanel = ({ close }: Props) => {
-  const [search, setSearch] = useContext(SearchContext);
-  //const watchEventName = watch("event_name"); // Surveiller la valeur de field1
 
-  useEffect(() => {
-    setValue("event_name", search);
-  }, [search]);
+
+  //----------------------------- Colors  -----------------------------
+  const bg = useColorModeValue("white", "gray.600");
+  const label = useColorModeValue("gray.700", "gray.300");
+
+
+  //----------------------------- Main Categories  -----------------------------
+  const [categories] = useCategories();
+
+
+
+  //----------------------------- React Hook Form  -----------------------------
 
   const {
     setValue,
@@ -87,17 +41,80 @@ const FiltersPanel = ({ close }: Props) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
+  } = useFormContext<FormulaireData>();
 
-  const bg = useColorModeValue("white", "gray.600");
-  const label = useColorModeValue("gray.700", "gray.300");
 
+  //----------------------------- DEBUG  -----------------------------
+  useEffect(() => {
+    console.log("[always]coucou depuis FiltersPanel");
+  });
+
+
+
+  //----------------------------- Context event_name change -> Input event_name change  -----------------------------
+  const [search, setSearch] = useContext(SearchContext);
+  useEffect(() => {
+    setValue("event_name", search);
+  }, [search]);
+
+
+
+
+  //----------------------------- URL change  => Form  change -----------------------------
+  // - changement dans URL => mettre à jour le form && fetch avec nouveaux filtres
+  const location = useLocation();
+
+  useEffect(() => {
+    updateFormFromURL()
+    handleSubmit(onSubmit)();
+  }, [location.search]);
+
+  function getQueryParams() {
+    const baseParams = new URLSearchParams(location.search);
+    let params: { [key: string]: string } = {};
+    baseParams.forEach((value, key) => {
+      params[key] = value;
+    });
+    return params;
+  }
+
+  function updateFormFromURL() {
+    // reset();
+
+
+    let urlParams = getQueryParams();
+    // Si event_name est pas dans l'URL demandé alors il doit pas apparaitre dans les input => on l'enlève et si il ets dans l'URL il sera remis juste après
+    setValue("event_name", "");
+    setSearch("")
+    console.log("urlParams", urlParams);
+    Object.keys(urlParams).forEach((key) => {
+      setValue(key as any, urlParams[key]);
+      console.log("set", key, urlParams[key]);
+    });
+    if (urlParams.event_name) setSearch(urlParams.event_name)
+  }
+
+
+
+  //----------------------------- OnSubmit -----------------------------
+  // - clg
+  // - fecth new event
+  // - mise à jour param dans URL
+  const [events, error, isLoading, fetchEvents] = useFetchSearch()
+  const [searchParams, setSearchParams] = useSearchParams();
   const onSubmit = (formObj: FieldValues) => {
-    console.log(buildRequestObj(formObj));
+    // const navigate = useNavigate();
+    console.log("submit", buildRequestObj(formObj));
+    fetchEvents(buildRequestObj(formObj));
+    setSearchParams(buildRequestObj(formObj));
   };
 
+
+
+  //----------------------------- JSX -----------------------------
   return (
     <Card my="2" variant="filled">
+      {/* <div>{JSON.stringify(urlParams, null, 2).toString()}</div> */}
       <CardHeader pb="0">
         <HStack>
           <CloseButton size="sm" onClick={close} />
@@ -113,10 +130,11 @@ const FiltersPanel = ({ close }: Props) => {
           <Heading size="sm">Event filters</Heading>
         </HStack>
       </CardHeader>
-      <CardBody pb="3" pt="2">
+      <CardBody pt="2">
         <form onSubmit={handleSubmit(onSubmit)}>
           <HStack align="" spacing={{ sm: "2", md: "10", lg: "20" }}>
-            <VStack spacing="4">
+            <VStack spacing="4" w="56">
+
               <FormControl isInvalid={errors.event_name != undefined}>
                 <FormLabel color={label}>Name</FormLabel>
 
@@ -153,6 +171,71 @@ const FiltersPanel = ({ close }: Props) => {
                   {errors.description?.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.username != undefined}>
+                <FormLabel color={label}>Organizer</FormLabel>
+                <Input
+                  type="text"
+                  borderColor="gray.400"
+                  placeholder="Username ..."
+                  {...register("username")}
+                />
+                <FormHelperText>
+                  Organizer name must contain this
+                </FormHelperText>
+                <FormErrorMessage>{errors.username?.message}</FormErrorMessage>
+              </FormControl>
+
+              <FormControl
+                isInvalid={
+                  errors.range_date_min != undefined || errors.range_date_max != undefined
+                }
+              >
+                <FormLabel color={label}>Date</FormLabel>
+                <VStack alignItems="flex-start">
+                  <Input
+                    type="datetime-local"
+                    borderColor="gray.400"
+                    placeholder="Select Date and Time"
+                    defaultValue={getStringLocalDateTime()}
+                    {...register("range_date_min")}
+                  />
+                  <Input
+                    type="datetime-local"
+                    borderColor="gray.400"
+                    placeholder="Select Date and Time"
+                    defaultValue={getStringLocalDateTime(730)}
+                    {...register("range_date_max")}
+                  />
+                </VStack>
+
+                <FormHelperText>
+                  The range of date possible for the event
+                </FormHelperText>
+                <FormErrorMessage>
+                  {errors.range_date_min?.message + " / " + errors.range_date_max?.message}
+                </FormErrorMessage>
+              </FormControl>
+            </VStack>
+
+            <VStack spacing="4" w="56" alignItems="flex-start">
+              <FormControl isInvalid={errors.MainCategoryId != undefined}>
+                <FormLabel color={label}>Category</FormLabel>
+                <Select
+                  w="225px"
+                  placeholder=""
+                  variant="outline"
+                  bg={bg}
+                  {...register("MainCategoryId")}
+                >
+                  <option value={""}>Any</option>
+                  {categories.map((categorie)=><option key={categorie.id} value={`${categorie.id}`}>{categorie.name}</option>)}
+                </Select>
+                <FormErrorMessage>
+                  {errors.MainCategoryId?.message}
+                </FormErrorMessage>
+              </FormControl>
+
               <FormControl isInvalid={errors.category != undefined}>
                 <FormLabel color={label}>Sub-Category</FormLabel>
                 <Input
@@ -166,91 +249,63 @@ const FiltersPanel = ({ close }: Props) => {
                 </FormHelperText>
                 <FormErrorMessage>{errors.category?.message}</FormErrorMessage>
               </FormControl>
-            </VStack>
-            <VStack spacing="4" alignItems="flex-start">
+
               <FormControl
                 isInvalid={
-                  errors.date_min != undefined || errors.date_max != undefined
-                }
-              >
-                <FormLabel color={label}>Date</FormLabel>
-                <VStack alignItems="flex-start">
-                  <Input
-                    type="datetime-local"
-                    borderColor="gray.400"
-                    placeholder="Select Date and Time"
-                    width="56"
-                    defaultValue={getStringLocalDateTime()}
-                    {...register("date_min")}
-                  />
-                  <Input
-                    type="datetime-local"
-                    borderColor="gray.400"
-                    placeholder="Select Date and Time"
-                    width="56"
-                    defaultValue={getStringLocalDateTime(365)}
-                    {...register("date_max")}
-                  />
-                </VStack>
-                <FormHelperText>
-                  The range of date possible for the event
-                </FormHelperText>
-                <FormErrorMessage>
-                  {errors.date_min?.message + " / " + errors.date_max?.message}
-                </FormErrorMessage>
-              </FormControl>
-              <FormControl isInvalid={errors.main_category != undefined}>
-                <FormLabel color={label}>Category</FormLabel>
-                <Select
-                  w="225px"
-                  placeholder=""
-                  variant="filled"
-                  bg={bg}
-                  {...register("main_category")}
-                >
-                  <option value={""}>Any</option>
-                  <option value={"1"}>Option 1</option>
-                  <option value={"2"}>Option 2</option>
-                  <option value={"3"}>Option 3</option>
-                </Select>
-                <FormHelperText>
-                  Choose the Category of the event
-                </FormHelperText>
-                <FormErrorMessage>
-                  {errors.main_category?.message}
-                </FormErrorMessage>
-              </FormControl>
-              <FormControl
-                isInvalid={
-                  errors.participants_min != undefined ||
-                  errors.participants_max != undefined
+                  errors.range_places_min != undefined ||
+                  errors.range_places_max != undefined
                 }
               >
                 <FormLabel color={label}>Participants Range</FormLabel>
                 <HStack>
-                  <CustomNumberInput
+                  <Input
                     placeholder="from"
-                    register={() => {
-                      return register("participants_min", {});
-                    }}
+                    {...register("range_places_min", {})}
                   />
-                  <CustomNumberInput
+                  <Input
                     placeholder="to"
-                    register={() => register("participants_max", {})}
+                    {...register("range_places_max", {})}
                   />
                 </HStack>
                 <FormHelperText>
                   The range of participants for the event
                 </FormHelperText>
                 <FormErrorMessage>
-                  {errors.participants_min?.message +
+                  {errors.range_places_min?.message +
                     " / " +
-                    errors.participants_max?.message}
+                    errors.range_places_max?.message}
                 </FormErrorMessage>
               </FormControl>
+
+              <FormControl isInvalid={errors.nb_places_wanted != undefined}>
+                <FormLabel color={label}># Places needed</FormLabel>
+                <Input w="auto"
+                  placeholder="wanted"
+                  {...register("nb_places_wanted", {})}
+                />
+                <FormHelperText>
+                  Must have these free places
+                </FormHelperText>
+                <FormErrorMessage>
+                  {errors.nb_places_wanted?.message}
+                </FormErrorMessage>
+              </FormControl>
+
+              <FormControl isInvalid={errors.score_host_min != undefined}>
+                <FormLabel color={label}>Minimum score organizer </FormLabel>
+                <Input w="auto"
+                  placeholder="score min"
+                  {...register("score_host_min", {})}
+                />
+                <FormErrorMessage>
+                  {errors.score_host_min?.message}
+                </FormErrorMessage>
+              </FormControl>
+
             </VStack>
 
             <VStack spacing="4" alignItems="flex-start">
+
               <FormControl isInvalid={errors.street != undefined}>
                 <FormLabel color={label}>Street</FormLabel>
                 <Input
@@ -291,14 +346,22 @@ const FiltersPanel = ({ close }: Props) => {
                 />
                 <FormErrorMessage>{errors.zip?.message}</FormErrorMessage>
               </FormControl>
+
+              <Center w="100%">
+                <Button w="100%" mt="90px" py="6" variant="outline" colorScheme="purple" type="submit">
+                  Search
+                </Button>
+              </Center>
+
             </VStack>
           </HStack>
-          <Divider mt="5" mb="3" />
+
+          {/* <Divider mt="5" mb="3" />
           <Center w="100%">
             <Button variant="outline" colorScheme="purple" type="submit">
               Search
             </Button>
-          </Center>
+          </Center> */}
         </form>
       </CardBody>
     </Card>

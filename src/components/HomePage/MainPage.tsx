@@ -21,14 +21,7 @@ const MainPage = () => {
         }}
       >
         <GridItem area="nav">
-          <NavBar
-            onSearch={(data) =>
-              navigate({
-                pathname: "/search",
-                search: `?${createSearchParams({ eventName: data })}`,
-              })
-            }
-          />
+          <NavBar/>
         </GridItem>
         <GridItem area="main">
           <Box paddingX={50}>

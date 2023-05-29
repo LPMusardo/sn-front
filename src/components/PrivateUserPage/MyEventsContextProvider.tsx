@@ -1,209 +1,271 @@
-import { ReactElement } from 'react';
-import {createContext, useState} from 'react'
-import IEvent from './Panels/PanelEvents/IEvent';
+import {
+  ReactElement,
+  useContext,
+  useEffect,
+  createContext,
+  useState,
+} from "react";
+import Axios from "../../services/caller.service";
+import { useLogin } from "../LoginContextProvider";
+import { CanceledError } from "axios";
 
-
-
-
-const es: IEvent[] = [
-    {
-      id: 0,
-      name: "Event A",
-      number: 25,
-      size: 25,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Hugo32",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-      participants: [
-        {
-          id: 0,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Hugo32",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: "Event B",
-      number: 5,
-      size: 8,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-      participants: [
-        {
-          id: 1,
-          username: "charles34",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-    },
-  ];
-
-
-
-
-  const es2: IEvent[] = [
-    {
-      id: 0,
-      name: "Event A",
-      number: 25,
-      size: 25,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "Hamilton",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Russel",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-      participants:[
-        {
-          id: 0,
-          username: "Hamilton",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-        {
-          id: 1,
-          username: "Russel",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi",
-          note: 4,
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: "Event B",
-      number: 5,
-      size: 8,
-      mainCategory: "Sport",
-      category: "Karting",
-      creationDate: "12/02/2001",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-      imageURL:
-        "https://www.info-auto-moto.fr/wp-content/uploads/2022/11/comment-rendre-karting-plus-rapide-scaled-e1668623140167.webp",
-      date: "12/02/2023",
-      address: "213 avenue Foo",
-      candidates: [
-        {
-          id: 0,
-          username: "Verstappen",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-      participants: [
-        {
-          id: 1,
-          username: "Verstappen",
-          imageURL: "https://bit.ly/sage-adebayo",
-          bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias odio culpa quos dolorem expedita doloremque at vitae quisquam, quam modi, itaque deserunt ducimus voluptatem sint ad dolorum, ratione a ipsa.",
-          note: 4,
-        },
-      ],
-    },
-  ];
-
-
-  
-export const MyEventsContext = createContext<[IEvent[], ()=>void, boolean]>([[],()=>{}, false]);
-
-
-async function sleep() {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
-  console.log("5 seconds have passed.");
+interface Response {
+  user: Organizer;
 }
+export interface Organizer extends User {
+  organizedEvents: OrganizedEvent[];
+}
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  creation_date: string;
+  picture: string;
+  bio: string;
+}
+export interface OrganizedEvent {
+  id: number;
+  participants_number: number;
+  category: string;
+  description: string;
+  image_url: string;
+  name: string;
+  date: string;
+  creation_date: string;
+  organizerId: number;
+  MainCategoryId: number;
+  AddressId: number;
+  MainCategory: {
+    id: number;
+    name: string;
+  };
+  Address: {
+    id: number;
+    street: string;
+    city: string;
+    country: string;
+    zip: string;
+  };
+  participants: User[];
+  candidates: User[];
+}
+
+export interface NoteForm {
+  value: number;
+  title: string;
+  comment: string;
+}
+export interface NoteInter extends NoteForm {
+  eventId: number;
+  targetId: number;
+}
+export interface Note extends NoteInter {
+  ownerId: number;
+}
+
+export interface NewEvent {
+  participants_number: number;
+  category: string;
+  description: string;
+  image_url: string;
+  name: string;
+  date: string;
+  address: {
+    street: string;
+    city: string;
+    country: string;
+    zip: number;
+  };
+  mainCategoryId: number;
+}
+
+const MyEventsContext = createContext<
+  [
+    OrganizedEvent[],
+    boolean,
+    string,
+    (note: NoteInter) => void,
+    (note: NewEvent) => void,
+    (eventId: number, userId: number) => Promise<any>,
+    (eventId: number, userId: number) => Promise<any>
+  ]
+>([
+  [],
+  false,
+  "",
+  () => {},
+  () => {},
+  () => Promise.resolve(),
+  () => Promise.resolve(),
+]);
+
+export const useMyEvents = () => {
+  return useContext(MyEventsContext);
+};
 
 interface Props {
-    children : ReactElement
+  children: ReactElement;
 }
 
-const MyEventsContextProvider = ({children}:Props) => {
-  
-    const [events, setEvents] = useState(es)
-    const [isLoading, setLoading] = useState(false)
-    const reloadEvents = ()=>{
-      setLoading(true)
-      sleep()
-      .then(()=>{setEvents(es2); setLoading(false)})
-      .catch(()=>{setLoading(false)})
+const MyEventsContextProvider = ({ children }: Props) => {
+  const [events, setEvents] = useState<OrganizedEvent[]>([]);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const [isLogged, isL, e, login, logout, getUserData] = useLogin();
+
+  const fetchData = (controller: AbortController, idUser: number) => {
+    setLoading(true);
+    return Axios.get<Response>(`/users`, {
+      signal: controller.signal,
+      params: { id: idUser, include_organizedEvents: true },
+    })
+      .then((res) => {
+        setEvents(res.data.user.organizedEvents);
+      })
+      .catch((err) => {
+        if (!(err instanceof CanceledError)) {
+          setError(err.message);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  // const cancelParticipation = (eventId:number) => {
+  //   const user = getUserData();
+  //   if(!user) return
+  //   setLoading(true);
+  //   Axios.post(`/events/${eventId}/unparticipate`, {
+  //   })
+  //     .then((res) => {
+  //       const controller = new AbortController();
+  //       fetchData(controller, user.id)
+  //     })
+  //     .catch((err) => {
+  //       if (!(err instanceof CanceledError)) {
+  //         setError(err.message);
+  //         setLoading(false);
+  //       }
+  //     })
+  // };
+
+  useEffect(() => {
+    reFetchMyEvents();
+  }, []);
+
+  function reFetchMyEvents(): Promise<any> {
+    const controller = new AbortController();
+    const user = getUserData();
+    if (!user) {
+      setError("problem with token, try to log-in again");
+      return Promise.reject("problem with token, try to log-in again");
     }
-  
-    return (
-        <MyEventsContext.Provider value={[events, reloadEvents, isLoading]} >
-            {children}
-        </MyEventsContext.Provider>
-  );
-}
+    return fetchData(controller, user.id);
+  }
 
-export default MyEventsContextProvider
+  function addNote(note: NoteInter) {
+    const user = getUserData();
+    if (!user) {
+      setError("problem with token, try to log-in again");
+      return;
+    }
+    const final_note: Note = { ...note, ownerId: user.id };
+    console.log("FINAL NOTE:", final_note);
+    setLoading(true);
+    return Axios.post(`/notes/addnotefromhost`, final_note)
+      .then((res) => {
+        reFetchMyEvents();
+      })
+      .catch((err) => {
+        if (!(err instanceof CanceledError)) {
+          setError(err.message);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  function submitNewEvent(newEvent: NewEvent) {
+    const user = getUserData();
+    if (!user) {
+      setError("problem with token, try to log-in again");
+      return;
+    }
+    setLoading(true);
+    return Axios.post(`/events/create`, newEvent)
+      .then((res) => {
+        reFetchMyEvents();
+      })
+      .catch((err) => {
+        if (!(err instanceof CanceledError)) {
+          setError(err.message);
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  function accept(eventId: number, userId: number): Promise<any> {
+    const user = getUserData();
+    if (!user) {
+      setError("problem with token, try to log-in again");
+      return Promise.reject("problem with token, try to log-in again");
+    }
+    setLoading(true);
+    return Axios.post(`/events/${eventId}/accept/${userId}`)
+      .then((res) => {
+        setLoading(false);
+        return reFetchMyEvents();
+      })
+      .catch((err) => {
+        if (!(err instanceof CanceledError)) {
+          setError(err.message);
+          setLoading(false);
+          return Promise.reject(err.message);
+        }
+      });
+  }
+
+  function refuse(eventId: number, userId: number) {
+    const user = getUserData();
+    if (!user) {
+      setError("problem with token, try to log-in again");
+      return Promise.reject("problem with token, try to log-in again");
+    }
+    setLoading(true);
+    return Axios.post(`/events/${eventId}/refuse/${userId}`)
+      .then((res) => {
+        setLoading(false);
+        return reFetchMyEvents();
+      })
+      .catch((err) => {
+        if (!(err instanceof CanceledError)) {
+          setError(err.message);
+          setLoading(false);
+          return Promise.reject(err.message);
+        }
+      });
+  }
+
+  return (
+    <MyEventsContext.Provider
+      value={[
+        events,
+        isLoading,
+        error,
+        addNote,
+        submitNewEvent,
+        accept,
+        refuse,
+      ]}
+    >
+      {children}
+    </MyEventsContext.Provider>
+  );
+};
+
+export default MyEventsContextProvider;

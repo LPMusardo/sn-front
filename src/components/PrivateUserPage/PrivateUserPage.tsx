@@ -22,18 +22,25 @@ import { MdOutlineThumbUpAlt } from "react-icons/md";
 import { MdEvent } from "react-icons/md";
 import PanelInformations from "./Panels/PanelInformations";
 import PanelEvents from "./Panels/PanelEvents/PanelEvents";
-import PanelApplications from "./Panels/PanelApplications";
-import PanelParticipations from "./Panels/PanelParticipations";
+import PanelApplications from "./Panels/PanelApplications/PanelApplications";
+import PanelParticipations from "./Panels/PanelParticipations/PanelParticipations";
 import { useState } from "react";
 import PanelGivenNotes from "./Panels/PanelGivenNotes";
 import PanelReceivedNotes from "./Panels/PanelReceivedNotes";
 import { BiStar } from "react-icons/bi";
 import { RiStarSmileLine } from "react-icons/ri";
 import MyEventsContextProvider from "./MyEventsContextProvider";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { AiOutlinePlus } from "react-icons/ai";
 import NewEventBtn from "./Panels/PanelEvents/NewEventBtn";
+import MyApplicationsContextProvider from "./MyParticipationsContextProvider";
+import MyParticipationsContextProvider from "./MyApplicationsContextProvider";
+import MyGivenNotesContextProvider from "./MyGivenNotesContextProvider";
+import MyReceivedNotesContextProvider from "./MyReceivedNotesContextProvider";
+import MyInformationsContextProvider from "./MyInformationsContextProvider";
+import EventPage from "../EventPage/EventPage";
+
 
 // interface Props {
 //   idSection:number
@@ -86,62 +93,88 @@ const PrivateUserPage = () => {
     },
   ];
 
-  function initSectionId() {
+  // function initSectionId() {
+  //   const { sectionId: paramSectionId } = useParams();
+  //   const defaultSectionId = sections[0].id;
+  //   if (paramSectionId == undefined) return defaultSectionId;
+  //   const paramSectionIdNumber = Number.parseInt(paramSectionId);
+  //   const paramIndex = sections.findIndex(
+  //     (section) => section.id === paramSectionIdNumber
+  //   );
+  //   if (paramIndex < 0) return defaultSectionId;
+  //   return paramSectionIdNumber;
+  // }
+
+  const [selectedId, setSelectedId] = useState(1);
+
+  // const currentSection =
+  //   sections[sections.findIndex((section) => section.id === selectedId)]; // Ici la structure liste n'est pas vraiment adaptée O(n), mais c'est simple à manipuler et il y aura tjrs très peu d'éléments
+
     const { sectionId: paramSectionId } = useParams();
-    const defaultSectionId = sections[0].id;
-    if (paramSectionId == undefined) return defaultSectionId;
-    const paramSectionIdNumber = Number.parseInt(paramSectionId);
-    const paramIndex = sections.findIndex(
-      (section) => section.id === paramSectionIdNumber
-    );
-    if (paramIndex < 0) return defaultSectionId;
-    return paramSectionIdNumber;
-  }
 
-  const [selectedId, setSelectedId] = useState(initSectionId());
-
-  const currentSection =
-    sections[sections.findIndex((section) => section.id === selectedId)]; // Ici la structure liste n'est pas vraiment adaptée O(n), mais c'est simple à manipuler et il y aura tjrs très peu d'éléments
 
   return (
-    <MyEventsContextProvider>
-      <>
-        {/* <Routes>
-          {sections.map((section) => (
-            <Route
-              path={section.id.toString()}
-              element={<PrivateUserPage/>}
-            />
-          ))}
-        </Routes> */}
-        <NavBar onSearch={() => {}} />
+    <>
+      <MyEventsContextProvider>
+        <MyParticipationsContextProvider>
+          <MyApplicationsContextProvider>
+            <MyReceivedNotesContextProvider>
+              <MyInformationsContextProvider>
+                <>
+                  <NavBar/>
+                  <div>{paramSectionId}</div>
+                  <Box margin={5} minH="60vh">
+                    <Grid
+                      templateColumns={{ sm: "1fr", md: "350px 1fr" }}
+                      gap={10}
+                      my="35"
+                    >
+                      <GridItem>
+                        <Menu
+                          sections={sections}
+                          selectedId={selectedId}
+                          setSelectedId={setSelectedId}
+                        />
+                      </GridItem>
+                      <GridItem overflow="auto">
+                        <Routes>
+                          {/* <Route index element={}/> */}
+                          {sections.map((section) => (
+                            <Route key={section.id}
+                              path={section.id.toString()}
+                              element={
+                                <PanelContainer
+                                  setSection={()=>setSelectedId(section.id)}
+                                  heading={section.h}
+                                  extra={section.extra && <section.extra />}
+                                >
+                                  <section.panel />
+                                </PanelContainer>
+                              }
+                            />
+                          ))}
+                          {/* <Route path="*" Component={MainPage} /> */}
+                        </Routes>
+                        {/* <PanelContainer
+                        heading={currentSection.h}
+                        extra={currentSection.extra && <currentSection.extra />}
+                      >
+                      <currentSection.panel prop="MA PROP" />
+                      </PanelContainer> */}
+                      </GridItem>
+                    </Grid>
+                  </Box>
+                  <Box marginTop={100}>
+                    <Footer />
+                  </Box>
+                </>
+              </MyInformationsContextProvider>
+            </MyReceivedNotesContextProvider>
+          </MyApplicationsContextProvider>
+        </MyParticipationsContextProvider>
+      </MyEventsContextProvider>
+    </>
 
-        <Box margin={5} minH="60vh">
-          <Grid
-            templateColumns={{ sm: "1fr", md: "350px 1fr" }}
-            gap={10}
-            my="35"
-          >
-            <GridItem>
-              <Menu
-                sections={sections}
-                selectedId={selectedId}
-                setSelectedId={setSelectedId}
-              />
-            </GridItem>
-            <GridItem>
-              <PanelContainer heading={currentSection.h} extra={currentSection.extra && <currentSection.extra/>}>
-                <currentSection.panel prop="MA PROP" />
-              </PanelContainer>
-            </GridItem>
-          </Grid>
-        </Box>
-
-        <Box marginTop={100}>
-          <Footer />
-        </Box>
-      </>
-    </MyEventsContextProvider>
   );
 };
 
