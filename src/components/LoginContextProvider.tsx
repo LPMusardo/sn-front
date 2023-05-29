@@ -31,7 +31,7 @@ const LoginContextProvider = ({children}: {children:JSX.Element} ) => {
       })
       .catch((error) => {
         console.log(error);
-        setError(error.message)
+        setError("Email or password incorrect")
         setLoading(false);
       });
     return { isLogged, error, isLoading };
