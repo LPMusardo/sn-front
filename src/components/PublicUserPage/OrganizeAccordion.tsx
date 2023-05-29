@@ -11,8 +11,29 @@ import AccordionHeader from "./AccordionHeader";
 import OrganizerNotesTable from "./OrganizerNotesTable";
 import Rating from "../shared/Rating";
 import OrganizerEventsTable from "./OrganizerEventsTable";
+import { IUserData } from "../../models/IUserData";
 
-const OrganizeAccordion = () => {
+interface IOrganizeAccordionProps {
+  user: IUserData;
+}
+
+const OrganizeAccordion: React.FC<IOrganizeAccordionProps> = ({ user }) => {
+  let averageNoteAsOrganizer = -1;
+  let nbNotesAsOrganizer = 0;
+  if (user.receivedNotes) {
+    const sumNoteAsOrganizer = user.receivedNotes.reduce((acc, obj) => {
+      if (obj.type == "0") {
+        nbNotesAsOrganizer++;
+        return acc + parseInt(obj.value, 10);
+      } else {
+        return acc;
+      }
+    }, 0);
+    if (nbNotesAsOrganizer != 0)
+      averageNoteAsOrganizer = sumNoteAsOrganizer / nbNotesAsOrganizer;
+
+
+  }
   return (
     <Accordion allowToggle>
       <AccordionItem>
@@ -22,7 +43,11 @@ const OrganizeAccordion = () => {
               text={"Notes"}
               badgeContent={
                 <Box padding={0.5}>
-                  <Rating score={3} total={5} spacing={1} />
+                  <Rating
+                    score={averageNoteAsOrganizer}
+                    total={5}
+                    spacing={1}
+                  />
                 </Box>
               }
             />
@@ -30,7 +55,7 @@ const OrganizeAccordion = () => {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <OrganizerNotesTable />
+          <OrganizerNotesTable user={user} />
         </AccordionPanel>
       </AccordionItem>
       <AccordionItem>
@@ -38,13 +63,15 @@ const OrganizeAccordion = () => {
           <AccordionButton>
             <AccordionHeader
               text={"Events"}
-              badgeContent={<Text>7 events</Text>}
+              badgeContent={
+                <Text>{user?.organizedEvents?.length ?? "No "} events</Text>
+              }
             />
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <OrganizerEventsTable />
+          <OrganizerEventsTable user={user} />
         </AccordionPanel>
       </AccordionItem>
     </Accordion>

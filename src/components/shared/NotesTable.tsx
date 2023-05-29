@@ -80,20 +80,20 @@ function NotesTable({ headers, notes, caption }: Props) {
                 </Td>
                 <Td>
                   {note.owner && (
-                    <Link as={ReachLink} to={`/users/${note.owner.id}`}>
                       <NoteCard
                         username={note.owner.username}
                         pictureUrl={note.owner.picture || ""}
+                        id={`${note.ownerId}`}
+
                       />
-                    </Link>
+
                   )}
                   {note.target && (
-                    <Link as={ReachLink} to={`/users/${note.target.id}`}>
                       <NoteCard
                         username={note.target.username}
                         pictureUrl={note.target.picture || ""}
+                        id={`${note.target.id}`}
                       />
-                    </Link>
                   )}
                 </Td>
                 <Td>

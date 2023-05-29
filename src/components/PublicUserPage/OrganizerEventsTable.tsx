@@ -6,38 +6,40 @@ import {
   Th,
   Tbody,
   Td,
-  Tfoot,
   Table,
 } from "@chakra-ui/react";
-import NoteCard from "../shared/NoteCard";
-import Comment from "../shared/Comment";
 import Rating from "../shared/Rating";
+import { IUserData } from "../../models/IUserData";
+import { Link } from "react-router-dom";
 
-interface Event {
-  score: number;
-  eventName: string;
-  date: string;
+interface OrganizerEventsTableProps {
+  user: IUserData;
 }
 
-function OrganizerEventsTable() {
+// function to calculate the average score of the events with an eventId given
+function calculateAverageScore(eventId: string, user: IUserData) {
+  let average = -1;
+  let sum = 0;
+  let count = 0;
+  user.receivedNotes.forEach((note) => {
+    if (note.event.id === eventId) {
+      sum += parseInt(note.value, 10);
+      count++;
+    }
+  });
+  if (count > 0) {
+    average = sum / count;
+  }
+  return average;
+}
+
+function OrganizerEventsTable({ user }: OrganizerEventsTableProps) {
   const headers = ["Notes", "Event", "Date"];
-  const notes: Event[] = [
-    {
-      score: 3,
-      eventName: "Concert Jazz Convergence",
-      date: "07/06/23",
-    },
-    {
-      score: 3,
-      eventName: "Cinema: As Bestas",
-      date: "27/02/23",
-    },
-  ];
 
   return (
     <TableContainer>
       <Table variant="simple">
-        <TableCaption>Events organized by Charles</TableCaption>
+        <TableCaption>Events organized by {user?.username}</TableCaption>
         <Thead>
           <Tr>
             {headers.map((headers) => (
@@ -46,15 +48,21 @@ function OrganizerEventsTable() {
           </Tr>
         </Thead>
         <Tbody>
-          {notes.map((note) => (
+          {user?.organizedEvents?.map((events) => (
             <Tr>
               <Td>
-                <Rating score={note.score} total={5} spacing={1} />
+                <Rating
+                  score={calculateAverageScore(events.id, user) ?? ""}
+                  total={5}
+                  spacing={1}
+                />
               </Td>
-              <Td>{note.eventName}</Td>
-              <Td>{note.date}</Td>
+              <Td>
+                <Link style={{ color: "#B195EE" }} to={"/events/" + events.id}>{events?.name}</Link>
+              </Td>
+              <Td>{new Date(events?.date).toLocaleDateString() ?? ""}</Td>
             </Tr>
-          ))}
+          )) ?? "No events organized"}
         </Tbody>
         {/* <Tfoot>
           <Tr>

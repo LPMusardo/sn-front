@@ -33,7 +33,9 @@ const TabInformations = ({ event }: Props) => {
             />
           </Box>
           <Link as={ReachLink} to={`/events/${event.id}`}>
-            <Text color="#2256A0" size="sm">See more</Text>
+            <Text color="#2256A0" size="sm">
+              See more
+            </Text>
           </Link>
         </VStack>
         <VStack spacing="3" alignItems="start">

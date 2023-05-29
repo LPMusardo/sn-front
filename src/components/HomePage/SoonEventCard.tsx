@@ -1,39 +1,89 @@
-import { Card, CardBody, CardFooter, Divider, Heading, Image, Stack, Text, ButtonGroup, Button} from '@chakra-ui/react'
-import React from 'react'
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  Divider,
+  Heading,
+  Image,
+  Stack,
+  Text,
+  ButtonGroup,
+  Button,
+  Link,
+  HStack,
+} from "@chakra-ui/react";
+import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
+import { RiGroupLine } from "react-icons/ri";
+import { Link as ReachLink } from "react-router-dom";
 
-const SoonEventCard = () => {
-    return (
-        <Card size={"md"}>
-            <CardBody>
-                <Image
-                    src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                    alt='Green double couch with wooden legs'
-                    borderRadius='lg' />
-                <Stack mt='6' spacing='3'>
-                    <Heading size='md'>Living room Sofa</Heading>
-                    <Text>
-                        This sofa is perfect for modern tropical spaces, baroque inspired
-                        spaces, earthy toned spaces and for people who love a chic design with a
-                        sprinkle of vintage design.
-                    </Text>
-                    <Text color='purple.800' fontSize='2xl'>
-                        $450
-                    </Text>
-                </Stack>
-            </CardBody>
-            <Divider />
-            <CardFooter>
-                <ButtonGroup spacing='2'>
-                    <Button variant='solid' colorScheme='purple'>
-                        Buy now
-                    </Button>
-                    <Button variant='ghost' colorScheme='purple'>
-                        Add to cart
-                    </Button>
-                </ButtonGroup>
-            </CardFooter>
-        </Card>
-    )
+interface SoonEventCardProps {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+  image_url: string;
+  participants_number: string;
+  date: string;
 }
 
-export default SoonEventCard
+const SoonEventCard = ({
+  id,
+  name,
+  category,
+  description,
+  image_url,
+  participants_number,
+  date,
+}: SoonEventCardProps) => {
+  return (
+    <Card size={"md"}>
+      <CardBody>
+        <Link as={ReachLink} to={`/events/${id}`}>
+          <Image
+            src={image_url}
+            alt="Green double couch with wooden legs"
+            fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+            borderRadius="lg"
+          />
+        </Link>
+        <Stack mt="6" spacing="3">
+          <Heading size="md">{name}</Heading>
+
+          <HStack mt="4" alignItems="center">
+            <BsChatSquareText />
+            <Text>{description.substring(0, 35) + " ..."}</Text>
+          </HStack>
+          <HStack>
+            <RiGroupLine  style={{ color: '#E6D9FA' }}/>
+            <Text color="purple.100" fontSize="m">
+              {participants_number} participants
+            </Text>
+          </HStack>
+
+          <HStack>
+            <BsCalendarEvent style={{ color: '#B195EE' }} />
+            <Text color="purple.300" fontSize="s">
+              {new Date(date).toDateString()}
+            </Text>
+          </HStack>
+        </Stack>
+      </CardBody>
+      <Divider />
+      <CardFooter>
+        <ButtonGroup spacing="2">
+          
+          <Button variant="solid" colorScheme="purple">
+            Apply
+          </Button>
+          <Link as={ReachLink} to={`/events/${id}`}>
+            <Button variant="ghost" colorScheme="purple">
+              More details
+            </Button>
+          </Link>
+        </ButtonGroup>
+      </CardFooter>
+    </Card>
+  );
+};
+
+export default SoonEventCard;
