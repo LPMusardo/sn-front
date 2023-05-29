@@ -6,7 +6,8 @@ import LeftPanel from "./LeftPanel";
 import { useAxiosFetch } from "../../services/useAxiosFetch";
 import { IUserData } from "../../models/IUserData";
 import { useEffect, useState } from "react";
-import {  useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import SearchInput2 from "../EventListPage/SearchInput2";
 
 const PublicUserPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -48,7 +49,8 @@ const PublicUserPage = () => {
 
   return (
     <>
-      <NavBar onSearch={() => {}} />
+         <NavBar  />
+
       <Box margin={5} minH="60vh">
         <Grid templateColumns={{ sm: "1fr", md: "1fr 2fr" }} gap={10}>
           <GridItem overflow={"clip"}>

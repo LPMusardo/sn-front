@@ -45,7 +45,7 @@ const EventPage = () => {
 
   return (
     <>
-      <NavBar onSearch={() => {}} />
+      <NavBar />
       <Box minH="70vh">
         <SimpleGrid
           gridAutoRows="1fr"

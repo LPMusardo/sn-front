@@ -27,7 +27,7 @@ interface Note {
   ownerId: number;
   targetId: number;
   eventId: number;
-  owner?: User;
+  owner: User;
   target?: User;
   event: Event;
 }
@@ -84,6 +84,7 @@ function NotesTable({ headers, notes, caption }: Props) {
                       <NoteCard
                         username={note.owner.username}
                         pictureUrl={note.owner.picture || ""}
+                        id={ `${note.owner.id}`}
                       />
                     </Link>
                   )}
@@ -92,6 +93,8 @@ function NotesTable({ headers, notes, caption }: Props) {
                       <NoteCard
                         username={note.target.username}
                         pictureUrl={note.target.picture || ""}
+                        id={ `${note.owner.id}`}
+
                       />
                     </Link>
                   )}

@@ -20,7 +20,7 @@ interface User {
   givenNotes: Note[];
 }
 
-interface Note {
+export interface Note {
   id: number;
   creationDate: string;
   title: string;
