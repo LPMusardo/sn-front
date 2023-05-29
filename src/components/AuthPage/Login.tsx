@@ -23,9 +23,7 @@ import { z } from "zod";
 function Login() {
 
   const schema = z.object({
-    email: z.string().min(1, { message: "Email is required" }).email({
-      message: "Must be a valid email",
-    }),
+    email: z.string().min(1, { message: "Email is required" }),
     password: z
       .string()
       .min(6, { message: "Password must be atleast 6 characters" }),
@@ -57,8 +55,7 @@ function Login() {
     });
   };
 
-  const onSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault;
+  const onSubmit = (data:any) => {
     login(credentials);
 
     // accountService
