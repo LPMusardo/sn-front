@@ -16,6 +16,9 @@ import {
 import { ReactElement, useState } from "react";
 import MenuItem from "./MenuItem";
 import { IconType } from "react-icons";
+import { useLogin } from "../../LoginContextProvider";
+import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -26,14 +29,18 @@ interface Props{
 }
 
 const Menu = ({sections, selectedId, setSelectedId}:Props) => {
+
+  const navigate = useNavigate();
+
   const txtColor = useColorModeValue("gray.600", "gray.400");
-  
+  const [isLogged, isL, e, login, logout, getUserData] = useLogin(); 
+  const user = getUserData()
 
 
   return (
     <Card variant="outline" size="sm" overflow="hidden">
       <CardHeader pb="0">
-        <Heading size="lg">[username]</Heading>
+        <Heading size="lg">{user && user.username}</Heading>
       </CardHeader>
 
       <CardBody>
@@ -42,7 +49,8 @@ const Menu = ({sections, selectedId, setSelectedId}:Props) => {
           {sections.map((section) => (
             <MenuItem
               isActive={section.id == selectedId}
-              onSelect={() => setSelectedId(section.id)}
+              //onSelect={() => setSelectedId(section.id)}
+              onSelect={() => navigate(`/profile/${section.id}`)}
               onClick={() => {}}
               key={section.id}
             >

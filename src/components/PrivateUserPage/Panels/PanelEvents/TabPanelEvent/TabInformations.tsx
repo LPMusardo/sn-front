@@ -1,35 +1,24 @@
 import {
   Text,
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Box,
   HStack,
   VStack,
   Image,
-  Square,
   Link,
-  Tabs,
-  Tab,
-  TabList,
   TabPanel,
-  TabPanels,
-  Heading,
-  useColorModeValue,
 } from "@chakra-ui/react";
-import IEvent from "../IEvent";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { RiGroupLine } from "react-icons/ri";
 import { FiMapPin } from "react-icons/fi";
 import { BiCategoryAlt } from "react-icons/bi";
+import { OrganizedEvent } from "../../../MyEventsContextProvider";
+import { Link as ReachLink } from "react-router-dom";
 
 interface Props {
-  event: IEvent;
+  event: OrganizedEvent;
 }
 
-const TabInformations = ({event}:Props) => {
+const TabInformations = ({ event }: Props) => {
   return (
     <TabPanel>
       <HStack>
@@ -39,30 +28,45 @@ const TabInformations = ({event}:Props) => {
               h="100%"
               w="100%"
               objectFit="contain"
-              src={event.imageURL}
-              fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+              src={event.image_url}
+              fallbackSrc="https://via.placeholder.com/150"
             />
           </Box>
-          <Link href="/">link/vers/page/events/{event.id}</Link>
+          <Link as={ReachLink} to={`/events/${event.id}`}>
+            <Text color="#2256A0" size="sm">
+              See more
+            </Text>
+          </Link>
         </VStack>
         <VStack spacing="3" alignItems="start">
           <HStack>
             <BsCalendarEvent />
-            <Text>{event.date}</Text>
+            <Text>{new Date(event.date).toLocaleString()}</Text>
           </HStack>
           <HStack>
             <RiGroupLine />
             <Text>
-              {event.number}/{event.size}
+              {"?"}/{event.participants_number}
             </Text>
           </HStack>
           <HStack>
             <FiMapPin />
-            <Text>{event.address}</Text>
+            <HStack spacing="5">
+              <Text>{event.Address.street}</Text>
+              <Text>{event.Address.city}</Text>
+              <Text>{event.Address.zip}</Text>
+              <Text>{event.Address.country}</Text>
+            </HStack>
           </HStack>
           <HStack>
             <BiCategoryAlt />
-            <Text>{event.mainCategory}</Text>
+            <Link
+              as={ReachLink}
+              to={`/search?MainCategoryId=${event.MainCategory.id}`}
+            >
+              <Text>{event.MainCategory.name}</Text>
+            </Link>
+
             <Text> - </Text>
             <Text>{event.category}</Text>
           </HStack>
@@ -72,7 +76,7 @@ const TabInformations = ({event}:Props) => {
             </Box>
             <Text>{event.description}</Text>
           </HStack>
-          <Text>{event.creationDate}</Text>
+          <Text>{new Date(event.creation_date).toLocaleString()}</Text>
         </VStack>
       </HStack>
     </TabPanel>

@@ -12,32 +12,40 @@ import {
   Box,
   Flex,
   HStack,
+  Link,
 } from "@chakra-ui/react";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { FiMapPin } from "react-icons/fi";
 import { RiGroupLine } from "react-icons/ri";
 import { BiCategoryAlt } from "react-icons/bi";
+import { Event } from "./FetchSearchContextProvider";
+import { Link as ReachLink } from "react-router-dom";
+import Rating from "../shared/Rating";
 
-const EventListingCard = () => {
+interface Props {
+  event: Event;
+}
+
+const EventListingCard = ({ event }: Props) => {
   return (
     <Card
       direction={{ sm: "column", xl: "row" }}
-      overflow="scroll"
       variant="elevated"
       maxH={{ sm: "100%", xl: "350" }}
       size={"md"}
     >
       <Show above="sm">
         <Image
+          fallbackSrc="https://raw.githubusercontent.com/koehlersimon/fallback/master/Resources/Public/Images/placeholder.jpg"
           objectFit="cover"
           maxW={{ sm: "100%", xl: "50%" }}
-          src="https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60"
+          src={event.image_url}
         />
       </Show>
 
       <Stack w="100%">
         <CardBody pb="0" w="100%">
-          <Heading size="lg">Click Name</Heading>
+          <Heading size="lg">{event.name}</Heading>
 
           <Flex
             flex="1"
@@ -48,45 +56,51 @@ const EventListingCard = () => {
             mb="5"
           >
             <Avatar
-              name="Segun Adebayo"
-              src="https://bit.ly/sage-adebayo"
+              name={event.organizer.username}
+              src={event.organizer.picture || ""}
               size="sm"
             />
-            <Box>
-              <Heading size="xs">Segun Adebayo</Heading>
-            </Box>
+            <HStack>
+              <Link as={ReachLink} to={`/users/${event.organizer.id}`} >
+                <Heading size="xs">{event.organizer.username}</Heading>
+              </Link>
+                {event.organizer.score_host && <Rating score={Number.parseInt(event.organizer.score_host)} total={5} spacing={0}></Rating>}
+            </HStack>
           </Flex>
 
           <Flex justifyContent="space-between">
             <HStack>
               <BsCalendarEvent />
-              <Text>12/02/2023</Text>
+              <Text>{new Date(event.date).toLocaleString()}</Text>
             </HStack>
             <HStack>
               <RiGroupLine />
-              <Text>10</Text>
+              <Text>{`${event.participants_number-event.nb_places_left}/${event.participants_number}`}</Text>
             </HStack>
           </Flex>
           <HStack>
-            <FiMapPin />
-            <Text>France, Marseille</Text>
+            <Box w="auto">
+              <FiMapPin />
+            </Box>
+            <Text>{`${event.Address.street} ${event.Address.city} ${event.Address.zip} ${event.Address.country}`}</Text>
           </HStack>
           <HStack>
             <BiCategoryAlt />
-            <Text>Sports - Karting</Text>
+            <Text>{`${event.MainCategory.name} - ${event.category}`}</Text>
           </HStack>
 
           <HStack mt="4" alignItems="center">
             <BsChatSquareText />
-            <Text>35 premiers charactères puis...</Text>
+            <Text>{`${event.description.slice(0, 35).trim()}...`}</Text>
           </HStack>
           {/* <Text>SEE MORE FOR : adresse complète; #deja inscrit; messages</Text> */}
         </CardBody>
 
         <CardFooter pt="4">
-          <Button variant="link" colorScheme="blue">
-            See More
-          </Button>
+          <Link as={ReachLink} to={`/events/${event.id}`} color="#2256A0">
+            <Text>See More</Text>
+          </Link>
+
         </CardFooter>
       </Stack>
     </Card>

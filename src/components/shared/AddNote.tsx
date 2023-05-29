@@ -15,18 +15,16 @@ import {
   PopoverTrigger,
   Textarea,
   VStack,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { AiFillStar } from "react-icons/ai";
 
-interface FormData {
-  // TODO: faire validation
-  title: string;
-  comment: string;
-  grade: number;
+interface Props {
+  onSubmit: (data: NoteFormData) => void;
 }
 
-const AddNote = () => {
+const AddNote = ({ onSubmit }: Props) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
 
   return (
@@ -39,14 +37,19 @@ const AddNote = () => {
         closeOnBlur={false}
       >
         <PopoverTrigger>
-          <Button>Grade</Button>
+          <Button
+            w="100%"
+            variant="outline"
+            colorScheme="gray"
+            leftIcon={<AiFillStar color="orange" />}
+          >
+            Grade
+          </Button>
         </PopoverTrigger>
         <PopoverContent p={5}>
-
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <Form close={onClose} />
-
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <Form close={onClose} onSubmitProp={onSubmit} />
         </PopoverContent>
       </Popover>
     </>
@@ -55,22 +58,35 @@ const AddNote = () => {
 
 export default AddNote;
 
-const Form = ({ close }: { close: () => void }) => {
+//-------------------------------------------------------------------
+
+export interface NoteFormData {
+  // TODO: faire validation
+  value: number;
+  title: string;
+  comment: string;
+}
+
+interface FormProps {
+  close: () => void;
+  onSubmitProp: (data: NoteFormData) => void;
+}
+
+const Form = ({ close, onSubmitProp }: FormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({ mode: "onChange" });
+  } = useForm<NoteFormData>({ mode: "onChange" });
 
-  const onSubmit = (data: FieldValues) => {
-    console.log(data);
+  function onSubmit(data: NoteFormData) {
+    onSubmitProp(data);
     close();
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Card size="sm" maxW={{ sm: "230px", lg: "350px" }} variant="outline">
-        {/* <CardHeader></CardHeader> */}
         <CardBody>
           <VStack>
             <FormControl>
@@ -82,7 +98,7 @@ const Form = ({ close }: { close: () => void }) => {
                 max="5"
                 w="20"
                 size={"sm"}
-                {...register("grade")}
+                {...register("value")}
               ></Input>
               <FormHelperText>from 0 to 5</FormHelperText>
             </FormControl>
