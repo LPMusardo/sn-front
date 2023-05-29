@@ -11,6 +11,7 @@ import {
   Button,
   Link,
   HStack,
+  Flex,
 } from "@chakra-ui/react";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { RiGroupLine } from "react-icons/ri";
@@ -54,14 +55,14 @@ const SoonEventCard = ({
             <Text>{description.substring(0, 35) + " ..."}</Text>
           </HStack>
           <HStack>
-            <RiGroupLine  style={{ color: '#E6D9FA' }}/>
+            <RiGroupLine style={{ color: "#E6D9FA" }} />
             <Text color="purple.100" fontSize="m">
               {participants_number} participants
             </Text>
           </HStack>
 
           <HStack>
-            <BsCalendarEvent style={{ color: '#B195EE' }} />
+            <BsCalendarEvent style={{ color: "#B195EE" }} />
             <Text color="purple.300" fontSize="s">
               {new Date(date).toDateString()}
             </Text>
@@ -70,17 +71,13 @@ const SoonEventCard = ({
       </CardBody>
       <Divider />
       <CardFooter>
-        <ButtonGroup spacing="2">
-          
-          <Button variant="solid" colorScheme="purple">
-            Apply
-          </Button>
+        <Flex  width="100%"  >
           <Link as={ReachLink} to={`/events/${id}`}>
             <Button variant="ghost" colorScheme="purple">
               More details
             </Button>
           </Link>
-        </ButtonGroup>
+        </Flex>
       </CardFooter>
     </Card>
   );
