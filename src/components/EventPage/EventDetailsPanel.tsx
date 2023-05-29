@@ -11,13 +11,13 @@ import {
   CardFooter,
   Divider,
   Flex,
+  Badge,
 } from "@chakra-ui/react";
 import Rating from "../shared/Rating";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { IoInformationCircleSharp } from "react-icons/io5";
-import ValidationBtn from "../shared/ValidationBtn";
 import { Link } from "react-router-dom";
-import { BsCalendarEvent, BsClock, BsSearch } from "react-icons/bs";
+import { BsCalendarEvent, BsClock } from "react-icons/bs";
 import { BiCategoryAlt } from "react-icons/bi";
 import { RiGroupLine } from "react-icons/ri";
 
@@ -60,6 +60,7 @@ const EventDetailsPanel = ({
   score_avg,
   nb_places_taken,
 }: IEventDetailsProps) => {
+  console.log("score_avg", typeof score_avg);
   return (
     <>
       <Card variant="outline" height={"full"}>
@@ -69,13 +70,21 @@ const EventDetailsPanel = ({
             <Heading as="h2" size="xs" textTransform="uppercase" paddingTop={3}>
               <Link to={`/users/${organizerId}`}>{organizerUsername} </Link>
             </Heading>
-            <Rating
-              score={parseInt(score_avg, 10)}
-              total={5}
-              color="#FF6A00"
-              size={17}
-              spacing={0.2}
-            />
+            <HStack spacing={2}>
+              <Badge colorScheme="purple">
+                {" "}
+                {score_avg !== "" ? (
+                  <Rating
+                    score={parseInt(score_avg, 10)}
+                    total={5}
+                    size={17}
+                    spacing={0.2}
+                  />
+                ) : (
+                  <p>no notes yet!</p>
+                )}
+              </Badge>
+            </HStack>
           </HStack>
         </CardHeader>
 
@@ -93,7 +102,9 @@ const EventDetailsPanel = ({
                 <HStack>
                   <RiGroupLine />
                   <Text as="b" pt="2" fontSize="sm">
-                    {nb_places_taken} / {participants_number}
+                    {/* if nb_places_taken undefined set it to 0 */}
+                    {nb_places_taken === "" ? 0 : nb_places_taken} /{" "}
+                    {participants_number}
                   </Text>
                 </HStack>
                 <HStack>
@@ -150,36 +161,7 @@ const EventDetailsPanel = ({
         </CardBody>
 
         <CardFooter>
-          <ButtonGroup spacing="2">
-            
-            <ValidationBtn
-            children={<BsSearch />}
-            colorScheme="green"
-            modalBtnValidateTxt="Accept"
-            modalBtnCancelTxt={"Cancel"}
-            modalHeader={"Accept the candidate " + " ?"}
-            modalTxt="This action is irreversible"
-            onValidate={async function () {
-            } }
-            successToast={{
-              title: " accepted",
-              description: "bli bla blu",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            }}
-            failToast={{
-              title: "Error encountered",
-              description: "The applying did not worked",
-              status: "error",
-              duration: 3000,
-              isClosable: true,
-            }}
-            onFinal={async function () {
-
-
-            } } />
-          </ButtonGroup>
+          <ButtonGroup spacing="2"></ButtonGroup>
         </CardFooter>
       </Card>
     </>
