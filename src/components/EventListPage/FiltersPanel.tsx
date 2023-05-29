@@ -22,6 +22,7 @@ interface Props {
 
 const FiltersPanel = ({ close }: Props) => {
 
+
   //----------------------------- Colors  -----------------------------
   const bg = useColorModeValue("white", "gray.600");
   const label = useColorModeValue("gray.700", "gray.300");
@@ -33,6 +34,7 @@ const FiltersPanel = ({ close }: Props) => {
 
 
   //----------------------------- React Hook Form  -----------------------------
+
   const {
     setValue,
     register,
@@ -40,6 +42,7 @@ const FiltersPanel = ({ close }: Props) => {
     reset,
     formState: { errors },
   } = useFormContext<FormulaireData>();
+
 
   //----------------------------- DEBUG  -----------------------------
   useEffect(() => {
@@ -131,6 +134,7 @@ const FiltersPanel = ({ close }: Props) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <HStack align="" spacing={{ sm: "2", md: "10", lg: "20" }}>
             <VStack spacing="4" w="56">
+
               <FormControl isInvalid={errors.event_name != undefined}>
                 <FormLabel color={label}>Name</FormLabel>
 
@@ -351,6 +355,7 @@ const FiltersPanel = ({ close }: Props) => {
 
             </VStack>
           </HStack>
+
           {/* <Divider mt="5" mb="3" />
           <Center w="100%">
             <Button variant="outline" colorScheme="purple" type="submit">

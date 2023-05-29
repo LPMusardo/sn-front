@@ -41,6 +41,7 @@ import MyReceivedNotesContextProvider from "./MyReceivedNotesContextProvider";
 import MyInformationsContextProvider from "./MyInformationsContextProvider";
 import EventPage from "../EventPage/EventPage";
 
+
 // interface Props {
 //   idSection:number
 // }
@@ -154,7 +155,6 @@ const PrivateUserPage = () => {
                           ))}
                           {/* <Route path="*" Component={MainPage} /> */}
                         </Routes>
-
                         {/* <PanelContainer
                         heading={currentSection.h}
                         extra={currentSection.extra && <currentSection.extra />}
@@ -174,6 +174,7 @@ const PrivateUserPage = () => {
         </MyParticipationsContextProvider>
       </MyEventsContextProvider>
     </>
+
   );
 };
 

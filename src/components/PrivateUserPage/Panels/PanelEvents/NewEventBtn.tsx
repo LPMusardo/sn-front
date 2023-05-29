@@ -74,7 +74,7 @@ const schema = z.object({
   name: z.string().min(5).max(25),
   participants_number: z.number().min(1),
   category: z.string().min(1).max(25),
-  mainCategoryId: z.enum(["1", "2", "3"]), //TODO utiliser le contexte main category
+  mainCategoryId: z.string(),
   description: z.string().min(1).max(300),
   image_url: z.string().url(),
   date: z.coerce.date(),
