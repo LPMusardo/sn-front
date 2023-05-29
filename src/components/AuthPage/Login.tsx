@@ -11,12 +11,37 @@ import {
   Text,
   useColorModeValue,
   Spinner,
+  FormErrorMessage,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../LoginContextProvider";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 function Login() {
+
+  const schema = z.object({
+    email: z.string().min(1, { message: "Email is required" }).email({
+      message: "Must be a valid email",
+    }),
+    password: z
+      .string()
+      .min(6, { message: "Password must be atleast 6 characters" }),
+  });
+  
+  type ValidationSchema = z.infer<typeof schema>;
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ValidationSchema>({
+    resolver: zodResolver(schema),
+  });
+
+
   const navigate = useNavigate();
   const [isLogged, isLoading, error, login, logout] = useLogin();
 
@@ -33,7 +58,7 @@ function Login() {
   };
 
   const onSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+    e.preventDefault;
     login(credentials);
 
     // accountService
@@ -65,35 +90,33 @@ function Login() {
           p={8}
         >
           <Stack spacing={4}>
-            <form onSubmit={onSubmit}>
-              <FormControl id="email">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <FormControl id="email" isInvalid={errors.email != undefined}>
                 <FormLabel>Email</FormLabel>
                 <Input
-                  type="email"
-                  name="email"
+                  {...register("email")}
                   value={credentials.email}
                   onChange={onChange}
                 />
+                <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
               </FormControl>
+              
+              
 
-              <FormControl id="password">
+              <FormControl id="password" isInvalid={errors.password != undefined}>
                 <FormLabel>Password</FormLabel>
                 <Input
                   type="password"
-                  name="password"
+                  {...register("password")}
                   value={credentials.password}
                   onChange={onChange}
                 />
+                <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
+              
+              
 
               <Stack spacing={10}>
-                <Stack
-                  direction={{ base: "column", sm: "row" }}
-                  align={"start"}
-                  justify={"space-between"}
-                >
-                  <Checkbox>Remember me</Checkbox>
-                </Stack>
                 <Button
                   type="submit"
                   bg={"blue.400"}
