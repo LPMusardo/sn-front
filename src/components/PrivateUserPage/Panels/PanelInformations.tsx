@@ -50,7 +50,7 @@ const schema = z
   })
   .refine((data) => data.password === data.confirmpassword, {
     message: "Passwords don't match",
-    path: ["confirm"],
+    path: ["confirmpassword"],
   })
   .refine((data) => data.password === data.confirmpassword, {
     message: "Passwords don't match",
