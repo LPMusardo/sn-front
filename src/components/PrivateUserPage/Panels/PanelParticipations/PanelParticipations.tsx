@@ -13,6 +13,7 @@ import {
   VStack,
   Image,
   Button,
+  Square,
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { useMyParticipations } from "../../MyParticipationsContextProvider";
@@ -54,15 +55,15 @@ const PanelParticipations = () => {
             <AccordionPanel pb={4}>
               <HStack>
                 <VStack spacing="4" mr="8">
-                  <Box w="250px" h="250px">
+                  <Square size='250px'>
                     <Image
                       h="100%"
                       w="100%"
-                      objectFit="contain"
+                      objectFit="cover"
                       src={event.image_url}
                       fallbackSrc="https://via.placeholder.com/150"
                     />
-                  </Box>
+                  </Square>
                   <Link
                     as={ReachLink}
                     to={`/events/${event.id}`}

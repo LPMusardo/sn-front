@@ -12,6 +12,7 @@ import {
   Link,
   HStack,
   Flex,
+  Center,
 } from "@chakra-ui/react";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { RiGroupLine } from "react-icons/ri";
@@ -37,15 +38,20 @@ const SoonEventCard = ({
   date,
 }: SoonEventCardProps) => {
   return (
-    <Card size={"md"}>
+    <Card size={"md"} maxWidth="sm">
       <CardBody>
         <Link as={ReachLink} to={`/events/${id}`}>
-          <Image
-            src={image_url}
-            alt="Green double couch with wooden legs"
-            fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
-            borderRadius="lg"
-          />
+          <Center className="square">
+            <Image
+              className="image"
+              src={image_url}
+              borderRadius="lg"
+              objectFit="cover"
+              fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+              // fallbackSrc="https://via.placeholder.com/150"
+              // fallbackSrc="https://cdn.cdkeys.com/700x700/media/catalog/product/b/a/babylons-fall-pc-game-steam-cover_2_.jpg"
+            />
+          </Center>
         </Link>
         <Stack mt="6" spacing="3">
           <Heading size="md">{name}</Heading>
@@ -71,7 +77,7 @@ const SoonEventCard = ({
       </CardBody>
       <Divider />
       <CardFooter>
-        <Flex  width="100%"  >
+        <Flex width="100%">
           <Link as={ReachLink} to={`/events/${id}`}>
             <Button variant="ghost" colorScheme="purple">
               More details
