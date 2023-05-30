@@ -48,7 +48,7 @@ const PublicUserPage = () => {
 
   return (
     <>
-      <NavBar onSearch={() => {}} />
+      <NavBar />
       <Box margin={5} minH="60vh">
         <Grid templateColumns={{ sm: "1fr", md: "1fr 2fr" }} gap={10}>
           <GridItem overflow={"clip"}>
