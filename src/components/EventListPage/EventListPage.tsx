@@ -30,7 +30,7 @@ export function buildRequestObj(formObj: { [key: string]: any }) {
   for (const key in formObj) {
     if (!formObj[key]) continue;
     if (key.includes("date")) {
-      requestObj[key] = formObj[key].toISOString();
+      requestObj[key] = formObj[key].toISOString().slice(0, 16);
     } else requestObj[key] = formObj[key];
   }
   return requestObj;

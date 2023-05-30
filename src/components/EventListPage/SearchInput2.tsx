@@ -15,8 +15,8 @@ const SearchInput2 = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const onSubmit = (formObj: FormulaireData) => {
-    console.log(buildRequestObj(formObj));
-    fetchEvents(buildRequestObj(formObj));
+    console.log("Submit filters from SEARCHINPUT2", buildRequestObj(formObj));
+    // fetchEvents(buildRequestObj(formObj));
     setSearchParams(buildRequestObj(formObj));
   };
 

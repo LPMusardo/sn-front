@@ -24,7 +24,6 @@ import SearchInput2 from "./SearchInput2";
 const EventListPage = () => {
   // const [search, setSearch] = useContext(SearchContext);
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     // if (eventName == undefined) {
