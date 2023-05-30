@@ -1,71 +1,31 @@
 import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Checkbox,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-  Spinner,
-  FormErrorMessage,
+  Link, Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, Text, useColorModeValue, Spinner, FormErrorMessage, HStack,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../LoginContextProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Link as ReachLink } from "react-router-dom"
+
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "This field has to be filled." })
+    .max(60, { message: "This input is to long" })
+    .regex(new RegExp(/^.*@.*$/), "This is not a valid email."),
+  password: z.string().min(4, { message: "At least 4 characters" }),
+});
+type ValidationSchema = z.infer<typeof schema>;
 
 function Login() {
-
-  const schema = z.object({
-    email: z.string().min(1, { message: "Email is required" }),
-    password: z
-      .string()
-      .min(4, { message: "Password must be at least 4 characters" }),
-  });
-  
-  type ValidationSchema = z.infer<typeof schema>;
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ValidationSchema>({
-    resolver: zodResolver(schema),
-  });
-
-
-  const navigate = useNavigate();
   const [isLogged, isLoading, error, login, logout] = useLogin();
 
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
+  const { register, handleSubmit, formState: { errors },
+
+  } = useForm<ValidationSchema>({
+    resolver: zodResolver(schema),
+    mode: "onChange",
   });
-
-  const onChange = (e: { target: { name: string; value: string } }) => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const onSubmit = (data:any) => {
-    login(credentials);
-
-    // accountService
-    //   .login(credentials)
-    //   .then((res) => {
-    //     accountService.saveToken(res.data.token);
-    //     navigate("/");
-    //   })
-    //   .catch((error) => console.log(error));
-  };
 
   return (
     <Flex
@@ -77,8 +37,11 @@ function Login() {
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Login</Heading>
-          {isLoading && <Spinner/>}
-          {error && <Heading size="md" color="red">{error}</Heading>}
+          {error && (
+            <Heading size="md" color="red">
+              {error}
+            </Heading>
+          )}
         </Stack>
         <Box
           rounded={"lg"}
@@ -87,52 +50,43 @@ function Login() {
           p={8}
         >
           <Stack spacing={4}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit((formData) => login(formData))}>
               <FormControl id="email" isInvalid={errors.email != undefined}>
                 <FormLabel>Email</FormLabel>
-                <Input
-                  {...register("email")}
-                  value={credentials.email}
-                  onChange={onChange}
-                />
+                <Input {...register("email")} />
                 <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
               </FormControl>
-              
-              
 
-              <FormControl id="password" isInvalid={errors.password != undefined}>
+              <FormControl
+                id="password"
+                isInvalid={errors.password != undefined}
+              >
                 <FormLabel>Password</FormLabel>
-                <Input
-                  type="password"
-                  {...register("password")}
-                  value={credentials.password}
-                  onChange={onChange}
-                />
+                <Input type="password" {...register("password")} />
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
-              
-              
 
-              <Stack spacing={10}>
+              <Stack spacing={10} mt="5">
                 <Button
+                  isLoading={isLoading}
                   type="submit"
                   bg={"blue.400"}
                   color={"white"}
-                  _hover={{
-                    bg: "blue.500",
-                  }}
+                  _hover={{ bg: "blue.500" }}
                 >
                   Login
                 </Button>
               </Stack>
-              <Stack pt={6}>
+              <HStack pt={6}>
                 <Text align={"center"}>
                   Not registered ?
-                  <Link style={{ color: "blue" }} to="/signup">
+                </Text>
+                <Box ml="3px">
+                  <Link as={ReachLink} to="/signup" color="#0653CC" >
                     Sign up
                   </Link>
-                </Text>
-              </Stack>
+                </Box>
+              </HStack>
             </form>
           </Stack>
         </Box>
