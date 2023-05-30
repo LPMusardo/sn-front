@@ -6,6 +6,7 @@ import {
   Image,
   Link,
   TabPanel,
+  Square,
 } from "@chakra-ui/react";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { RiGroupLine } from "react-icons/ri";
@@ -23,15 +24,15 @@ const TabInformations = ({ event }: Props) => {
     <TabPanel>
       <HStack>
         <VStack spacing="4" mr="8">
-          <Box w="250px" h="250px">
+          <Square size="250px">
             <Image
               h="100%"
               w="100%"
-              objectFit="contain"
+              objectFit="cover"
               src={event.image_url}
               fallbackSrc="https://via.placeholder.com/150"
             />
-          </Box>
+          </Square>
           <Link as={ReachLink} to={`/events/${event.id}`}>
             <Text color="#2256A0" size="sm">
               See more

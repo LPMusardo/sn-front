@@ -1,5 +1,5 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { FormEvent, useContext, useRef } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SearchContext } from "../../EventListPage/SearchContextProvider";
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
@@ -8,17 +8,21 @@ import { FormulaireData, buildRequestObj } from "../../EventListPage/EventListPa
 
 const SearchInput = () => {
   const [events, error, isLoading, fetchEvents] = useFetchSearch()
-  const [search, setSearch] = useContext(SearchContext);
+  // const [search, setSearch] = useContext(SearchContext);
   const navigate = useNavigate();
 
+  const [event_name, setEvent_name] = useState("");
   
+
+
   const onSubmit = () => {
-    console.log("submit form for search from outside");
-    if(search){
-      fetchEvents({event_name:search});
+    console.log("Submit filters from OUTSIDE");
+    // if(search){
+    if(event_name){
+      // fetchEvents({event_name:search});
       navigate({
         pathname: "/search",
-        search: `?${createSearchParams({ event_name:search})}`,
+        search: `?${createSearchParams({ event_name:event_name})}`,
       });
       return;
     }
@@ -26,8 +30,6 @@ const SearchInput = () => {
     navigate({
       pathname: "/search",
     });
-    // const [searchParams, setSearchParams] = useSearchParams();
-    // setSearchParams({ event_name:search});
   };
 
 
@@ -38,9 +40,11 @@ const SearchInput = () => {
         <InputLeftElement children={<BsSearch />} />
         <Input
           onChange={(e) => {
-            setSearch(e.target.value);
+            // setSearch(e.target.value);
+            setEvent_name(e.target.value);
           }}
-          value={search}
+          // value={search}
+          value={event_name}
           borderRadius={10}
           placeholder="Search events..."
           variant="filled"

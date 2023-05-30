@@ -18,12 +18,10 @@ interface Props {
 
 const SearchContextProvider = ({ children }: Props) => {
   const [search, setSearch] = useState("");
-  // let [searchParams, setSearchParams] = useSearchParams();
 
   function setSearchState(data: string) {
     setSearch(data);
     //console.log("on change pour:", data);
-    //setSearchParams({eventName:data})
   }
 
   return (

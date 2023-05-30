@@ -40,6 +40,7 @@ const FiltersPanel = ({ close }: Props) => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useFormContext<FormulaireData>();
 
@@ -60,13 +61,14 @@ const FiltersPanel = ({ close }: Props) => {
 
 
 
-  //----------------------------- URL change  => Form  change -----------------------------
-  // - changement dans URL => mettre à jour le form && fetch avec nouveaux filtres
+  //----------------------------- URL change  => Form change (et search aussi) -----------------------------
   const location = useLocation();
 
   useEffect(() => {
+    console.log("la location.search change: to", location.search);
     updateFormFromURL()
-    handleSubmit(onSubmit)();
+    handleSubmit( (formObj)=>fetchEvents(buildRequestObj(formObj)) )();
+    // handleSubmit(onSubmit)();
   }, [location.search]);
 
   function getQueryParams() {
@@ -78,34 +80,36 @@ const FiltersPanel = ({ close }: Props) => {
     return params;
   }
 
-  function updateFormFromURL() {
-    // reset();
 
+
+  function updateFormFromURL() {
+    //reset();
 
     let urlParams = getQueryParams();
     // Si event_name est pas dans l'URL demandé alors il doit pas apparaitre dans les input => on l'enlève et si il ets dans l'URL il sera remis juste après
-    setValue("event_name", "");
-    setSearch("")
+    // setValue("event_name", "");
+    // setSearch("")
     console.log("urlParams", urlParams);
     Object.keys(urlParams).forEach((key) => {
       setValue(key as any, urlParams[key]);
-      console.log("set", key, urlParams[key]);
+      console.log("set", key, typeof urlParams[key], urlParams[key]);
     });
+    
+    //Technique afffesue du forum github pour corriger le bug de setValue qui ne fonctionne pas parfois
+    setTimeout(() => {
+      Object.keys(urlParams).forEach((key) => { setValue(key as any, urlParams[key]); });
+    }, 1000);
+
     if (urlParams.event_name) setSearch(urlParams.event_name)
   }
 
 
 
   //----------------------------- OnSubmit -----------------------------
-  // - clg
-  // - fecth new event
-  // - mise à jour param dans URL
   const [events, error, isLoading, fetchEvents] = useFetchSearch()
   const [searchParams, setSearchParams] = useSearchParams();
   const onSubmit = (formObj: FieldValues) => {
-    // const navigate = useNavigate();
-    console.log("submit", buildRequestObj(formObj));
-    fetchEvents(buildRequestObj(formObj));
+    console.log("Submit filters from main", buildRequestObj(formObj));
     setSearchParams(buildRequestObj(formObj));
   };
 
@@ -114,6 +118,10 @@ const FiltersPanel = ({ close }: Props) => {
   //----------------------------- JSX -----------------------------
   return (
     <Card my="2" variant="filled">
+
+    <Button onClick={()=>{setValue("MainCategoryId", "5");  setValue("MainCategoryId", getStringLocalDateTime()); console.log("ICI", new Date(getStringLocalDateTime()));}} >test</Button>
+
+    {/* <div>{getStringLocalDateTime()}</div> */}
       {/* <div>{JSON.stringify(urlParams, null, 2).toString()}</div> */}
       <CardHeader pb="0">
         <HStack>
@@ -223,7 +231,6 @@ const FiltersPanel = ({ close }: Props) => {
                 <FormLabel color={label}>Category</FormLabel>
                 <Select
                   w="225px"
-                  placeholder=""
                   variant="outline"
                   bg={bg}
                   {...register("MainCategoryId")}

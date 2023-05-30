@@ -13,6 +13,7 @@ import {
   Flex,
   HStack,
   Link,
+  Center,
 } from "@chakra-ui/react";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { FiMapPin } from "react-icons/fi";
@@ -29,18 +30,25 @@ interface Props {
 const EventListingCard = ({ event }: Props) => {
   return (
     <Card
-      direction={{ sm: "column", xl: "row" }}
       variant="elevated"
-      maxH={{ sm: "100%", xl: "350" }}
+      w="100%"
+      h="100%"
+      maxW="md"
       size={"md"}
     >
       <Show above="sm">
-        <Image
-          fallbackSrc="https://raw.githubusercontent.com/koehlersimon/fallback/master/Resources/Public/Images/placeholder.jpg"
-          objectFit="cover"
-          maxW={{ sm: "100%", xl: "50%" }}
-          src={event.image_url}
-        />
+        <Box className="square" /*outline={"2px solid green"}*/ overflow="hidden">
+            <Image
+              //outline={"3px solid red"}
+              className="image"
+              src={event.image_url}
+              borderRadius="lg"
+              objectFit="cover"
+              fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+              // fallbackSrc="https://via.placeholder.com/150"
+              // fallbackSrc="https://cdn.cdkeys.com/700x700/media/catalog/product/b/a/babylons-fall-pc-game-steam-cover_2_.jpg"
+            />
+          </Box>
       </Show>
 
       <Stack w="100%">
