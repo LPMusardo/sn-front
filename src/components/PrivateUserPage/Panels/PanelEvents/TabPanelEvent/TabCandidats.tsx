@@ -1,23 +1,7 @@
 import {
   Text,
-  Accordion,
-  AccordionButton,
-  AccordionIcon,
-  AccordionItem,
-  AccordionPanel,
   Box,
-  HStack,
-  VStack,
-  Image,
-  Square,
-  Link,
-  Tabs,
-  Tab,
-  TabList,
   TabPanel,
-  TabPanels,
-  Heading,
-  useColorModeValue,
   Table,
   TableCaption,
   TableContainer,
@@ -31,6 +15,9 @@ import {
   Flex,
   Button,
   IconButton,
+  Badge,
+  Link,
+  HStack,
 } from "@chakra-ui/react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { RiGroupLine } from "react-icons/ri";
@@ -41,21 +28,26 @@ import { AiFillCheckCircle } from "react-icons/ai";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import ValidationBtn from "../../../../shared/ValidationBtn";
 import { useContext } from "react";
-import { Link as ReachLink } from "react-router-dom"
+import { Link as ReachLink } from "react-router-dom";
 import { OrganizedEvent, useMyEvents } from "../../../MyEventsContextProvider";
-
 
 interface Props {
   event: OrganizedEvent;
 }
 
-
 const TabCandidats = ({ event }: Props) => {
-  const [events, isLoading, error, addNote, submitNewEvent, accept, refuse] = useMyEvents()
+  const [events, isLoading, error, addNote, submitNewEvent, accept, refuse] =
+    useMyEvents();
   const candidates = event.candidates;
 
   return (
     <TabPanel>
+      <Badge variant="subtle" colorScheme={event.participants.length===event.participants_number? "red":"yellow" } m="10px" ml="15px" p="4px">
+        <HStack>
+          <RiGroupLine />
+          <Text>{`${event.participants.length} / ${event.participants_number}`}</Text>
+        </HStack>
+      </Badge>
       <TableContainer>
         <Table variant="simple">
           <TableCaption>
@@ -81,7 +73,7 @@ const TabCandidats = ({ event }: Props) => {
                       size="sm"
                     />
                     <Box>
-                    <Link as={ReachLink} to={`/users/${candidat.id}`}>
+                      <Link as={ReachLink} to={`/users/${candidat.id}`}>
                         <Text size="sm">{candidat.username}</Text>
                       </Link>
                     </Box>
@@ -98,6 +90,7 @@ const TabCandidats = ({ event }: Props) => {
                 <Td>
                   <ValidationBtn
                     isLoading={isLoading}
+                    disabled={event.participants.length===event.participants_number}
                     colorScheme="green"
                     modalBtnValidateTxt="Accept"
                     modalBtnCancelTxt={"Cancel"}
@@ -105,7 +98,7 @@ const TabCandidats = ({ event }: Props) => {
                       "Accept the candidate " + candidat.username + " ?"
                     }
                     modalTxt="This action is irreversible"
-                    onValidate={()=>accept(event.id, candidat.id)}
+                    onValidate={() => accept(event.id, candidat.id)}
                     successToast={{
                       title: candidat.username + " accepted",
                       description: "bli bla blu",
@@ -120,7 +113,7 @@ const TabCandidats = ({ event }: Props) => {
                       duration: 3000,
                       isClosable: true,
                     }}
-                    onFinal={async function (){}}
+                    onFinal={async function () {}}
                   >
                     <Text>Accept</Text>
                   </ValidationBtn>
@@ -135,7 +128,7 @@ const TabCandidats = ({ event }: Props) => {
                       "Reject the candidate " + candidat.username + " ?"
                     }
                     modalTxt="This action is irreversible"
-                    onValidate={()=>refuse(event.id, candidat.id)}
+                    onValidate={() => refuse(event.id, candidat.id)}
                     successToast={{
                       title: candidat.username + " rejected",
                       description: "bli bla blu",

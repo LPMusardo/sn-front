@@ -1,8 +1,10 @@
 import {
   Avatar,
+  Badge,
   Box,
   Button,
   Flex,
+  HStack,
   Link,
   TabPanel,
   Table,
@@ -13,13 +15,14 @@ import {
   Text,
   Th,
   Thead,
-  Tr
+  Tr,
 } from "@chakra-ui/react";
 import { Link as ReachLink } from "react-router-dom";
 import Rating from "../../../../shared/Rating";
 import AddNote from "../../../../shared/AddNote";
 import { OrganizedEvent } from "../../../MyEventsContextProvider";
 import AddNoteAsOrganizer from "../AddNoteAsOrganizer";
+import { RiGroupLine } from "react-icons/ri";
 
 interface Props {
   event: OrganizedEvent;
@@ -31,6 +34,12 @@ const TabParticipants = ({ event }: Props) => {
 
   return (
     <TabPanel>
+      <Badge variant="subtle" colorScheme={event.participants.length===event.participants_number? "red":"yellow" } m="10px" ml="15px" p="4px">
+        <HStack>
+          <RiGroupLine />
+          <Text>{`${event.participants.length} / ${event.participants_number}`}</Text>
+        </HStack>
+      </Badge>
       <TableContainer>
         <Table variant="simple">
           <TableCaption>
