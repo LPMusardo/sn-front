@@ -1,4 +1,4 @@
-import { Box, GridItem,  SimpleGrid } from "@chakra-ui/react";
+import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
 import EventDetailsPanel from "./EventDetailsPanel";
 import EventImagePanel from "./EventImagePanel";
 import Footer from "../shared/Footer";
@@ -7,24 +7,48 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { IEventData } from "../../models/IEventData";
 import { useAxiosFetch } from "../../services/useAxiosFetch";
+import { useLogin } from "../LoginContextProvider";
 
 const EventPage = () => {
   const { id } = useParams();
 
   const [events, setEvents] = useState<IEventData>();
 
+  const [relationShip, setRelationShip] = useState<string>();
+
+  const table = useLogin();
+  const userData = table[5]();
+
+
   const [data, error, loading] = useAxiosFetch({
     method: "GET",
-    url: "/events?eventId=" + id + "&include_notes=true&include_organizer=true"
+    url: "/events?eventId=" + id + "&include_notes=true&include_organizer=true",
   });
+
+  const [dataRelationShip] = useAxiosFetch({
+    method: "GET",
+    url:
+      "/events/event_relationship?eventId=" +
+      id + "&userId=" + userData?.id,
+  });
+
+  useEffect(() => {
+    console.log("retrieving relationship...");
+
+    if (dataRelationShip) {
+      console.log("retrieving relationship...");
+      setRelationShip(dataRelationShip.events.value);
+      console.log(dataRelationShip.events.value);
+    } else {
+      setRelationShip("");
+    }
+  }, [dataRelationShip]);
 
   useEffect(() => {
     if (data) {
       console.log("retrieving events...");
-      setEvents(data.events
-        );
-      console.log(data.events
-        );
+      setEvents(data.events);
+      console.log(data.events);
     } else {
       setEvents("{}" as any as IEventData);
     }
@@ -42,10 +66,9 @@ const EventPage = () => {
     }
   }, [loading]);
 
-
   return (
     <>
-      <NavBar onSearch={() => {}} />
+      <NavBar />
       <Box minH="70vh">
         <SimpleGrid
           gridAutoRows="1fr"
@@ -57,32 +80,31 @@ const EventPage = () => {
           }}
         >
           <GridItem>
-            <EventDetailsPanel key={id} 
-            id={id ?? ""}
-            name={events?.name ?? ""}
-            category={events?.category ?? ""}
-            description={events?.description ?? ""}
-            image_url={events?.image_url ?? ""}
-            participants_number={events?.participants_number ?? ""}
-            date={events?.date ?? ""}
-            street={events?.Address?.street ?? ""}
-            city={events?.Address?.city ?? ""}
-            country={events?.Address?.country ?? ""}
-            zip={events?.Address?.zip ?? ""}
-            MainCategoryName={events?.MainCategory?.name ?? ""}
-            MainCategoryId={events?.MainCategory?.id ?? ""}
-            organizerId={events?.organizer?.id ?? ""}
-            organizerUsername={events?.organizer?.username ?? ""}
-            score_avg={events?.score_avg?.score_avg ?? ""}
-            nb_places_taken={events?.participants?.[0]?.nb_places_taken ?? ""}
-
-
-
+            <EventDetailsPanel
+              key={id}
+              id={id ?? ""}
+              name={events?.name ?? ""}
+              category={events?.category ?? ""}
+              description={events?.description ?? ""}
+              image_url={events?.image_url ?? ""}
+              participants_number={events?.participants_number ?? ""}
+              date={events?.date ?? ""}
+              street={events?.Address?.street ?? ""}
+              city={events?.Address?.city ?? ""}
+              country={events?.Address?.country ?? ""}
+              zip={events?.Address?.zip ?? ""}
+              MainCategoryName={events?.MainCategory?.name ?? ""}
+              MainCategoryId={events?.MainCategory?.id ?? ""}
+              organizerId={events?.organizer?.id ?? ""}
+              organizerUsername={events?.organizer?.username ?? ""}
+              score_avg={events?.score_avg?.score_avg ?? ""}
+              nb_places_taken={events?.participants?.[0]?.nb_places_taken ?? ""}
+              relationShip={relationShip ?? ""}
+              setRelationShip={setRelationShip}
             />
           </GridItem>
           <GridItem>
-            <EventImagePanel key={id} 
-            image_url={events?.image_url ?? ""}/>
+            <EventImagePanel key={id} image_url={events?.image_url ?? ""} />
           </GridItem>
         </SimpleGrid>
       </Box>
