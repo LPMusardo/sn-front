@@ -12,6 +12,7 @@ import {
   Divider,
   Flex,
   Badge,
+  Button,
 } from "@chakra-ui/react";
 import Rating from "../shared/Rating";
 import { FaMapMarkerAlt } from "react-icons/fa";
@@ -20,6 +21,8 @@ import { Link } from "react-router-dom";
 import { BsCalendarEvent, BsClock } from "react-icons/bs";
 import { BiCategoryAlt } from "react-icons/bi";
 import { RiGroupLine } from "react-icons/ri";
+import { GiCancel } from "react-icons/gi";
+import { AiFillCheckCircle, AiFillEdit } from "react-icons/ai";
 
 interface IEventDetailsProps {
   id: string;
@@ -39,10 +42,83 @@ interface IEventDetailsProps {
   organizerUsername: string;
   score_avg: string;
   nb_places_taken: string;
+  relationShip: string;
+  setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
+import axios from "axios";
+
+async function cancelParticipation(
+  id: string,
+  setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
+): Promise<void> {
+  try {
+    await axios
+      .request({
+        method: "POST",
+        url: "/events/" + id + "/unparticipate",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setRelationShip("not related");
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function cancelApplication(
+  id: string,
+  setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
+):  Promise<void> {
+  try {
+    await axios
+      .request({
+        method: "POST",
+        url: "/events/" + id + "/unapply",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setRelationShip("not related");
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function apply(
+  id: string,
+  setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
+): Promise<void> {
+  try {
+    await axios
+      .request({
+        method: "POST",
+        url: "/events/" + id + "/apply",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setRelationShip("candidate");
+      });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 const EventDetailsPanel = ({
-  //id,
+  id,
   name,
   category,
   description,
@@ -59,8 +135,11 @@ const EventDetailsPanel = ({
   organizerUsername,
   score_avg,
   nb_places_taken,
+  relationShip,
+  setRelationShip,
 }: IEventDetailsProps) => {
   console.log("score_avg", typeof score_avg);
+
   return (
     <>
       <Card variant="outline" height={"full"}>
@@ -103,7 +182,7 @@ const EventDetailsPanel = ({
                   <RiGroupLine />
                   <Text as="b" pt="2" fontSize="sm">
                     {/* if nb_places_taken undefined set it to 0 */}
-                    {nb_places_taken === "" ? 0 : nb_places_taken} /{" "}
+                    {nb_places_taken == "" ? 0 : nb_places_taken} /{" "}
                     {participants_number}
                   </Text>
                 </HStack>
@@ -161,7 +240,49 @@ const EventDetailsPanel = ({
         </CardBody>
 
         <CardFooter>
-          <ButtonGroup spacing="2"></ButtonGroup>
+          <ButtonGroup spacing="2">
+            {relationShip === "event owner" ? (
+              <Link to={`/profile/2`}>
+                <Button
+                  colorScheme="yellow"
+                  variant="outline"
+                  leftIcon={<AiFillEdit />}
+                >
+                  edit
+                </Button>
+              </Link>
+            ) : relationShip === "participant" ? (
+              <Button
+                //isLoading={isLoading}
+                colorScheme="red"
+                variant="outline"
+                leftIcon={<GiCancel />}
+                onClick={() => cancelParticipation(id, setRelationShip)}
+              >
+                unparticipate
+              </Button>
+            ) : relationShip === "candidate" ? (
+              <Button
+                //isLoading={isLoading}
+                colorScheme="red"
+                variant="outline"
+                leftIcon={<GiCancel />}
+                onClick={() => cancelApplication(id, setRelationShip)}
+              >
+                unapply
+              </Button>
+            ) : relationShip === "not related" ? (
+              <Button
+                //isLoading={isLoading}
+                colorScheme="green"
+                variant="outline"
+                leftIcon={<AiFillCheckCircle />}
+                onClick={() => apply(id, setRelationShip)}
+              >
+                apply
+              </Button>
+            ) : null}
+          </ButtonGroup>
         </CardFooter>
       </Card>
     </>
