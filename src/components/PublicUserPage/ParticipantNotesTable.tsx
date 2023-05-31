@@ -31,14 +31,14 @@ function ParticipantNotesTable( {user}: OrganizerNotesTableProps) {
         </TableCaption>
         <Thead>
           <Tr>
-            {headers.map((headers) => (
-              <Th>{headers}</Th>
+            {headers.map((header) => (
+              <Th key={header} >{header}</Th>
             ))}
           </Tr>
         </Thead>
         <Tbody>
           {user.receivedNotes?.filter(note => note.type == "1").map((note) => (
-            <Tr>
+            <Tr key={note.id} >
               <Td>
                 <Rating score={parseInt(note.value,10)} total={5} spacing={1} />
               </Td>
