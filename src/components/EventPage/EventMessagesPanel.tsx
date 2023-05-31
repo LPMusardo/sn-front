@@ -1,4 +1,16 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Flex, Input, Text } from "@chakra-ui/react";
+import {
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Avatar,
+  Box,
+  Flex,
+  Input,
+  Link,
+  Text,
+} from "@chakra-ui/react";
 import { IMessage } from "../../models/IMessage";
 import {
   Dispatch,
@@ -9,7 +21,8 @@ import {
 } from "react";
 import Axios from "../../services/caller.service";
 import { useLogin } from "../LoginContextProvider";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
+import { Link as ReachLink } from "react-router-dom"
 import axios from "axios";
 
 interface IChatProps {
@@ -18,6 +31,7 @@ interface IChatProps {
 }
 
 const Chat = ({ messages }: IChatProps) => {
+
   const ref = useRef<HTMLDivElement>(null);
   const table = useLogin();
   const userData = table[5]();
@@ -68,21 +82,30 @@ const Chat = ({ messages }: IChatProps) => {
               <Box
                 maxH={"500px"}
                 overflowY={"scroll"}
-                boxShadow="md"
                 borderRadius="md"
                 ref={ref}
               >
                 {messages.map((message) => (
-                  <Flex key={message.id} alignItems="center" marginBottom={4}>
-                    <Avatar
-                      src={message.owner.image_url}
-                      boxSize={12}
-                      borderRadius="full"
-                      marginRight={4}
-                    />
+                  <Flex my="2px" alignContent="space-between" w="100%">
+                    <Flex  key={message.id} w="100%"  marginBottom={4}>
+
+                      <Avatar
+                        name={message.owner.username}
+                        src={message.owner.image_url}
+                        boxSize={12}
+                        borderRadius="full"
+                        marginX={4}
+                        />
+                      <Box>
+                      <Link as={ReachLink} to={`/users/${message.userId}`}>
+                        <Text fontWeight="bold">{message.owner.username}</Text>
+                        </Link>
+                      
+                        <Text>{message.content}</Text>
+                      </Box>
+                    </Flex>
                     <Box>
-                      <Text fontWeight="bold">{message.owner.username}</Text>
-                      <Text>{message.content}</Text>
+                      <Text whiteSpace="nowrap" color="gray.500" marginRight="5" >{new Date(message.creationDate).toLocaleString()}</Text>
                     </Box>
                   </Flex>
                 ))}

@@ -52,6 +52,7 @@ async function cancelParticipation(
   id: string,
   setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
 ): Promise<void> {
+  
   try {
     await axios
       .request({
@@ -225,7 +226,7 @@ const EventDetailsPanel = ({
                 >
                   {street}, {city}, {country}, {zip}
                 </Text>
-              </HStack>
+              </HStack>              
             </Box>
             <Divider />
             <Box>

@@ -40,12 +40,14 @@ const ProfileButton = () => {
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Help">
+          <Link>
+            <MenuItem onClick={() => navigate("/Q&A")}>Q&A</MenuItem>
+          </Link>
           <MenuItem>
             <Link href="https://app.swaggerhub.com/apis-docs/MAXIMEGUILIANI_2/Social_network_API/1.0.0" isExternal>
              Docs <ExternalLinkIcon mx="2px" />
             </Link>
           </MenuItem>
-          <MenuItem>FAQ</MenuItem>
         </MenuGroup>
       </MenuList>
     </Menu>
