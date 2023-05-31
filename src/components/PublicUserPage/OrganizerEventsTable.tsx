@@ -42,27 +42,27 @@ function OrganizerEventsTable({ user }: OrganizerEventsTableProps) {
         <TableCaption>Events organized by {user?.username}</TableCaption>
         <Thead>
           <Tr>
-            {headers.map((headers) => (
-              <Th>{headers}</Th>
+            {headers.map((header) => (
+              <Th key={header} >{header}</Th>
             ))}
           </Tr>
         </Thead>
         <Tbody>
-          {user?.organizedEvents?.map((events) => (
-            <Tr>
+          {user?.organizedEvents?.map((event) => (
+            <Tr key={event.id}>
               <Td>
                 <Rating
-                  score={calculateAverageScore(events.id, user) ?? ""}
+                  score={calculateAverageScore(event.id, user) ?? ""}
                   total={5}
                   spacing={1}
                 />
               </Td>
               <Td>
-                <Link style={{ color: "#B195EE" }} to={"/events/" + events.id}>{events?.name}</Link>
+                <Link style={{ color: "#B195EE" }} to={"/events/" + event.id}>{event?.name}</Link>
               </Td>
-              <Td>{new Date(events?.date).toLocaleDateString() ?? ""}</Td>
+              <Td>{new Date(event?.date).toLocaleDateString() ?? ""}</Td>
             </Tr>
-          )) ?? "No events organized"}
+          )) }
         </Tbody>
         {/* <Tfoot>
           <Tr>
