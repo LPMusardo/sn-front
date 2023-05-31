@@ -118,11 +118,6 @@ const FiltersPanel = ({ close }: Props) => {
   //----------------------------- JSX -----------------------------
   return (
     <Card my="2" variant="filled">
-
-    <Button onClick={()=>{setValue("MainCategoryId", "5");  setValue("MainCategoryId", getStringLocalDateTime()); console.log("ICI", new Date(getStringLocalDateTime()));}} >test</Button>
-
-    {/* <div>{getStringLocalDateTime()}</div> */}
-      {/* <div>{JSON.stringify(urlParams, null, 2).toString()}</div> */}
       <CardHeader pb="0">
         <HStack>
           <CloseButton size="sm" onClick={close} />
