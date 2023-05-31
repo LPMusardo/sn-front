@@ -1,10 +1,10 @@
 import axios from "axios";
 import { tokenService } from "../services/token.service";
-import { useNavigate } from "react-router-dom";
-import { ReactElement } from "react";
-const Axios = axios.create({
-  baseURL: "http://localhost:3000",
-});
+
+const baseURL = "http://localhost:3000";
+
+export const AxiosPure = axios.create({baseURL});
+const Axios = axios.create({baseURL});
 
 Axios.interceptors.request.use((request) => {
   if (tokenService.getToken) {
@@ -13,6 +13,33 @@ Axios.interceptors.request.use((request) => {
   return request;
 });
 
+
+// Axios.interceptors.response.use(
+//   (response) => { 
+//     return response
+//   },
+//   (error) => {
+//     console.log("AXIOS ERROR INTERCEPT---->", error);
+//     if(!error || !error.response || ! error.response.status) return;
+      
+
+//       const user = getUserData();
+//       console.log("DECODE TOKEN", user);
+//       if(false){
+//         tokenService.removeToken();
+//         window.location.href = "/login";
+//       }
+
+//     return Promise.reject(error);
+//   }
+// );
+
+// function getUserData() {
+//   let user = null
+//   let token = tokenService.getToken();
+//   if(token) user = jwt_decode<{[key:string]:string}>(token)
+//   return user;
+// }
 
 Axios.interceptors.response.use(
   (response) => { 
@@ -31,12 +58,5 @@ Axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-
-// const API = ({ children }:{children:ReactElement}) => {
-//   return <>{children}</>;
-// };
-// export {API};
-
 
 export default Axios;
