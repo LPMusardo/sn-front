@@ -2,7 +2,7 @@ import EventListPageContent from "./EventListPageContent";
 import { useForm, FormProvider, useFormContext } from "react-hook-form";
 import { number, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FetchSearchContextProvider from "./FetchSearchContextProvider";
+import SearchContextProvider from "./SearchContextProvider";
 
 
 const schema = z.object({
@@ -20,7 +20,7 @@ const schema = z.object({
   zip: z.string().max(10),
   username: z.string().max(30),
   nb_places_wanted: z.coerce.number().min(0),
-  score_host_min:  z.coerce.number().min(0).max(5),
+  score_host_min: z.coerce.number().min(0).max(5),
 });
 
 export type FormulaireData = z.infer<typeof schema>;
@@ -43,10 +43,11 @@ const EventListPage = () => {
   });
 
   return (
-
+    <SearchContextProvider>
       <FormProvider<FormulaireData> {...methods}>
         <EventListPageContent />
       </FormProvider>
+    </SearchContextProvider>
 
   );
 };

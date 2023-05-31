@@ -1,14 +1,11 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { FormEvent, useContext, useRef, useState } from "react";
+import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { SearchContext } from "../../EventListPage/SearchContextProvider";
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useFetchSearch} from "../../EventListPage/FetchSearchContextProvider";
-import { FormulaireData, buildRequestObj } from "../../EventListPage/EventListPage"
 
 const SearchInput = () => {
   const [events, error, isLoading, fetchEvents] = useFetchSearch()
-  // const [search, setSearch] = useContext(SearchContext);
   const navigate = useNavigate();
 
   const [event_name, setEvent_name] = useState("");
