@@ -15,22 +15,21 @@ import {
   Button,
   Square,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
 import { useMyApplications } from "../../MyApplicationsContextProvider";
 import { BiCategoryAlt } from "react-icons/bi";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { FiMapPin } from "react-icons/fi";
-import { RiGroupLine } from "react-icons/ri";
-import ValidationBtn from "../../../shared/ValidationBtn";
 import { useLogin } from "../../../LoginContextProvider";
 import { GiCancel } from "react-icons/gi";
 import { Link as ReachLink } from "react-router-dom";
+import Filling from "../../../shared/Filling";
 
 const PanelApplications = () => {
   const [events, isLoading, error, cancelApplication] = useMyApplications();
   const [isLogged, isl, e, login, logout, getUserData] = useLogin();
   const userData = getUserData();
-
+  const color = useColorModeValue("gray.300", "gray.600");
+  
   return (
     <>
       <Accordion defaultIndex={[0]} allowMultiple>
@@ -39,7 +38,7 @@ const PanelApplications = () => {
             key={event.id}
             my="2"
             mx="4"
-            borderColor={useColorModeValue("gray.300", "gray.600")}
+            borderColor={color}
             borderWidth="1px"
           >
             <Heading size="md" color="red">
@@ -76,10 +75,7 @@ const PanelApplications = () => {
                     <BsCalendarEvent />
                     <Text>{new Date(event.creation_date).toDateString()}</Text>
                   </HStack>
-                  <HStack>
-                    <RiGroupLine />
-                    <Text>?/{event.participants_number}</Text>
-                  </HStack>
+                  <Filling event={event}/>
                   <HStack>
                     <Box w="min-content">
                       <FiMapPin />
@@ -114,7 +110,7 @@ const PanelApplications = () => {
                     colorScheme="red"
                     variant="outline"
                     leftIcon={<GiCancel />}
-                    onClick={() => cancelApplication(event.id)}
+                    onClick={() => c=ancelApplication(event.id)}
                   >
                     Cancel
                   </Button>
