@@ -17,7 +17,7 @@ const Rating = ({ score, total, color, size, spacing }: Props) => {
   function starList() {
     const components: JSX.Element[] = [];
     if(score ==-1) {
-      components.push(<p>No notes yet!</p>);
+      components.push(<p key={42}>No notes yet!</p>);
       return components;
     }
     
