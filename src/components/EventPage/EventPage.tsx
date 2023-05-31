@@ -18,7 +18,7 @@ const EventPage = () => {
   const [events, setEvents] = useState<IEventData>();
 
   const [messages, setMessages] = useState<IMessage[]>([]);
-
+  
 
   const [relationShip, setRelationShip] = useState<string>();
 
@@ -46,13 +46,12 @@ const EventPage = () => {
     const intervalId = setInterval(async () => {
       const { data } = await axios.get(`/messages/${id}`);
       setMessages(data.messages);
-    }, 5000);
+    }, 100);
     return () => clearInterval(intervalId);
   }, [id]);
   
   useEffect(() => {
     console.log("retrieving relationship...");
-
     if (dataRelationShip) {
       console.log("retrieving relationship...");
       setRelationShip(dataRelationShip.events.value);
@@ -76,7 +75,6 @@ const EventPage = () => {
     if (dataMessage) {
       console.log("retrieving messages...");
       setMessages(dataMessage.messages);
-      console.log(dataMessage.messages);
     } else {
       console.log("no messages");
     }
@@ -135,7 +133,7 @@ const EventPage = () => {
             <EventImagePanel key={"image"} image_url={events?.image_url ?? ""} />
           </GridItem>
         </SimpleGrid>
-        <Chat key={"chat"} messages={messages}  id={id ?? ""} />
+        <Chat key={"chat"} messages={messages}  id={id ?? ""}  />
       </Box>
       <Box marginTop={100}>
         <Footer />
