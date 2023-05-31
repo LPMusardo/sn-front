@@ -98,7 +98,7 @@ const FiltersPanel = ({ close }: Props) => {
     //Technique afffesue du forum github pour corriger le bug de setValue qui ne fonctionne pas parfois
     setTimeout(() => {
       Object.keys(urlParams).forEach((key) => { setValue(key as any, urlParams[key]); });
-    }, 1000);
+    }, 2000);
 
     if (urlParams.event_name) setSearch(urlParams.event_name)
   }

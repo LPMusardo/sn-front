@@ -39,7 +39,7 @@ const ResultList = () => {
           description: error,
           status: 'error',
           isClosable: true,
-          duration: 1000,
+          duration: 2000,
         });
       }
     }, [error])

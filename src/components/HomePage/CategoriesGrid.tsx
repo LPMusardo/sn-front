@@ -61,7 +61,7 @@ const CategoriesGrid: React.FC = () => {
         description: error,
         status: 'error',
         isClosable: true,
-        duration: 3000,
+        duration: 2000,
       });
     }
   }, [error])
