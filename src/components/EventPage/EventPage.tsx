@@ -10,7 +10,7 @@ import { useAxiosFetch } from "../../services/useAxiosFetch";
 import { useLogin } from "../LoginContextProvider";
 import Chat from "./EventMessagesPanel";
 import { IMessage } from "../../models/IMessage";
-import axios from "axios";
+import Axios from "../../services/caller.service";
 
 const EventPage = () => {
   const { id } = useParams();
@@ -44,7 +44,7 @@ const EventPage = () => {
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
-      const { data } = await axios.get(`/messages/${id}`);
+      const { data } = await Axios.get(`/messages/${id}`);
       setMessages(data.messages);
     }, 100);
     return () => clearInterval(intervalId);

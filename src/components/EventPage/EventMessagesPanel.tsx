@@ -23,7 +23,7 @@ import Axios from "../../services/caller.service";
 import { useLogin } from "../LoginContextProvider";
 import {  useParams } from "react-router-dom";
 import { Link as ReachLink } from "react-router-dom"
-import axios from "axios";
+
 
 interface IChatProps {
   messages: IMessage[];
