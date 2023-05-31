@@ -14,6 +14,7 @@ import {
   Image,
   Button,
   Square,
+  useToast,
 } from "@chakra-ui/react";
 import { useMyApplications } from "../../MyApplicationsContextProvider";
 import { BiCategoryAlt } from "react-icons/bi";
@@ -23,13 +24,39 @@ import { useLogin } from "../../../LoginContextProvider";
 import { GiCancel } from "react-icons/gi";
 import { Link as ReachLink } from "react-router-dom";
 import Filling from "../../../shared/Filling";
+import { useEffect } from "react";
 
 const PanelApplications = () => {
   const [events, isLoading, error, cancelApplication] = useMyApplications();
-  const [isLogged, isl, e, login, logout, getUserData] = useLogin();
+  const [isLogged, isl, errorLogin, login, logout, getUserData] = useLogin();
   const userData = getUserData();
   const color = useColorModeValue("gray.300", "gray.600");
   
+  //----------------------------- Error Toast -----------------------------
+  const toast = useToast()
+  useEffect(() => {
+    if (errorLogin) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: errorLogin,
+        status: 'error',
+        isClosable: true,
+        duration: 3000,
+      });
+    }
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 3000,
+      });
+    }
+  }, [error, errorLogin])
+
   return (
     <>
       <Accordion defaultIndex={[0]} allowMultiple>
@@ -41,9 +68,9 @@ const PanelApplications = () => {
             borderColor={color}
             borderWidth="1px"
           >
-            <Heading size="md" color="red">
+            {/* <Heading size="md" color="red">
               {error}
-            </Heading>
+            </Heading> */}
             <h2>
               <AccordionButton>
                 <Heading size="md">{event.name}</Heading>
@@ -110,7 +137,7 @@ const PanelApplications = () => {
                     colorScheme="red"
                     variant="outline"
                     leftIcon={<GiCancel />}
-                    onClick={() => c=ancelApplication(event.id)}
+                    onClick={() => cancelApplication(event.id)}
                   >
                     Cancel
                   </Button>

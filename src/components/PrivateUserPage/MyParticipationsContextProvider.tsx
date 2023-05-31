@@ -76,6 +76,7 @@ const MyParticipationsContextProvider = ({ children }: Props) => {
 
 
   const fetchData = (controller: AbortController, idUser:number) => {
+    setError("");
     setLoading(true);
     return Axios.get<Response>(`/users`, {
       signal: controller.signal,
@@ -111,6 +112,7 @@ const MyParticipationsContextProvider = ({ children }: Props) => {
   
   
     const cancelParticipation = (eventId:number) => {
+      setError("");
       const user = getUserData();
       if(!user) return
       setLoading(true);
@@ -131,6 +133,7 @@ const MyParticipationsContextProvider = ({ children }: Props) => {
   
 
     function addNote(note:NoteInterParticipation){
+      setError("");
       const user = getUserData();
       if(!user) {
         setError("problem with token, try to log-in again")

@@ -24,6 +24,7 @@ const LoginContextProvider = ({children}: {children:JSX.Element} ) => {
 
   function login(credentials: {email: string;password: string;}) {
     setLoading(true);
+    setError("")
     AxiosPure.post("/users/login", credentials)
       .then((res) => {
         setError("")

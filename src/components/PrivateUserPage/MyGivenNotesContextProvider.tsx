@@ -68,6 +68,7 @@ const MyGivenNotesContextProvider = ({ children }: Props) => {
   const [isLogged, isL, e, login, logout, getUserData] = useLogin();
 
   const fetchData = (controller: AbortController, idUser: number) => {
+    setError("");
     setLoading(true);
     Axios.get<Response>(`/users`, {
       signal: controller.signal,

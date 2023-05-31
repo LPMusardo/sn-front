@@ -14,8 +14,9 @@ import {
   Image,
   Button,
   Square,
+  useToast,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useMyParticipations } from "../../MyParticipationsContextProvider";
 import { BiCategoryAlt } from "react-icons/bi";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
@@ -33,6 +34,22 @@ const PanelParticipations = () => {
   const [isLogged, isl, e, login, logout, getUserData] = useLogin();
   const userData = getUserData();
   const color = useColorModeValue("gray.300", "gray.600");
+
+
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 3000,
+        });
+      }
+    }, [error])
 
   return (
     <>

@@ -1,7 +1,7 @@
 import {
-  Link, Flex, Box, FormControl, FormLabel, Input, InputGroup, InputRightElement, Stack, Button, Heading, Text, useColorModeValue, FormErrorMessage, HStack,
+  Link, Flex, Box, FormControl, FormLabel, Input, InputGroup, InputRightElement, Stack, Button, Heading, Text, useColorModeValue, FormErrorMessage, HStack,useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 //import React from 'react';
@@ -53,17 +53,23 @@ function Register() {
     resolver: zodResolver(schema), mode: "onChange", shouldFocusError: false,
   });
 
-
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // const [credentials, setCredentials] = useState({
-  //   email: "",
-  //   username: "",
-  //   password: "",
-  // });
-
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 1000,
+      });
+    }
+  }, [error])
 
 
   const onSubmit = async (formData: ValidationSchema) => {
@@ -97,7 +103,7 @@ function Register() {
             to participate in events ✌️
           </Text>
         </Stack>
-        <Heading size="md" color="red">{error}</Heading>
+        {/* <Heading size="md" color="red">{error}</Heading> */}
         <form
           onSubmit={handleSubmit(onSubmit)}
           onChange={handleSubmit(() => console.log("refresh form"))}
