@@ -11,7 +11,7 @@ export const SoonGrid = () => {
 
   const [data, error, loading] = useAxiosFetch({
     method: "GET",
-    url: "/xxevents/upcoming",
+    url: "/events/upcoming",
   });
 
   useEffect(() => {
