@@ -8,30 +8,48 @@ import { useEffect, useState } from "react";
 import { IEventData } from "../../models/IEventData";
 import { useAxiosFetch } from "../../services/useAxiosFetch";
 import { useLogin } from "../LoginContextProvider";
+import Chat from "./EventMessagesPanel";
+import { IMessage } from "../../models/IMessage";
+import axios from "axios";
 
 const EventPage = () => {
   const { id } = useParams();
 
   const [events, setEvents] = useState<IEventData>();
 
+  const [messages, setMessages] = useState<IMessage[]>([]);
+
+
   const [relationShip, setRelationShip] = useState<string>();
 
   const table = useLogin();
   const userData = table[5]();
-
 
   const [data, error, loading] = useAxiosFetch({
     method: "GET",
     url: "/events?eventId=" + id + "&include_notes=true&include_organizer=true",
   });
 
+
+
   const [dataRelationShip] = useAxiosFetch({
     method: "GET",
-    url:
-      "/events/event_relationship?eventId=" +
-      id + "&userId=" + userData?.id,
+    url: "/events/event_relationship?eventId=" + id + "&userId=" + userData?.id,
   });
 
+  const [dataMessage] = useAxiosFetch({
+    method: "GET",
+    url: "/messages/" + id,
+  });
+
+  useEffect(() => {
+    const intervalId = setInterval(async () => {
+      const { data } = await axios.get(`/messages/${id}`);
+      setMessages(data.messages);
+    }, 5000);
+    return () => clearInterval(intervalId);
+  }, [id]);
+  
   useEffect(() => {
     console.log("retrieving relationship...");
 
@@ -53,6 +71,16 @@ const EventPage = () => {
       setEvents("{}" as any as IEventData);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (dataMessage) {
+      console.log("retrieving messages...");
+      setMessages(dataMessage.messages);
+      console.log(dataMessage.messages);
+    } else {
+      console.log("no messages");
+    }
+  }, [dataMessage]);
 
   useEffect(() => {
     if (error) {
@@ -81,7 +109,7 @@ const EventPage = () => {
         >
           <GridItem>
             <EventDetailsPanel
-              key={id}
+              key={"details"}
               id={id ?? ""}
               name={events?.name ?? ""}
               category={events?.category ?? ""}
@@ -104,9 +132,10 @@ const EventPage = () => {
             />
           </GridItem>
           <GridItem>
-            <EventImagePanel key={id} image_url={events?.image_url ?? ""} />
+            <EventImagePanel key={"image"} image_url={events?.image_url ?? ""} />
           </GridItem>
         </SimpleGrid>
+        <Chat key={"chat"} messages={messages}  id={id ?? ""} />
       </Box>
       <Box marginTop={100}>
         <Footer />
