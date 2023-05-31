@@ -2,6 +2,9 @@ import axios from "axios";
 import { tokenService } from "../services/token.service";
 import { useNavigate } from "react-router-dom";
 import { ReactElement } from "react";
+export const AxiosPure = axios.create({
+  baseURL: "http://localhost:3000",
+});
 const Axios = axios.create({
   baseURL: "http://localhost:3000",
 });
