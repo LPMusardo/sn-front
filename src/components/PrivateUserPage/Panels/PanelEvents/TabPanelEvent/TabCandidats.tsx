@@ -30,6 +30,7 @@ import ValidationBtn from "../../../../shared/ValidationBtn";
 import { useContext } from "react";
 import { Link as ReachLink } from "react-router-dom";
 import { OrganizedEvent, useMyEvents } from "../../../MyEventsContextProvider";
+import ScoreCandidat from "./ScoreCandidat";
 
 interface Props {
   event: OrganizedEvent;
@@ -80,7 +81,7 @@ const TabCandidats = ({ event }: Props) => {
                   </Flex>
                 </Td>
                 <Td>
-                  <Rating score={0} total={5} spacing={0.5} /> ?
+                  <ScoreCandidat userId={candidat.id}/>
                 </Td>
                 <Td>
                   <Text whiteSpace="normal" maxW="lg">
