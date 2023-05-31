@@ -1,4 +1,4 @@
-import { Accordion, Avatar, Box, Flex, Input, Text } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, Box, Flex, Input, Text } from "@chakra-ui/react";
 import { IMessage } from "../../models/IMessage";
 import {
   Dispatch,
@@ -53,40 +53,51 @@ const Chat = ({ messages }: IChatProps) => {
 
   return (
     <>
-      <Box boxShadow="md" borderRadius="md" padding={4} mx={10}>
-        <Text fontSize="2xl" fontWeight="bold" textAlign="center" marginTop={4}>
-          Chat
-        </Text>
-        <Box
-          maxH={"500px"}
-          overflowY={"scroll"}
-          boxShadow="md"
-          borderRadius="md"
-          ref={ref}
-        >
-          {messages.map((message) => (
-            <Flex key={message.id} alignItems="center" marginBottom={4}>
-              <Avatar
-                src={message.owner.image_url}
-                boxSize={12}
-                borderRadius="full"
-                marginRight={4}
-              />
-              <Box>
-                <Text fontWeight="bold">{message.owner.username}</Text>
-                <Text>{message.content}</Text>
+      <Accordion allowToggle mx={10}>
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box as="span" flex="1" textAlign="left">
+                Chat{" "}
               </Box>
-            </Flex>
-          ))}
-        </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            <Box boxShadow="md" borderRadius="md" padding={4} mx={10}>
+              <Box
+                maxH={"500px"}
+                overflowY={"scroll"}
+                boxShadow="md"
+                borderRadius="md"
+                ref={ref}
+              >
+                {messages.map((message) => (
+                  <Flex key={message.id} alignItems="center" marginBottom={4}>
+                    <Avatar
+                      src={message.owner.image_url}
+                      boxSize={12}
+                      borderRadius="full"
+                      marginRight={4}
+                    />
+                    <Box>
+                      <Text fontWeight="bold">{message.owner.username}</Text>
+                      <Text>{message.content}</Text>
+                    </Box>
+                  </Flex>
+                ))}
+              </Box>
 
-        <Input
-          placeholder="Type your message"
-          value={newMessage}
-          onChange={(event) => setNewMessage(event.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-      </Box>
+              <Input
+                placeholder="Type your message"
+                value={newMessage}
+                onChange={(event) => setNewMessage(event.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+            </Box>{" "}
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
     </>
   );
 };
