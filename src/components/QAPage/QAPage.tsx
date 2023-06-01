@@ -75,6 +75,9 @@ export const QAPage = () => {
                 addresses:
                 <br />
                 <br />
+                
+                <Container maxW="container.sm" mx={18}>
+
                 <b>
                   <a href="mailto:leo-paul.musardo@etu.univ-amu.fr">
                     leo-paul.musardo@etu.univ-amu.fr
@@ -101,6 +104,7 @@ export const QAPage = () => {
                     yacine.boukhari@etu.univ-amu.fr
                   </a>
                 </b>
+                </Container>
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
