@@ -104,7 +104,7 @@ export default function Footer() {
           justify={{ md: "space-between" }}
           align={{ md: "center" }}
         >
-          <Text>© 2022 Chakra Templates. All rights reserved</Text>
+          <Text>© 2023 SN corporation. All rights reserved</Text>
           <Stack direction={"row"} spacing={6}>
           <Stack direction={"column"} >
             <SocialButton

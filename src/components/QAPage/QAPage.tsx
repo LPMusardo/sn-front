@@ -27,7 +27,8 @@ export const QAPage = () => {
                 </Heading>
               </AccordionButton>
               <AccordionPanel>
-                We are a team of developers who love building awesome things!
+                We are a group of 4 students reunited to create this project for
+                a school assignment.
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -37,19 +38,12 @@ export const QAPage = () => {
                 </Heading>
               </AccordionButton>
               <AccordionPanel>
-                This site is a platform for sharing knowledge and connecting
-                with other developers.
-              </AccordionPanel>
-            </AccordionItem>
-            <AccordionItem>
-              <AccordionButton>
-                <Heading as="h2" size="lg">
-                  What is the purpose of this site?
-                </Heading>
-              </AccordionButton>
-              <AccordionPanel>
-                The purpose of this site is to provide a space for developers to
-                learn, collaborate, and share their knowledge with others.
+                This site is a platform for people to search, create, apply and
+                participate in events.
+                <br />
+                The goal of this project was to create an API and a front-end
+                application that would allow users to create and participate in
+                events with a notation system.
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -59,8 +53,15 @@ export const QAPage = () => {
                 </Heading>
               </AccordionButton>
               <AccordionPanel>
-                To use this site, simply create an account and start exploring
-                the resources and community features!
+                You can use this site by creating an account and then you can
+                create events, apply to events and participate in events.
+                <br />
+                You can also search for events by name, location, date, category
+                and more.
+                <br />
+                You can chat with other users in the chat section of an event.
+                <br />
+                You can also rate events and users.
               </AccordionPanel>
             </AccordionItem>
             <AccordionItem>
@@ -70,7 +71,40 @@ export const QAPage = () => {
                 </Heading>
               </AccordionButton>
               <AccordionPanel>
-                You can contact us by sending an email to support@example.com.
+                You can contact us by sending an email to one of the following
+                addresses:
+                <br />
+                <br />
+                
+                <Container maxW="container.sm" mx={18}>
+
+                <b>
+                  <a href="mailto:leo-paul.musardo@etu.univ-amu.fr">
+                    leo-paul.musardo@etu.univ-amu.fr
+                  </a>
+                </b>
+                <br />
+                <br />
+                <b>
+                  <a href="mailto:maxime.guiliani@etu.univ-amu.fr">
+                    maxime.guiliani@etu.univ-amu.fr
+                  </a>
+                </b>
+                <br />
+                <br />
+                <b>
+                  <a href="mailto:mickael.lascoutounas@etu.univ-amu.fr">
+                    mickael.lascoutounas@etu.univ-amu.fr
+                  </a>
+                </b>
+                <br />
+                <br />
+                <b>
+                  <a href="mailto:yacine.boukhari@etu.univ-amu.fr">
+                    yacine.boukhari@etu.univ-amu.fr
+                  </a>
+                </b>
+                </Container>
               </AccordionPanel>
             </AccordionItem>
           </Accordion>
