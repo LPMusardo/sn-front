@@ -14,6 +14,7 @@ import { FaTwitter, FaYoutube, FaInstagram, FaGithub } from "react-icons/fa";
 import { Link as ReachLink } from "react-router-dom"
 import CookiesPopupBtn from "./CookiesPopupBtn"
 
+
 // import AppStoreBadge from '@/components/AppStoreBadge';
 // import PlayStoreBadge from '@/components/PlayStoreBadge';
 
@@ -68,13 +69,13 @@ export default function Footer() {
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={"flex-start"}>
             <ListHeader>Company</ListHeader>
-            <Link href={"/aboutus"}>About Us</Link>
+            <Link as={ReachLink} to="/aboutus"  >About Us</Link>
             <Link href={"https://docs.google.com/document/d/1lMD70BPlE9A0n-wD7AetGgY5mdbdFvU33dJWCmLkIvU"}>Sprints</Link>
           </Stack>
 
           <Stack align={"flex-start"}>
-            <ListHeader>Support</ListHeader>
-            <Link href={"Q&A"}>Q&A</Link>
+            <ListHeader>Support</ListHeader>            
+            <Link as={ReachLink} to="/Q&A"  >Q&A</Link>
             <Link href={"https://app.swaggerhub.com/apis-docs/MAXIMEGUILIANI_2/Social_network_API/1.0.0"}>Documentation API</Link>
           </Stack>
 
