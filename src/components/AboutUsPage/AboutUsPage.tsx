@@ -19,18 +19,9 @@ export const AboutUsPage = () => {
           <Heading as="h1" size="xl" textAlign="center" mb={8}>
             About Us!
           </Heading>
-          
+
 
           <Accordion allowToggle>
-
-          <AccordionItem>
-              <h2>
-                <AccordionButton>Yacine Boukhari</AccordionButton>
-              </h2>
-              <AccordionPanel>
-                Description of person 1 and what they did for the project.
-              </AccordionPanel>
-            </AccordionItem>
             <AccordionItem>
               <h2>
                 <AccordionButton>Maxime Guiliani</AccordionButton>
@@ -47,6 +38,32 @@ export const AboutUsPage = () => {
                 I also worked on the front-end part, I created the event page
                 and the user page and I also worked on the home page.
               </AccordionPanel>
+            
+            </AccordionItem>
+            
+            <AccordionItem>
+              <h2>
+                <AccordionButton>Léo-Paul Musardo</AccordionButton>
+              </h2>
+              <AccordionPanel>
+                Hello, my name is Léo-Paul and I'm a 22-year-old student at the University of Luminy.
+                <br />
+                <br />
+                In this project, I am primarily responsible for the database and front-end development. Specifically, I designed the code structure of the website and selected the appropriate technologies to build it.
+                <br />
+                Additionally, I created the database and developed methods to query it.
+                <br />
+                Lastly, I am responsible for deploying both the website and API onto a server.
+              </AccordionPanel>
+            </AccordionItem>
+            
+            <AccordionItem>
+              <h2>
+                <AccordionButton>Yacine Boukhari</AccordionButton>
+              </h2>
+              <AccordionPanel>
+                Description of person 1 and what they did for the project.
+              </AccordionPanel>
             </AccordionItem>
 
             <AccordionItem>
@@ -57,16 +74,6 @@ export const AboutUsPage = () => {
                 Description of person 2 and what they did for the project.
               </AccordionPanel>
             </AccordionItem>
-
-            <AccordionItem>
-              <h2>
-                <AccordionButton>Léo-Paul Musardo</AccordionButton>
-              </h2>
-              <AccordionPanel>
-                Description of person 3 and what they did for the project.
-              </AccordionPanel>
-            </AccordionItem>
-
 
           </Accordion>
         </Container>
