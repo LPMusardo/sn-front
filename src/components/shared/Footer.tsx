@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FaTwitter, FaYoutube, FaInstagram, FaGithub } from "react-icons/fa";
 import { Link as ReachLink } from "react-router-dom"
-
+import CookiesPopupBtn from "./CookiesPopupBtn"
 
 // import AppStoreBadge from '@/components/AppStoreBadge';
 // import PlayStoreBadge from '@/components/PlayStoreBadge';
@@ -80,12 +80,12 @@ export default function Footer() {
 
           <Stack align={"flex-start"}>
             <ListHeader>Legal</ListHeader>
-            <Link href={"#"}>Cookies Policy</Link>
-            <Link href={"#"}>Privacy Policy</Link>
+            <CookiesPopupBtn/>
           </Stack>
 
           <Stack align={"flex-start"}>
             <ListHeader>Install App</ListHeader>
+            <Link href={"#"}>Soon</Link>
           </Stack>
         </SimpleGrid>
       </Container>
@@ -98,7 +98,7 @@ export default function Footer() {
         <Container
           as={Stack}
           maxW={"6xl"}
-          py={4}
+          pt={2}
           direction={{ base: "column", md: "row" }}
           spacing={4}
           justify={{ md: "space-between" }}
