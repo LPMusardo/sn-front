@@ -71,8 +71,9 @@ export const AboutUsPage = () => {
                 <AccordionButton>Mickaël Lascoutounas</AccordionButton>
               </h2>
               <AccordionPanel>
-                Description of person 2 and what they did for the project.
-              </AccordionPanel>
+              Hello, my name is Mickaël, 22 years old. I'm studying at the University of Luminy.
+                <br />
+                For this project, i have been responsible of the Mobile application.              </AccordionPanel>
             </AccordionItem>
 
           </Accordion>
