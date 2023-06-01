@@ -170,16 +170,12 @@ const EventDetailsPanel = ({
 
         <CardBody>
           <Stack spacing="10">
-            <Box>
+            <Box w="100%" >
               <Heading size="xs" textTransform="uppercase">
                 Detail
               </Heading>
-              <Flex justifyContent={"space-between"} maxWidth={"lg"}>
-                <Box paddingTop={2}>
-                  <IoInformationCircleSharp />
-                </Box>
-
-                <HStack>
+              <Flex w="100%" justifyContent="space-around"  >
+                <HStack >
                   <RiGroupLine />
                   <Text as="b" pt="2" fontSize="sm">
                     {/* if nb_places_taken undefined set it to 0 */}
@@ -187,7 +183,7 @@ const EventDetailsPanel = ({
                     {participants_number}
                   </Text>
                 </HStack>
-                <HStack>
+                <HStack >
                   <BiCategoryAlt />
                   <Text>
                     {" "}
@@ -202,7 +198,7 @@ const EventDetailsPanel = ({
                     </Text>
                   </Text>
                 </HStack>
-                <HStack>
+                <HStack >
                   <BsCalendarEvent />
                   <Text as="b" pt="2" fontSize="sm">
                     {new Date(date).toLocaleDateString()}
