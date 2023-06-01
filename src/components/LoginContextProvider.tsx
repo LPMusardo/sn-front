@@ -2,7 +2,8 @@ import { ReactElement, useContext } from "react";
 import { createContext, useState } from "react";
 import { tokenService } from "../services/token.service";
 import { useNavigate } from "react-router-dom";
-import Axios from "../services/caller.service";
+import {AxiosPure} from "../services/caller.service";
+
 
 import jwt_decode from "jwt-decode";
 
@@ -23,7 +24,8 @@ const LoginContextProvider = ({children}: {children:JSX.Element} ) => {
 
   function login(credentials: {email: string;password: string;}) {
     setLoading(true);
-    Axios.post("/users/login", credentials)
+    setError("")
+    AxiosPure.post("/users/login", credentials)
       .then((res) => {
         setError("")
         tokenService.saveToken(res.data.token);

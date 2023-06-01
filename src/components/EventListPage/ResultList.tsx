@@ -17,19 +17,35 @@ import {
   VStack,
   Spinner,
   Hide,
+  useToast,
 } from "@chakra-ui/react";
 import LeftPanel from "../PublicUserPage/LeftPanel";
 import RightPanel from "../PublicUserPage/RightPanel";
 import EventListingCard from "./EventListingCard";
 import { useFetchSearch } from "./FetchSearchContextProvider";
+import { useEffect } from "react";
 
 const ResultList = () => {
   const [events, error, isLoading, fetchEvents] = useFetchSearch();
 
+
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 2000,
+        });
+      }
+    }, [error])
+
   return (
     <>
-      {error && <Text color="red">{error}</Text>}
-
       <Hide above="md">
         <Grid
           templateColumns={{ sm: "1fr" }}

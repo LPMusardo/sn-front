@@ -11,10 +11,12 @@ import {
   Box,
   Heading,
   Spinner,
+  useToast,
 } from "@chakra-ui/react";
 import NotesTable from "../../shared/NotesTable";
 import { useMyReceivedNotes } from "../MyReceivedNotesContextProvider";
 import { useLogin } from "../../LoginContextProvider";
+import { useEffect } from "react";
 
 const PanelReceivedNotes = () => {
   const [
@@ -28,9 +30,24 @@ const PanelReceivedNotes = () => {
   const [isLogged, isL, e, login, logout, getUserData] = useLogin();
   const user = getUserData();
 
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 3000,
+        });
+      }
+    }, [error])
+
   return (
     <>
-    <Heading size="md" color="red">{error}</Heading>
+    {/* <Heading size="md" color="red">{error}</Heading> */}
     {isLoading && <Spinner/>}
     <Tabs px="10">
       <TabList>

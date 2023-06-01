@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid, useToast } from "@chakra-ui/react";
 import SoonEventCard from "./SoonEventCard";
 
 import React, { useState, useEffect } from "react";
@@ -35,6 +35,21 @@ export const SoonGrid = () => {
       console.log("retrieving categories...");
     }
   }, [loading]);
+
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 3000,
+        });
+      }
+    }, [error])
 
   return (
     <SimpleGrid columns={{ sm: 1, md: 2, lg: 4 }} padding="10px" spacing={10}>

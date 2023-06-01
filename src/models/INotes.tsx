@@ -1,4 +1,5 @@
 export interface INotes {
+  id: number
   comment: string;
   event: { id: string; name: string };
   creationDate: string;

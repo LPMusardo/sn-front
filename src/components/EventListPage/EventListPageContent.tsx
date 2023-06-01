@@ -4,7 +4,6 @@ import NavBar from "../shared/NavBar/NavBar";
 import FiltersToggle from "./FiltersToggle";
 import ResultList from "./ResultList";
 import { useContext, useEffect } from "react";
-import SearchInputContext from "../shared/NavBar/SearchInputContext";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SearchInput2 from "./SearchInput2";
 
@@ -22,7 +21,7 @@ import SearchInput2 from "./SearchInput2";
 // zip: z.string(),
 
 const EventListPage = () => {
-  // const [search, setSearch] = useContext(SearchContext);
+
 
 
   useEffect(() => {

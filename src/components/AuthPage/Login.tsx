@@ -1,11 +1,13 @@
 import {
-  Link, Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, Text, useColorModeValue, Spinner, FormErrorMessage, HStack,
+  Link, Flex, Box, FormControl, FormLabel, Input, Stack, Button, Heading, Text, useColorModeValue, Spinner, FormErrorMessage, HStack, useToast,
 } from "@chakra-ui/react";
 import { useLogin } from "../LoginContextProvider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Link as ReachLink } from "react-router-dom"
+import { useEffect } from "react";
+
 
 const schema = z.object({
   email: z
@@ -27,6 +29,20 @@ function Login() {
     mode: "onChange",
   });
 
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 2000,
+      });
+    }
+  }, [error])
+
   return (
     <Flex
       minH={"100vh"}
@@ -37,11 +53,11 @@ function Login() {
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Login</Heading>
-          {error && (
+          {/* {error && (
             <Heading size="md" color="red">
               {error}
             </Heading>
-          )}
+          )} */}
         </Stack>
         <Box
           rounded={"lg"}

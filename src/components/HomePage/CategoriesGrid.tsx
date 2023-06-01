@@ -1,4 +1,4 @@
-import {  SimpleGrid } from "@chakra-ui/react";
+import {  SimpleGrid, useToast } from "@chakra-ui/react";
 
 import CategoryCard from "./CategoryCard";
 import React, { useState, useEffect } from "react";
@@ -51,11 +51,20 @@ const CategoriesGrid: React.FC = () => {
     }
   }, [loading]);
 
-  //const { data, error, isLoading } = useGames(gameQuery);
-  //let data: any[] = [];
-  // const skeletons = [1, 2, 3, 4, 5, 6];
-
-  //if (error) return <Text>{error}</Text>;
+  //----------------------------- Error Toast -----------------------------
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 2000,
+      });
+    }
+  }, [error])
 
   return (
     <SimpleGrid

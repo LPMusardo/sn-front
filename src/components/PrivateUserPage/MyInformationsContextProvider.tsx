@@ -109,6 +109,7 @@ const MyInformationsContextProvider = ({ children }: Props) => {
   const [isLogged, isL, e, login, logout, getUserData] = useLogin();
 
   function setDefaultFormValues( reset:(data:UserForm)=>any ) {
+    setError("");
     const user = getUserData();
     if (!user) {
       setError("problem with userData, try log-in again");
@@ -139,6 +140,7 @@ const MyInformationsContextProvider = ({ children }: Props) => {
   // }, []);
 
   function submitUser(data: UserSubmit) {
+    setError("");
     const user = getUserData();
     if (!user) {
       setError("problem with userData, try log-in again");

@@ -29,8 +29,8 @@ function OrganizerNotesTable({ user }: OrganizerNotesTableProps) {
         </TableCaption>
         <Thead>
           <Tr>
-            {headers.map((headers) => (
-              <Th>{headers}</Th>
+            {headers.map((header) => (
+              <Th key={header}>{header}</Th>
             ))}
           </Tr>
         </Thead>

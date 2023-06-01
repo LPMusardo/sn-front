@@ -1,4 +1,4 @@
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, useToast } from "@chakra-ui/react";
 import Footer from "../shared/Footer";
 import NavBar from "../shared/NavBar/NavBar";
 import RightPanel from "./RightPanel";
@@ -45,6 +45,22 @@ const PublicUserPage = () => {
   useEffect(() => {
     fetchData();
   }, [id]);
+
+
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 3000,
+        });
+      }
+    }, [error])
 
   return (
     <>

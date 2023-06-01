@@ -23,6 +23,7 @@ import AddNote from "../../../../shared/AddNote";
 import { OrganizedEvent } from "../../../MyEventsContextProvider";
 import AddNoteAsOrganizer from "../AddNoteAsOrganizer";
 import { RiGroupLine } from "react-icons/ri";
+import ScoreCandidat from "./ScoreCandidat";
 
 interface Props {
   event: OrganizedEvent;
@@ -71,7 +72,7 @@ const TabParticipants = ({ event }: Props) => {
                   </Flex>
                 </Td>
                 <Td>
-                  <Rating score={0} total={5} spacing={0.5} />?
+                  <ScoreCandidat userId={participant.id}/>
                 </Td>
                 <Td>
                   <Text whiteSpace="normal" maxW="lg">

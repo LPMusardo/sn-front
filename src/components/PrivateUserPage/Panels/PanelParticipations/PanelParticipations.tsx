@@ -14,8 +14,9 @@ import {
   Image,
   Button,
   Square,
+  useToast,
 } from "@chakra-ui/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useMyParticipations } from "../../MyParticipationsContextProvider";
 import { BiCategoryAlt } from "react-icons/bi";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
@@ -26,11 +27,29 @@ import AddNote from "../../../shared/AddNote";
 import { GiCancel } from "react-icons/gi";
 import { Link as ReachLink } from "react-router-dom";
 import AddNoteAsParticipant from "./AddNoteAsParticipant";
+import Filling from "../../../shared/Filling";
 
 const PanelParticipations = () => {
   const [events, isLoading, error, cancelParticipation] = useMyParticipations();
   const [isLogged, isl, e, login, logout, getUserData] = useLogin();
   const userData = getUserData();
+  const color = useColorModeValue("gray.300", "gray.600");
+
+
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 3000,
+        });
+      }
+    }, [error])
 
   return (
     <>
@@ -40,7 +59,7 @@ const PanelParticipations = () => {
             key={event.id}
             my="2"
             mx="4"
-            borderColor={useColorModeValue("gray.300", "gray.600")}
+            borderColor={color}
             borderWidth="1px"
           >
             <Heading size="md" color="red">
@@ -79,7 +98,7 @@ const PanelParticipations = () => {
                   </HStack>
                   <HStack>
                     <RiGroupLine />
-                    <Text>?/{event.participants_number}</Text>
+                    <Filling event={event}/>
                   </HStack>
                   <HStack>
                     <Box w="min-content">

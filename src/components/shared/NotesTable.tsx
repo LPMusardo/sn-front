@@ -80,28 +80,29 @@ function NotesTable({ headers, notes, caption }: Props) {
                 </Td>
                 <Td>
                   {note.owner && (
-                      <NoteCard
-                        username={note.owner.username}
-                        pictureUrl={note.owner.picture || ""}
-                        id={`${note.ownerId}`}
-
-                      />
+                    <NoteCard
+                      username={note.owner.username}
+                      pictureUrl={note.owner.picture || ""}
+                      id={`${note.ownerId}`}
+                    />
 
                   )}
                   {note.target && (
-                      <NoteCard
-                        username={note.target.username}
-                        pictureUrl={note.target.picture || ""}
-                        id={`${note.target.id}`}
-                      />
+                    <NoteCard
+                      username={note.target.username}
+                      pictureUrl={note.target.picture || ""}
+                      id={`${note.target.id}`}
+                    />
                   )}
                 </Td>
                 <Td>
                   <Comment title={note.title} comment={note.comment || ""} />
                 </Td>
-                <Link as={ReachLink} to={`/events/${note.event.id}`}>
-                  <Td>{note.event.name}</Td>
-                </Link>
+                <Td>
+                  <Link as={ReachLink} to={`/events/${note.event.id}`}>
+                    {note.event.name}
+                  </Link>
+                </Td>
                 <Td>
                   {new Date(note.creationDate).toLocaleDateString() +
                     " " +

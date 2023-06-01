@@ -17,6 +17,7 @@ import {
   Avatar,
   Link,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -105,9 +106,24 @@ const PanelInformations = () => {
     return isValid && isDirty;
   };
 
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 3000,
+        });
+      }
+    }, [error])
+
   return (
     <>
-      <Heading size="md" color="red">{error}</Heading>
+      {/* <Heading size="md" color="red">{error}</Heading> */}
       {isLoading && <Spinner />}
       <HStack spacing="5" pl="7">
         <HStack spacing="2">

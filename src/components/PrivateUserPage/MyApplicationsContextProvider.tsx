@@ -66,6 +66,7 @@ const MyApplicationsContextProvider = ({ children }: Props) => {
 
 
   const fetchData = (controller: AbortController, idUser:number) => {
+    setError("");
     setLoading(true);
     return Axios.get<Response>(`/users`, {
       signal: controller.signal,
@@ -88,6 +89,7 @@ const MyApplicationsContextProvider = ({ children }: Props) => {
 
 
   const cancelApplication = (eventId:number) => {
+    setError("");
     const user = getUserData();
     if(!user) return
     setLoading(true);

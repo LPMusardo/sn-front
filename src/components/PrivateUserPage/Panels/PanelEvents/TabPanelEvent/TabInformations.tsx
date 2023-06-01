@@ -47,7 +47,7 @@ const TabInformations = ({ event }: Props) => {
           <HStack>
             <RiGroupLine />
             <Text>
-              {"?"}/{event.participants_number}
+            {`${event.participants.length} / ${event.participants_number}`}
             </Text>
           </HStack>
           <HStack>

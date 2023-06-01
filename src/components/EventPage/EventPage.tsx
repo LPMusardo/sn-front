@@ -1,4 +1,4 @@
-import { Box, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Box, GridItem, SimpleGrid, useToast } from "@chakra-ui/react";
 import EventDetailsPanel from "./EventDetailsPanel";
 import EventImagePanel from "./EventImagePanel";
 import Footer from "../shared/Footer";
@@ -85,6 +85,22 @@ const EventPage = () => {
       console.log(error);
     }
   }, [error]);
+
+
+    //----------------------------- Error Toast -----------------------------
+    const toast = useToast()
+    useEffect(() => {
+      if (error) {
+        toast.closeAll();
+        toast({
+          title: 'Error Encountered',
+          description: error,
+          status: 'error',
+          isClosable: true,
+          duration: 3000,
+        });
+      }
+    }, [error])
 
   useEffect(() => {
     if (loading) {

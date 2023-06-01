@@ -98,7 +98,7 @@ const FiltersPanel = ({ close }: Props) => {
     //Technique afffesue du forum github pour corriger le bug de setValue qui ne fonctionne pas parfois
     setTimeout(() => {
       Object.keys(urlParams).forEach((key) => { setValue(key as any, urlParams[key]); });
-    }, 1000);
+    }, 2000);
 
     if (urlParams.event_name) setSearch(urlParams.event_name)
   }
@@ -118,11 +118,6 @@ const FiltersPanel = ({ close }: Props) => {
   //----------------------------- JSX -----------------------------
   return (
     <Card my="2" variant="filled">
-
-    <Button onClick={()=>{setValue("MainCategoryId", "5");  setValue("MainCategoryId", getStringLocalDateTime()); console.log("ICI", new Date(getStringLocalDateTime()));}} >test</Button>
-
-    {/* <div>{getStringLocalDateTime()}</div> */}
-      {/* <div>{JSON.stringify(urlParams, null, 2).toString()}</div> */}
       <CardHeader pb="0">
         <HStack>
           <CloseButton size="sm" onClick={close} />
