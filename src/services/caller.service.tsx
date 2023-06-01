@@ -1,10 +1,8 @@
 import axios from "axios";
 import { tokenService } from "../services/token.service";
-import { useNavigate } from "react-router-dom";
-import { ReactElement } from "react";
 
 const Axios = axios.create({
-  baseURL: "http://147.94.72.44:3000/",
+  baseURL: "http://localhost:3000/",
 });
 
 Axios.interceptors.request.use((request) => {
