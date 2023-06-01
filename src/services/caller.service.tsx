@@ -2,7 +2,7 @@ import axios from "axios";
 import { tokenService } from "../services/token.service";
 
 const Axios = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "http://147.94.72.38:3000/",
 });
 
 Axios.interceptors.request.use((request) => {
