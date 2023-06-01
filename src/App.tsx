@@ -6,15 +6,9 @@ import EventPage from "./components/EventPage/EventPage";
 import EventListPage from "./components/EventListPage/EventListPage";
 import Register from "./components/AuthPage/Register";
 import Login from "./components/AuthPage/Login";
-import PanelApplications from "./components/PrivateUserPage/Panels/PanelApplications/PanelApplications";
-import TestPage from "./components/TestPage/TestPage";
-import TestNestedComposant from "./components/TestPage/TestNestedComposant";
-import PanelInformations from "./components/PrivateUserPage/Panels/PanelInformations";
-import PanelGivenNotes from "./components/PrivateUserPage/Panels/PanelGivenNotes";
-import PanelEvents from "./components/PrivateUserPage/Panels/PanelEvents/PanelEvents";
-import PanelReceivedNotes from "./components/PrivateUserPage/Panels/PanelReceivedNotes";
 import TestPageRouting from "./components/TestPage/TestPageRouting";
-import PanelContainer from "./components/PrivateUserPage/PanelContainer";
+import { QAPage } from "./components/QAPage/QAPage";
+import { AboutUsPage } from "./components/AboutUsPage/AboutUsPage";
 
 function App() {
   // const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
@@ -28,6 +22,9 @@ function App() {
         <Route path="users/:id" Component={PublicUserPage} />
         <Route path="events/:id" Component={EventPage} />
         <Route path="search" Component={EventListPage} />
+        <Route path="Q&A" Component={QAPage} />
+        <Route path="aboutus" Component={AboutUsPage} />
+
 
         <Route path="/profile/*" element={<PrivateUserPage />}/>
 

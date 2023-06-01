@@ -46,14 +46,15 @@ interface IEventDetailsProps {
   setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-import axios from "axios";
+import Axios from "../../services/caller.service";
 
 async function cancelParticipation(
   id: string,
   setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
 ): Promise<void> {
+  
   try {
-    await axios
+    await Axios
       .request({
         method: "POST",
         url: "/events/" + id + "/unparticipate",
@@ -76,7 +77,7 @@ async function cancelApplication(
   setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
 ):  Promise<void> {
   try {
-    await axios
+    await Axios
       .request({
         method: "POST",
         url: "/events/" + id + "/unapply",
@@ -99,7 +100,7 @@ async function apply(
   setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
 ): Promise<void> {
   try {
-    await axios
+    await Axios
       .request({
         method: "POST",
         url: "/events/" + id + "/apply",
@@ -225,7 +226,7 @@ const EventDetailsPanel = ({
                 >
                   {street}, {city}, {country}, {zip}
                 </Text>
-              </HStack>
+              </HStack>              
             </Box>
             <Divider />
             <Box>

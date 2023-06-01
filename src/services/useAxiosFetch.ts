@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
+import Axios from "./caller.service";
 
-axios.defaults.baseURL = "http://localhost:3000";
 
 export const useAxiosFetch = (params: AxiosRequestConfig<any>) => {
   const [data, setData] = useState<any>(null);
@@ -10,7 +10,7 @@ export const useAxiosFetch = (params: AxiosRequestConfig<any>) => {
 
   const fetchData = async (): Promise<void> => {
     try {
-      const response = await axios.request(params);
+      const response = await Axios.request(params);
       setData(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {
