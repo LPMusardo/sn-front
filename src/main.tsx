@@ -10,18 +10,17 @@ import CategoriesContextProvider from "./components/CategoriesContextProvider.ts
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-  <ChakraProvider theme={theme}>
-    <BrowserRouter>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <LoginContextProvider>
-
-        <FetchSearchContextProvider>
-          <CategoriesContextProvider>
-            <App />
-          </CategoriesContextProvider>
-        </FetchSearchContextProvider>
-      </LoginContextProvider>
-    </BrowserRouter>
-  </ChakraProvider>
-  // </React.StrictMode>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <LoginContextProvider>
+          <FetchSearchContextProvider>
+            <CategoriesContextProvider>
+              <App />
+            </CategoriesContextProvider>
+          </FetchSearchContextProvider>
+        </LoginContextProvider>
+      </BrowserRouter>
+    </ChakraProvider>
+  </React.StrictMode>
 );
