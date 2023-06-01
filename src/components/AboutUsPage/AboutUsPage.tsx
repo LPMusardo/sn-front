@@ -22,15 +22,6 @@ export const AboutUsPage = () => {
 
 
           <Accordion allowToggle>
-
-            <AccordionItem>
-              <h2>
-                <AccordionButton>Yacine Boukhari</AccordionButton>
-              </h2>
-              <AccordionPanel>
-                Description of person 1 and what they did for the project.
-              </AccordionPanel>
-            </AccordionItem>
             <AccordionItem>
               <h2>
                 <AccordionButton>Maxime Guiliani</AccordionButton>
@@ -47,17 +38,9 @@ export const AboutUsPage = () => {
                 I also worked on the front-end part, I created the event page
                 and the user page and I also worked on the home page.
               </AccordionPanel>
+            
             </AccordionItem>
-
-            <AccordionItem>
-              <h2>
-                <AccordionButton>Mickaël Lascoutounas</AccordionButton>
-              </h2>
-              <AccordionPanel>
-                Description of person 2 and what they did for the project.
-              </AccordionPanel>
-            </AccordionItem>
-
+            
             <AccordionItem>
               <h2>
                 <AccordionButton>Léo-Paul Musardo</AccordionButton>
@@ -73,7 +56,24 @@ export const AboutUsPage = () => {
                 Lastly, I am responsible for deploying both the website and API onto a server.
               </AccordionPanel>
             </AccordionItem>
+            
+            <AccordionItem>
+              <h2>
+                <AccordionButton>Yacine Boukhari</AccordionButton>
+              </h2>
+              <AccordionPanel>
+                Description of person 1 and what they did for the project.
+              </AccordionPanel>
+            </AccordionItem>
 
+            <AccordionItem>
+              <h2>
+                <AccordionButton>Mickaël Lascoutounas</AccordionButton>
+              </h2>
+              <AccordionPanel>
+                Description of person 2 and what they did for the project.
+              </AccordionPanel>
+            </AccordionItem>
 
           </Accordion>
         </Container>
