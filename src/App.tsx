@@ -7,6 +7,9 @@ import MainPage from "./components/HomePage/MainPage";
 import PrivateUserPage from "./components/PrivateUserPage/PrivateUserPage";
 import PublicUserPage from "./components/PublicUserPage/PublicUserPage";
 import TestPageRouting from "./components/TestPage/TestPageRouting";
+import { QAPage } from "./components/QAPage/QAPage";
+import { AboutUsPage } from "./components/AboutUsPage/AboutUsPage";
+
 
 function App() {
   // const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
@@ -20,6 +23,9 @@ function App() {
         <Route path="users/:id" Component={PublicUserPage} />
         <Route path="events/:id" Component={EventPage} />
         <Route path="search" Component={EventListPage} />
+        <Route path="Q&A" Component={QAPage} />
+        <Route path="aboutus" Component={AboutUsPage} />
+
 
         <Route path="/profile/*" element={<PrivateUserPage />} />
 

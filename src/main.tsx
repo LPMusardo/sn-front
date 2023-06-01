@@ -14,7 +14,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <BrowserRouter>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <LoginContextProvider>
-
           <FetchSearchContextProvider>
             <CategoriesContextProvider>
               <App />
@@ -23,5 +22,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </LoginContextProvider>
       </BrowserRouter>
     </ChakraProvider>
-  // </React.StrictMode>
+  </React.StrictMode>
 );

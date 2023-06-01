@@ -12,6 +12,7 @@ import Axios from "../../services/caller.service";
 import { Link as ReachLink } from "react-router-dom"
 
 
+
 const schema = z
   .object({
     email: z
@@ -77,8 +78,7 @@ function Register() {
     delete submitFormDate.confirmPassword;
     setError("")
     setLoading(true)
-    Axios
-      .post("http://localhost:3000/users/signup", submitFormDate)
+    Axios.post("/users/signup", submitFormDate)
       .then((res) => {
         console.log(res);
         navigate("/login");

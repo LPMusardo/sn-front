@@ -1,4 +1,4 @@
-import { Image, Card, Box } from "@chakra-ui/react";
+import { Image, Card } from "@chakra-ui/react";
 
 interface IEventImageProps {
   image_url: string;

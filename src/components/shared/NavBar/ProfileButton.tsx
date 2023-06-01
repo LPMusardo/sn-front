@@ -6,11 +6,12 @@ import {
   MenuGroup,
   MenuItem,
   MenuDivider,
+  Link,
 } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../LoginContextProvider";
-
+import { ExternalLinkIcon } from "@chakra-ui/icons";
 
 const ProfileButton = () => {
   const navigate = useNavigate();
@@ -39,8 +40,14 @@ const ProfileButton = () => {
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Help">
-          <MenuItem>Docs</MenuItem>
-          <MenuItem>FAQ</MenuItem>
+          <Link>
+            <MenuItem onClick={() => navigate("/Q&A")}>Q&A</MenuItem>
+          </Link>
+          <MenuItem>
+            <Link href="https://app.swaggerhub.com/apis-docs/MAXIMEGUILIANI_2/Social_network_API/1.0.0" isExternal>
+             Docs <ExternalLinkIcon mx="2px" />
+            </Link>
+          </MenuItem>
         </MenuGroup>
       </MenuList>
     </Menu>
