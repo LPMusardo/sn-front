@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 
 export const SearchContext = createContext<[string, (data: string) => void]>([
   "",
-  () => {},
+  () => { },
 ]);
 
 // async function sleep() {

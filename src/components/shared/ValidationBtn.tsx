@@ -15,7 +15,7 @@ import ToastBtn from "./ToastBtn";
 type ToastType = {
   title: string;
   description: string;
-  status: "success" | "error"| "warning";
+  status: "success" | "error" | "warning";
   duration: number;
   isClosable: boolean;
 };
@@ -32,7 +32,7 @@ interface Props {
   disabled?: boolean;
   successToast: ToastType;
   failToast: ToastType;
-  isLoading : boolean;
+  isLoading: boolean;
 }
 
 const ValidationBtn = ({
@@ -61,7 +61,7 @@ const ValidationBtn = ({
 
   return (
     <>
-      <Button isDisabled={disabled || isLoading } colorScheme={colorScheme} onClick={onOpen}>
+      <Button isDisabled={disabled || isLoading} colorScheme={colorScheme} onClick={onOpen}>
         {children}
       </Button>
 
@@ -74,7 +74,7 @@ const ValidationBtn = ({
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
               <div>{modalHeader}</div>
-              {isLoading && <Spinner/>}
+              {isLoading && <Spinner />}
             </AlertDialogHeader>
 
             <AlertDialogBody>{modalTxt}</AlertDialogBody>
@@ -90,9 +90,9 @@ const ValidationBtn = ({
                   onClick={onValidate}
                   successToast={successToast}
                   failToast={failToast}
-                  preJob={()=>{}}
-                  postJob={()=>{}}
-                  final={() => {setOpen(false); onFinal()}}
+                  preJob={() => { }}
+                  postJob={() => { }}
+                  final={() => { setOpen(false); onFinal() }}
                   isDisabled={isLoading}
                 >
                   <div>{modalBtnValidateTxt}</div>

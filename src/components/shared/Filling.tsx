@@ -1,13 +1,13 @@
 import { HStack, Text } from "@chakra-ui/react"
 import { RiGroupLine } from "react-icons/ri"
-import useFilling, { EventFilling } from "../../Hooks/useFilling" 
+import useFilling, { EventFilling } from "../../Hooks/useFilling"
 import { CandidateEvent } from "../PrivateUserPage/MyApplicationsContextProvider"
 
-interface Props{
+interface Props {
     event: CandidateEvent
 }
 
-const Filling = ({event}:Props) => {
+const Filling = ({ event }: Props) => {
 
     const [eventFilling] = useFilling(event.id)
 

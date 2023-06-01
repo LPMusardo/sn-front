@@ -15,30 +15,30 @@ import { useMyEvents } from "../../MyEventsContextProvider";
 
 
 const PanelEvents = () => {
-  
+
   const [events, isLoading, error] = useMyEvents()
 
 
-    //----------------------------- Error Toast -----------------------------
-    const toast = useToast()
-    useEffect(() => {
-      if (error) {
-        toast.closeAll();
-        toast({
-          title: 'Error Encountered',
-          description: error,
-          status: 'error',
-          isClosable: true,
-          duration: 3000,
-        });
-      }
-    }, [error])
+  //----------------------------- Error Toast -----------------------------
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 3000,
+      });
+    }
+  }, [error])
 
   return (
     <>
       <Accordion defaultIndex={[0]} allowMultiple>
         {events.map((event) => (
-          <AccordionEventItem key={event.id} event={event}/>
+          <AccordionEventItem key={event.id} event={event} />
         ))}
       </Accordion>
     </>

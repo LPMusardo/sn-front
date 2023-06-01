@@ -1,4 +1,4 @@
-import { Stack, Button } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { MouseEvent, ReactElement } from "react";
 
 interface Props {

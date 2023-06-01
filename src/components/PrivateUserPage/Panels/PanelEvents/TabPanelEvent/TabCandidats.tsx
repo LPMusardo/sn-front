@@ -43,7 +43,7 @@ const TabCandidats = ({ event }: Props) => {
 
   return (
     <TabPanel>
-      <Badge variant="subtle" colorScheme={event.participants.length===event.participants_number? "red":"yellow" } m="10px" ml="15px" p="4px">
+      <Badge variant="subtle" colorScheme={event.participants.length === event.participants_number ? "red" : "yellow"} m="10px" ml="15px" p="4px">
         <HStack>
           <RiGroupLine />
           <Text>{`${event.participants.length} / ${event.participants_number}`}</Text>
@@ -81,7 +81,7 @@ const TabCandidats = ({ event }: Props) => {
                   </Flex>
                 </Td>
                 <Td>
-                  <ScoreCandidat userId={candidat.id}/>
+                  <ScoreCandidat userId={candidat.id} />
                 </Td>
                 <Td>
                   <Text whiteSpace="normal" maxW="lg">
@@ -91,7 +91,7 @@ const TabCandidats = ({ event }: Props) => {
                 <Td>
                   <ValidationBtn
                     isLoading={isLoading}
-                    disabled={event.participants.length===event.participants_number}
+                    disabled={event.participants.length === event.participants_number}
                     colorScheme="green"
                     modalBtnValidateTxt="Accept"
                     modalBtnCancelTxt={"Cancel"}
@@ -114,7 +114,7 @@ const TabCandidats = ({ event }: Props) => {
                       duration: 3000,
                       isClosable: true,
                     }}
-                    onFinal={async function () {}}
+                    onFinal={async function () { }}
                   >
                     <Text>Accept</Text>
                   </ValidationBtn>

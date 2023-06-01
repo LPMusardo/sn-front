@@ -20,7 +20,7 @@ interface OrganizerNotesTableProps {
   user: IUserData;
 }
 
-function ParticipantNotesTable( {user}: OrganizerNotesTableProps) {
+function ParticipantNotesTable({ user }: OrganizerNotesTableProps) {
   const headers = ["Notes", "From", "Comment", "Event", "Posted"];
 
   return (
@@ -40,7 +40,7 @@ function ParticipantNotesTable( {user}: OrganizerNotesTableProps) {
           {user.receivedNotes?.filter(note => note.type == "1").map((note) => (
             <Tr key={note.id} >
               <Td>
-                <Rating score={parseInt(note.value,10)} total={5} spacing={1} />
+                <Rating score={parseInt(note.value, 10)} total={5} spacing={1} />
               </Td>
               <Td>
                 <NoteCard
@@ -53,9 +53,9 @@ function ParticipantNotesTable( {user}: OrganizerNotesTableProps) {
                 <Comment title={note.title} comment={note.comment} />
               </Td>
               <Td>
-              <Link  style={{ color: "#B195EE" }} to={`/events/${note.event.id}`}>
-              {note.event.name}
-                  </Link>
+                <Link style={{ color: "#B195EE" }} to={`/events/${note.event.id}`}>
+                  {note.event.name}
+                </Link>
               </Td>
               <Td>{new Date(note.creationDate).toLocaleDateString()}</Td>
             </Tr>

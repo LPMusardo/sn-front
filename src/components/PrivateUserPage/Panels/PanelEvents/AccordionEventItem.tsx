@@ -3,17 +3,17 @@ import {
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  Tabs,
+  Heading,
   Tab,
   TabList,
   TabPanels,
-  Heading,
+  Tabs,
   useColorModeValue,
 } from "@chakra-ui/react";
-import TabInformations from "./TabPanelEvent/TabInformations";
-import TabCandidats from "./TabPanelEvent/TabCandidats";
-import TabParticipants from "./TabPanelEvent/TabParticipants";
 import { OrganizedEvent } from "../../MyEventsContextProvider";
+import TabCandidats from "./TabPanelEvent/TabCandidats";
+import TabInformations from "./TabPanelEvent/TabInformations";
+import TabParticipants from "./TabPanelEvent/TabParticipants";
 
 interface Props {
   event: OrganizedEvent;

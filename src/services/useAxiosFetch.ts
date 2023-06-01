@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
+import { useEffect, useState } from "react";
 
 axios.defaults.baseURL = "http://localhost:3000";
 

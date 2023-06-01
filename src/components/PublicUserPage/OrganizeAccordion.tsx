@@ -1,17 +1,17 @@
 import {
   Accordion,
-  AccordionItem,
   AccordionButton,
-  Box,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
+  Box,
   Text,
 } from "@chakra-ui/react";
-import AccordionHeader from "./AccordionHeader";
-import OrganizerNotesTable from "./OrganizerNotesTable";
-import Rating from "../shared/Rating";
-import OrganizerEventsTable from "./OrganizerEventsTable";
 import { IUserData } from "../../models/IUserData";
+import Rating from "../shared/Rating";
+import AccordionHeader from "./AccordionHeader";
+import OrganizerEventsTable from "./OrganizerEventsTable";
+import OrganizerNotesTable from "./OrganizerNotesTable";
 
 interface IOrganizeAccordionProps {
   user: IUserData;

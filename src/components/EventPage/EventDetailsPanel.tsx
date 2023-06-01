@@ -74,7 +74,7 @@ async function cancelParticipation(
 async function cancelApplication(
   id: string,
   setRelationShip: React.Dispatch<React.SetStateAction<string | undefined>>
-):  Promise<void> {
+): Promise<void> {
   try {
     await axios
       .request({

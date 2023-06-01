@@ -16,7 +16,7 @@ export interface UserScores {
   picture: string;
   bio: string;
   avg_score_host: number | null;
-  avg_score_participant: number| null;
+  avg_score_participant: number | null;
 }
 
 

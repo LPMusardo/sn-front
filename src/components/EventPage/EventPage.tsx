@@ -61,20 +61,20 @@ const EventPage = () => {
   }, [error]);
 
 
-    //----------------------------- Error Toast -----------------------------
-    const toast = useToast()
-    useEffect(() => {
-      if (error) {
-        toast.closeAll();
-        toast({
-          title: 'Error Encountered',
-          description: error,
-          status: 'error',
-          isClosable: true,
-          duration: 3000,
-        });
-      }
-    }, [error])
+  //----------------------------- Error Toast -----------------------------
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 3000,
+      });
+    }
+  }, [error])
 
   useEffect(() => {
     if (loading) {

@@ -9,6 +9,6 @@ export interface IUserData {
   bio: string;
   creation_date: string;
   receivedNotes: Array<INotes>;
-  organizedEvents:Array<IEventData>;
-  participantEvents:Array<IEventData>;
+  organizedEvents: Array<IEventData>;
+  participantEvents: Array<IEventData>;
 }

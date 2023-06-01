@@ -67,7 +67,7 @@ const FiltersPanel = ({ close }: Props) => {
   useEffect(() => {
     console.log("la location.search change: to", location.search);
     updateFormFromURL()
-    handleSubmit( (formObj)=>fetchEvents(buildRequestObj(formObj)) )();
+    handleSubmit((formObj) => fetchEvents(buildRequestObj(formObj)))();
     // handleSubmit(onSubmit)();
   }, [location.search]);
 
@@ -94,7 +94,7 @@ const FiltersPanel = ({ close }: Props) => {
       setValue(key as any, urlParams[key]);
       console.log("set", key, typeof urlParams[key], urlParams[key]);
     });
-    
+
     //Technique afffesue du forum github pour corriger le bug de setValue qui ne fonctionne pas parfois
     setTimeout(() => {
       Object.keys(urlParams).forEach((key) => { setValue(key as any, urlParams[key]); });
@@ -231,7 +231,7 @@ const FiltersPanel = ({ close }: Props) => {
                   {...register("MainCategoryId")}
                 >
                   <option value={""}>Any</option>
-                  {categories.map((categorie)=><option key={categorie.id} value={`${categorie.id}`}>{categorie.name}</option>)}
+                  {categories.map((categorie) => <option key={categorie.id} value={`${categorie.id}`}>{categorie.name}</option>)}
                 </Select>
                 <FormErrorMessage>
                   {errors.MainCategoryId?.message}

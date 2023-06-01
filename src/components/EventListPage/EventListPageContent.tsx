@@ -1,10 +1,9 @@
-import { Box, Button, Center, Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import { useEffect } from "react";
 import Footer from "../shared/Footer";
 import NavBar from "../shared/NavBar/NavBar";
 import FiltersToggle from "./FiltersToggle";
 import ResultList from "./ResultList";
-import { useContext, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SearchInput2 from "./SearchInput2";
 
 // event_name: z.string(),

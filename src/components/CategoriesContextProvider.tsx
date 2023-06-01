@@ -1,4 +1,5 @@
-import { ReactElement, useContext, useEffect, createContext, useState,
+import {
+  ReactElement, useContext, useEffect, createContext, useState,
 } from "react";
 import Axios from "../services/caller.service";
 import { CanceledError } from "axios";
@@ -25,7 +26,7 @@ interface Props {
 }
 
 const CategoriesContextProvider = ({ children }: Props) => {
-  
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -33,7 +34,7 @@ const CategoriesContextProvider = ({ children }: Props) => {
   const fetchData = (controller: AbortController) => {
     setError("");
     setLoading(true);
-    return Axios.get<Response>(`/categories`, {signal: controller.signal})
+    return Axios.get<Response>(`/categories`, { signal: controller.signal })
       .then((res) => {
         setCategories(res.data.categories);
       })
@@ -52,7 +53,7 @@ const CategoriesContextProvider = ({ children }: Props) => {
     fetchData(controller);
   }, []);
 
-  
+
 
   return (
     <CategoriesContext.Provider value={[categories, isLoading, error]}>

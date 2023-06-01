@@ -18,15 +18,15 @@ import { ReactElement, useContext, useEffect } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 
 interface Props {
-  setSection : ()=>void
+  setSection: () => void
   children?: any;
   extra?: ReactElement;
   heading?: string;
 }
 
-const PanelContainer = ({ children, heading, extra, setSection}: Props) => {
+const PanelContainer = ({ children, heading, extra, setSection }: Props) => {
 
-  useEffect(()=>{
+  useEffect(() => {
     setSection();
   })
 

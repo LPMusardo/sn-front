@@ -46,8 +46,8 @@ interface UserForm {
   creation_date: string;
   picture: string;
   bio: string;
-  password : string,
-  confirmpassword : string,
+  password: string,
+  confirmpassword: string,
 }
 
 let resetForm: (data: {
@@ -57,13 +57,13 @@ let resetForm: (data: {
   creation_date: string;
   picture: string;
   bio: string;
-  password:string,
-  confirmpassword:string,
+  password: string,
+  confirmpassword: string,
 }) => void;
 
 
 const MyInformationsContext = createContext<
-  [User, boolean, string, (data: UserSubmit) => void, (reset:(data:UserForm)=>any)=>void]
+  [User, boolean, string, (data: UserSubmit) => void, (reset: (data: UserForm) => any) => void]
 >([
   {
     id: 0,
@@ -75,15 +75,15 @@ const MyInformationsContext = createContext<
   },
   false,
   "",
-  () => {},
-  () => {},
+  () => { },
+  () => { },
 ]);
 
 export const useMyInformations = () => {
   return useContext(MyInformationsContext);
 };
 
-function getUserWithoutNull(user: User) : UserWithoutNull{
+function getUserWithoutNull(user: User): UserWithoutNull {
   return user.picture !== null
     ? (user as UserWithoutNull)
     : { ...user, picture: "" };
@@ -108,7 +108,7 @@ const MyInformationsContextProvider = ({ children }: Props) => {
 
   const [isLogged, isL, e, login, logout, getUserData] = useLogin();
 
-  function setDefaultFormValues( reset:(data:UserForm)=>any ) {
+  function setDefaultFormValues(reset: (data: UserForm) => any) {
     setError("");
     const user = getUserData();
     if (!user) {
@@ -116,11 +116,11 @@ const MyInformationsContextProvider = ({ children }: Props) => {
       return;
     }
     setLoading(true);
-    Axios.get<Response>(`/users`, {params: { id: user.id },})
+    Axios.get<Response>(`/users`, { params: { id: user.id }, })
       .then((res) => {
-        if(!res || !res.data) return;
+        if (!res || !res.data) return;
         setInitialData(res.data.user);
-        reset({...getUserWithoutNull(res.data.user), password:"", confirmpassword:""});  
+        reset({ ...getUserWithoutNull(res.data.user), password: "", confirmpassword: "" });
       })
       .catch((err) => {
         if (!(err instanceof CanceledError)) {
@@ -133,7 +133,7 @@ const MyInformationsContextProvider = ({ children }: Props) => {
   }
 
   // const fetchData = (idUser: number) => {
-    
+
   // };
 
   // useEffect(() => {

@@ -2,7 +2,7 @@ import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import { SearchContext } from "./SearchContextProvider";
-import { useNavigate, useSearchParams} from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useFormContext } from "react-hook-form";
 import { FormulaireData, buildRequestObj } from "./EventListPage"
 import { useFetchSearch } from "./FetchSearchContextProvider";

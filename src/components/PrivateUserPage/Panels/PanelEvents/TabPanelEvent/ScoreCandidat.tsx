@@ -14,7 +14,7 @@ const ScoreCandidat = ({ userId }: Props) => {
 
     return (
         <>
-            {userScores.avg_score_participant ? <Rating score={userScores.avg_score_participant} total={5} spacing={0.5} /> : <BsDash/>}
+            {userScores.avg_score_participant ? <Rating score={userScores.avg_score_participant} total={5} spacing={0.5} /> : <BsDash />}
         </>
     )
 }

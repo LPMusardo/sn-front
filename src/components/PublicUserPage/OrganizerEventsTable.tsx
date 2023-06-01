@@ -62,7 +62,7 @@ function OrganizerEventsTable({ user }: OrganizerEventsTableProps) {
               </Td>
               <Td>{new Date(event?.date).toLocaleDateString() ?? ""}</Td>
             </Tr>
-          )) }
+          ))}
         </Tbody>
         {/* <Tfoot>
           <Tr>

@@ -15,10 +15,10 @@ import { IUserData } from "../../models/IUserData";
 
 
 interface ILeftPanelProps {
-  user: IUserData ;
+  user: IUserData;
 }
 
-const LeftPanel : React.FC<ILeftPanelProps> = ({ user }) => {
+const LeftPanel: React.FC<ILeftPanelProps> = ({ user }) => {
   return (
     <Tabs>
       <TabList>
@@ -32,7 +32,7 @@ const LeftPanel : React.FC<ILeftPanelProps> = ({ user }) => {
               <Avatar name={user.username} src={user?.picture ?? ""} />
               <Box>
                 <Heading size="sm">{user.username}</Heading>
-                <Text>Since : {new Date( user.creation_date).toLocaleDateString()}</Text>
+                <Text>Since : {new Date(user.creation_date).toLocaleDateString()}</Text>
               </Box>
             </Flex>
             <Box>
@@ -40,7 +40,7 @@ const LeftPanel : React.FC<ILeftPanelProps> = ({ user }) => {
                 Description
               </Heading>
               <Text>
-               {user?.bio ?? ""}
+                {user?.bio ?? ""}
               </Text>
             </Box>
           </VStack>

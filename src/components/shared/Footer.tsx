@@ -1,16 +1,16 @@
-import { ReactNode } from 'react';
 import {
   Box,
   Container,
-  Stack,
-  SimpleGrid,
-  Text,
   Link,
+  SimpleGrid,
+  Stack,
+  Text,
   VisuallyHidden,
   chakra,
   useColorModeValue,
 } from '@chakra-ui/react';
-import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
+import { ReactNode } from 'react';
+import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 // import AppStoreBadge from '@/components/AppStoreBadge';
 // import PlayStoreBadge from '@/components/PlayStoreBadge';

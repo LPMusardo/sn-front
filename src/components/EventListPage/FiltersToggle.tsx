@@ -18,7 +18,7 @@ const FiltersToggle = () => {
 
   useEffect(() => {
     console.log('coucou depuis FiltersToggle');
-  } );
+  });
 
   return (
     <>
@@ -33,7 +33,7 @@ const FiltersToggle = () => {
           </Button>
         </HStack>
         <Collapse in={isOpen} animateOpacity>
-          <FiltersPanel close={() => onToggle()}/>
+          <FiltersPanel close={() => onToggle()} />
         </Collapse>
       </VStack>
     </>

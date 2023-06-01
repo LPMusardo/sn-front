@@ -6,7 +6,7 @@ import LeftPanel from "./LeftPanel";
 import { useAxiosFetch } from "../../services/useAxiosFetch";
 import { IUserData } from "../../models/IUserData";
 import { useEffect, useState } from "react";
-import {  useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const PublicUserPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,20 +47,20 @@ const PublicUserPage = () => {
   }, [id]);
 
 
-    //----------------------------- Error Toast -----------------------------
-    const toast = useToast()
-    useEffect(() => {
-      if (error) {
-        toast.closeAll();
-        toast({
-          title: 'Error Encountered',
-          description: error,
-          status: 'error',
-          isClosable: true,
-          duration: 3000,
-        });
-      }
-    }, [error])
+  //----------------------------- Error Toast -----------------------------
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 3000,
+      });
+    }
+  }, [error])
 
   return (
     <>

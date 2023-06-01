@@ -1,17 +1,7 @@
 import {
-  Card,
-  Stack,
-  CardBody,
-  Heading,
-  CardFooter,
-  Button,
-  Image,
-  Text,
-  Center,
-  Box,
-  Flex,
   Avatar,
   HStack,
+  Text
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 

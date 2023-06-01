@@ -21,7 +21,7 @@ const MainPage = () => {
         }}
       >
         <GridItem area="nav">
-          <NavBar/>
+          <NavBar />
         </GridItem>
         <GridItem area="main">
           <Box paddingX={50}>

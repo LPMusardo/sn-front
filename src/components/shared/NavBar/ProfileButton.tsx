@@ -15,7 +15,7 @@ import { useLogin } from "../../LoginContextProvider";
 const ProfileButton = () => {
   const navigate = useNavigate();
 
-const [isLogged, isLoading, error, login, logout] = useLogin()
+  const [isLogged, isLoading, error, login, logout] = useLogin()
 
   return (
     <Menu>
@@ -35,7 +35,7 @@ const [isLogged, isLoading, error, login, logout] = useLogin()
           </MenuItem>
           <MenuItem onClick={() => navigate("/profile/2")}>My events</MenuItem>
           <MenuItem onClick={() => navigate("/profile/3")}>More...</MenuItem>
-          <MenuItem onClick={()=>logout()}>Déconnexion</MenuItem>
+          <MenuItem onClick={() => logout()}>Déconnexion</MenuItem>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Help">

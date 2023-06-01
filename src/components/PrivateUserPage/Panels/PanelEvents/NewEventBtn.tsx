@@ -39,7 +39,7 @@ import { useCategories } from "../../../CategoriesContextProvider";
 
 const NewEventBtn = () => {
   const { onOpen, onClose, isOpen } = useDisclosure();
-  
+
 
   return (
     <>
@@ -99,8 +99,8 @@ const Form = ({ close }: { close: () => void }) => {
 
   const [events, isLoading, error, AddNote, submitNewEvent] = useMyEvents();
 
-  function buildRequestObj(formObj:FormData) {
-    const requestObj:any = {...formObj, date:formObj.date.toISOString(), mainCategoryId:(Number.parseInt(formObj.mainCategoryId)|| 0),  address:{street:formObj.street, city:formObj.city, country:formObj.country, zip:formObj.zip} }
+  function buildRequestObj(formObj: FormData) {
+    const requestObj: any = { ...formObj, date: formObj.date.toISOString(), mainCategoryId: (Number.parseInt(formObj.mainCategoryId) || 0), address: { street: formObj.street, city: formObj.city, country: formObj.country, zip: formObj.zip } }
     delete requestObj.street;
     delete requestObj.city;
     delete requestObj.country;
@@ -108,9 +108,9 @@ const Form = ({ close }: { close: () => void }) => {
     return requestObj;
   }
 
-  
 
-  function onSubmit(newForm:FormData){
+
+  function onSubmit(newForm: FormData) {
     console.log(buildRequestObj(newForm));
     submitNewEvent(buildRequestObj(newForm))
     close()
@@ -164,7 +164,7 @@ const Form = ({ close }: { close: () => void }) => {
               variant="filled"
               {...register("mainCategoryId")}
             >
-              {categories.map((categorie)=><option key={categorie.id} value={`${categorie.id}`}>{categorie.name}</option>)}
+              {categories.map((categorie) => <option key={categorie.id} value={`${categorie.id}`}>{categorie.name}</option>)}
             </Select>
             <FormErrorMessage>{errors.mainCategoryId?.message}</FormErrorMessage>
           </FormControl>
@@ -250,7 +250,7 @@ const Form = ({ close }: { close: () => void }) => {
           </FormControl>
           <Box pt="10">
             <IconButton
-            mr="6px"
+              mr="6px"
               variant="ghost"
               colorScheme="gray"
               onClick={() => reset()}

@@ -16,8 +16,8 @@ interface Props {
   placeholder?: string;
   defaultValue?: number;
   register: Function;
-  step? : number;
-  w? :string;
+  step?: number;
+  w?: string;
 }
 
 function CustomNumberInput({ placeholder, defaultValue, register, step, w }: Props) {
@@ -26,7 +26,7 @@ function CustomNumberInput({ placeholder, defaultValue, register, step, w }: Pro
 
   return (
     <NumberInput step={step || 5}>
-      <NumberInputField placeholder={placeholder} {...register()} w={w ||"110px"} />
+      <NumberInputField placeholder={placeholder} {...register()} w={w || "110px"} />
       <NumberInputStepper>
         <NumberIncrementStepper />
         <NumberDecrementStepper />

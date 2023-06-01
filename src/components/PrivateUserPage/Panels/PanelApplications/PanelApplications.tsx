@@ -31,7 +31,7 @@ const PanelApplications = () => {
   const [isLogged, isl, errorLogin, login, logout, getUserData] = useLogin();
   const userData = getUserData();
   const color = useColorModeValue("gray.300", "gray.600");
-  
+
   //----------------------------- Error Toast -----------------------------
   const toast = useToast()
   useEffect(() => {
@@ -102,7 +102,7 @@ const PanelApplications = () => {
                     <BsCalendarEvent />
                     <Text>{new Date(event.creation_date).toDateString()}</Text>
                   </HStack>
-                  <Filling event={event}/>
+                  <Filling event={event} />
                   <HStack>
                     <Box w="min-content">
                       <FiMapPin />

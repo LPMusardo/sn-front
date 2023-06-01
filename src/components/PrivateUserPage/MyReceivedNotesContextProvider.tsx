@@ -50,7 +50,7 @@ interface Event {
 
 
 
-const MyReceivedNotesContext = createContext<[()=>Note[], ()=>Note[], boolean, string]>([()=>[], ()=>[], false, ""]);
+const MyReceivedNotesContext = createContext<[() => Note[], () => Note[], boolean, string]>([() => [], () => [], false, ""]);
 
 export const useMyReceivedNotes = () => {
   return useContext(MyReceivedNotesContext);
@@ -75,7 +75,7 @@ const MyReceivedNotesContextProvider = ({ children }: Props) => {
       params: { id: idUser, include_receivedNotes: true },
     })
       .then((res) => {
-        if(!res || !res.data) return;
+        if (!res || !res.data) return;
         setReceivedNotes(res.data.user.receivedNotes);
       })
       .catch((err) => {
@@ -99,15 +99,15 @@ const MyReceivedNotesContextProvider = ({ children }: Props) => {
   const participant_juge_organizer = 0
   const organizer_juge_participant = 1
 
-  function get_reveived_notes_as_organiser(){
-    return receivedNotes.filter((receivedNote)=>receivedNote.type==participant_juge_organizer);
+  function get_reveived_notes_as_organiser() {
+    return receivedNotes.filter((receivedNote) => receivedNote.type == participant_juge_organizer);
   }
-  
-  function get_reveived_notes_as_participant(){
-    return receivedNotes.filter((receivedNote)=>receivedNote.type==organizer_juge_participant);
+
+  function get_reveived_notes_as_participant() {
+    return receivedNotes.filter((receivedNote) => receivedNote.type == organizer_juge_participant);
   }
-  
-  
+
+
   return (
     <MyReceivedNotesContext.Provider value={[get_reveived_notes_as_organiser, get_reveived_notes_as_participant, isLoading, error]}>
       {children}

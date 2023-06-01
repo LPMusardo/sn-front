@@ -36,20 +36,20 @@ const PanelParticipations = () => {
   const color = useColorModeValue("gray.300", "gray.600");
 
 
-    //----------------------------- Error Toast -----------------------------
-    const toast = useToast()
-    useEffect(() => {
-      if (error) {
-        toast.closeAll();
-        toast({
-          title: 'Error Encountered',
-          description: error,
-          status: 'error',
-          isClosable: true,
-          duration: 3000,
-        });
-      }
-    }, [error])
+  //----------------------------- Error Toast -----------------------------
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 3000,
+      });
+    }
+  }, [error])
 
   return (
     <>
@@ -98,7 +98,7 @@ const PanelParticipations = () => {
                   </HStack>
                   <HStack>
                     <RiGroupLine />
-                    <Filling event={event}/>
+                    <Filling event={event} />
                   </HStack>
                   <HStack>
                     <Box w="min-content">

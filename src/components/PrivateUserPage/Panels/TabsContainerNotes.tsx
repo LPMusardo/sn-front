@@ -1,15 +1,9 @@
 import {
-  Text,
-  Tabs,
-  TabList,
   Tab,
-  TabPanels,
+  TabList,
   TabPanel,
-  VStack,
-  Flex,
-  Avatar,
-  Box,
-  Heading,
+  TabPanels,
+  Tabs
 } from "@chakra-ui/react";
 
 

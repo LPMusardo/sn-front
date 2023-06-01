@@ -1,7 +1,7 @@
 import { ReactElement, useContext, useEffect } from "react";
 import { createContext, useState } from "react";
 import Axios from "../../services/caller.service";
-import {useLogin} from "../LoginContextProvider"
+import { useLogin } from "../LoginContextProvider"
 import { CanceledError } from "axios";
 
 
@@ -41,11 +41,11 @@ export interface CandidateEvent {
 
 
 
-const MyApplicationsContext = createContext<[CandidateEvent[], boolean, string, (eventId:number)=>void]>([
+const MyApplicationsContext = createContext<[CandidateEvent[], boolean, string, (eventId: number) => void]>([
   [],
   false,
   "",
-  () => {},
+  () => { },
 ]);
 
 export const useMyApplications = () => {
@@ -65,15 +65,15 @@ const MyApplicationsContextProvider = ({ children }: Props) => {
   const [isLogged, isL, e, login, logout, getUserData] = useLogin();
 
 
-  const fetchData = (controller: AbortController, idUser:number) => {
+  const fetchData = (controller: AbortController, idUser: number) => {
     setError("");
     setLoading(true);
     return Axios.get<Response>(`/users`, {
       signal: controller.signal,
-      params: {id:idUser, include_candidateEvents:true},
+      params: { id: idUser, include_candidateEvents: true },
     })
       .then((res) => {
-        if(res && res.data){
+        if (res && res.data) {
           setEvents(res.data.user.candidateEvents);
         }
       })
@@ -88,15 +88,15 @@ const MyApplicationsContextProvider = ({ children }: Props) => {
   };
 
 
-  const cancelApplication = (eventId:number) => {
+  const cancelApplication = (eventId: number) => {
     setError("");
     const user = getUserData();
-    if(!user) return
+    if (!user) return
     setLoading(true);
     Axios.post(`/events/${eventId}/unapply`, {
     })
       .then((res) => {
-        if(!res ) return;
+        if (!res) return;
         const controller = new AbortController();
         fetchData(controller, user.id)
       })
@@ -111,8 +111,8 @@ const MyApplicationsContextProvider = ({ children }: Props) => {
   useEffect(() => {
     const controller = new AbortController();
     const user = getUserData();
-    if(!user) return
-    fetchData(controller, user.id )
+    if (!user) return
+    fetchData(controller, user.id)
     return () => controller.abort();
   }, []);
 

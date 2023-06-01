@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 
 export const MainCategoryContext = createContext<[string, (data: string) => void]>([
   "",
-  () => {},
+  () => { },
 ]);
 
 interface Props {

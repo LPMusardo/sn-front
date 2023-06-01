@@ -1,45 +1,31 @@
 import {
   Box,
-  Card,
-  CardBody,
-  CardHeader,
   Grid,
-  GridItem,
-  Heading,
-  IconButton,
-  Stack,
-  StackDivider,
-  Text,
-  VStack,
+  GridItem
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { BiStar } from "react-icons/bi";
+import { FaRegCalendarCheck } from "react-icons/fa";
+import { ImProfile } from "react-icons/im";
+import { MdEvent, MdOutlineThumbUpAlt } from "react-icons/md";
+import { RiStarSmileLine } from "react-icons/ri";
+import { Route, Routes, useParams } from "react-router-dom";
 import Footer from "../shared/Footer";
 import NavBar from "../shared/NavBar/NavBar";
 import Menu from "./Menu/Menu";
-import PanelContainer from "./PanelContainer";
-import { FaRegCalendarCheck } from "react-icons/fa";
-import { ImProfile } from "react-icons/im";
-import { MdOutlineThumbUpAlt } from "react-icons/md";
-import { MdEvent } from "react-icons/md";
-import PanelInformations from "./Panels/PanelInformations";
-import PanelEvents from "./Panels/PanelEvents/PanelEvents";
-import PanelApplications from "./Panels/PanelApplications/PanelApplications";
-import PanelParticipations from "./Panels/PanelParticipations/PanelParticipations";
-import { useState } from "react";
-import PanelGivenNotes from "./Panels/PanelGivenNotes";
-import PanelReceivedNotes from "./Panels/PanelReceivedNotes";
-import { BiStar } from "react-icons/bi";
-import { RiStarSmileLine } from "react-icons/ri";
-import MyEventsContextProvider from "./MyEventsContextProvider";
-import { Routes, Route, Outlet } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { AiOutlinePlus } from "react-icons/ai";
-import NewEventBtn from "./Panels/PanelEvents/NewEventBtn";
-import MyApplicationsContextProvider from "./MyParticipationsContextProvider";
 import MyParticipationsContextProvider from "./MyApplicationsContextProvider";
-import MyGivenNotesContextProvider from "./MyGivenNotesContextProvider";
-import MyReceivedNotesContextProvider from "./MyReceivedNotesContextProvider";
+import MyEventsContextProvider from "./MyEventsContextProvider";
 import MyInformationsContextProvider from "./MyInformationsContextProvider";
-import EventPage from "../EventPage/EventPage";
+import MyApplicationsContextProvider from "./MyParticipationsContextProvider";
+import MyReceivedNotesContextProvider from "./MyReceivedNotesContextProvider";
+import PanelContainer from "./PanelContainer";
+import PanelApplications from "./Panels/PanelApplications/PanelApplications";
+import NewEventBtn from "./Panels/PanelEvents/NewEventBtn";
+import PanelEvents from "./Panels/PanelEvents/PanelEvents";
+import PanelGivenNotes from "./Panels/PanelGivenNotes";
+import PanelInformations from "./Panels/PanelInformations";
+import PanelParticipations from "./Panels/PanelParticipations/PanelParticipations";
+import PanelReceivedNotes from "./Panels/PanelReceivedNotes";
 
 
 // interface Props {
@@ -110,7 +96,7 @@ const PrivateUserPage = () => {
   // const currentSection =
   //   sections[sections.findIndex((section) => section.id === selectedId)]; // Ici la structure liste n'est pas vraiment adaptée O(n), mais c'est simple à manipuler et il y aura tjrs très peu d'éléments
 
-    const { sectionId: paramSectionId } = useParams();
+  const { sectionId: paramSectionId } = useParams();
 
 
   return (
@@ -121,7 +107,7 @@ const PrivateUserPage = () => {
             <MyReceivedNotesContextProvider>
               <MyInformationsContextProvider>
                 <>
-                  <NavBar/>
+                  <NavBar />
                   <div>{paramSectionId}</div>
                   <Box margin={5} minH="60vh">
                     <Grid
@@ -144,7 +130,7 @@ const PrivateUserPage = () => {
                               path={section.id.toString()}
                               element={
                                 <PanelContainer
-                                  setSection={()=>setSelectedId(section.id)}
+                                  setSection={() => setSelectedId(section.id)}
                                   heading={section.h}
                                   extra={section.extra && <section.extra />}
                                 >

@@ -1,21 +1,19 @@
 import {
-  TableContainer,
-  TableCaption,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Td,
-  Tfoot,
-  Table,
   Box,
   Link,
+  Table,
+  TableCaption,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr
 } from "@chakra-ui/react";
-import NoteCard from "../shared/NoteCard";
-import Comment from "../shared/Comment";
-import Rating from "../shared/Rating";
 import { Link as ReachLink } from "react-router-dom";
-import { useLogin } from "../LoginContextProvider";
+import Comment from "../shared/Comment";
+import NoteCard from "../shared/NoteCard";
+import Rating from "../shared/Rating";
 
 interface Note {
   id: number;

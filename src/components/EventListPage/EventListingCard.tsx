@@ -1,27 +1,25 @@
 import {
-  Card,
-  Show,
-  Stack,
-  CardBody,
-  Heading,
-  CardFooter,
-  Button,
-  Image,
-  Text,
   Avatar,
   Box,
+  Card,
+  CardBody,
+  CardFooter,
   Flex,
   HStack,
+  Heading,
+  Image,
   Link,
-  Center,
+  Show,
+  Stack,
+  Text
 } from "@chakra-ui/react";
+import { BiCategoryAlt } from "react-icons/bi";
 import { BsCalendarEvent, BsChatSquareText } from "react-icons/bs";
 import { FiMapPin } from "react-icons/fi";
 import { RiGroupLine } from "react-icons/ri";
-import { BiCategoryAlt } from "react-icons/bi";
-import { Event } from "./FetchSearchContextProvider";
 import { Link as ReachLink } from "react-router-dom";
 import Rating from "../shared/Rating";
+import { Event } from "./FetchSearchContextProvider";
 
 interface Props {
   event: Event;
@@ -38,17 +36,17 @@ const EventListingCard = ({ event }: Props) => {
     >
       <Show above="sm">
         <Box className="square" /*outline={"2px solid green"}*/ overflow="hidden">
-            <Image
-              //outline={"3px solid red"}
-              className="image"
-              src={event.image_url}
-              borderRadius="lg"
-              objectFit="cover"
-              fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
-              // fallbackSrc="https://via.placeholder.com/150"
-              // fallbackSrc="https://cdn.cdkeys.com/700x700/media/catalog/product/b/a/babylons-fall-pc-game-steam-cover_2_.jpg"
-            />
-          </Box>
+          <Image
+            //outline={"3px solid red"}
+            className="image"
+            src={event.image_url}
+            borderRadius="lg"
+            objectFit="cover"
+            fallbackSrc="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg"
+          // fallbackSrc="https://via.placeholder.com/150"
+          // fallbackSrc="https://cdn.cdkeys.com/700x700/media/catalog/product/b/a/babylons-fall-pc-game-steam-cover_2_.jpg"
+          />
+        </Box>
       </Show>
 
       <Stack w="100%">
@@ -72,7 +70,7 @@ const EventListingCard = ({ event }: Props) => {
               <Link as={ReachLink} to={`/users/${event.organizer.id}`} >
                 <Heading size="xs">{event.organizer.username}</Heading>
               </Link>
-                {event.organizer.score_host && <Rating score={Number.parseInt(event.organizer.score_host)} total={5} spacing={0}></Rating>}
+              {event.organizer.score_host && <Rating score={Number.parseInt(event.organizer.score_host)} total={5} spacing={0}></Rating>}
             </HStack>
           </Flex>
 
@@ -83,7 +81,7 @@ const EventListingCard = ({ event }: Props) => {
             </HStack>
             <HStack>
               <RiGroupLine />
-              <Text>{`${event.participants_number-event.nb_places_left}/${event.participants_number}`}</Text>
+              <Text>{`${event.participants_number - event.nb_places_left}/${event.participants_number}`}</Text>
             </HStack>
           </Flex>
           <HStack>

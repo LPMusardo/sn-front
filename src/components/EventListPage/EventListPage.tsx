@@ -1,7 +1,7 @@
-import EventListPageContent from "./EventListPageContent";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import { number, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { z } from "zod";
+import EventListPageContent from "./EventListPageContent";
 import SearchContextProvider from "./SearchContextProvider";
 
 

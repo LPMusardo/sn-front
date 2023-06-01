@@ -1,13 +1,13 @@
+import { CanceledError } from "axios";
 import {
   ReactElement,
+  createContext,
   useContext,
   useEffect,
-  createContext,
   useState,
 } from "react";
 import Axios from "../../services/caller.service";
 import { useLogin } from "../LoginContextProvider";
-import { CanceledError } from "axios";
 
 interface Response {
   user: Organizer;
@@ -93,8 +93,8 @@ const MyEventsContext = createContext<
   [],
   false,
   "",
-  () => {},
-  () => {},
+  () => { },
+  () => { },
   () => Promise.resolve(),
   () => Promise.resolve(),
 ]);

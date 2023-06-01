@@ -61,8 +61,8 @@ function OrganizerNotesTable({ user }: OrganizerNotesTableProps) {
                   <Link style={{ color: "#B195EE" }} to={"/events/" + note.event.id}>
                     {note?.event.name}
                   </Link>
-                  
-                  </Td>
+
+                </Td>
                 <Td>{new Date(note.creationDate).toLocaleDateString()}</Td>
               </Tr>
             ))}

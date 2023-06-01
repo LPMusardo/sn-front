@@ -4,10 +4,10 @@ import ParticipantAccordion from "./ParticipantAccordion";
 import { IUserData } from "../../models/IUserData";
 
 interface IRightPanelProps {
-  user: IUserData ;
+  user: IUserData;
 }
 
-const RightPanel : React.FC<IRightPanelProps> = ({ user }) => {
+const RightPanel: React.FC<IRightPanelProps> = ({ user }) => {
   return (
     <Tabs>
       <TabList>
@@ -20,7 +20,7 @@ const RightPanel : React.FC<IRightPanelProps> = ({ user }) => {
           <OrganizeAccordion user={user} />
         </TabPanel>
         <TabPanel>
-          <ParticipantAccordion user={user}/>
+          <ParticipantAccordion user={user} />
         </TabPanel>
       </TabPanels>
     </Tabs>

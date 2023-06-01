@@ -1,5 +1,4 @@
 import AddNote, { NoteFormData } from "../../../shared/AddNote";
-import { useMyEvents } from "../../MyEventsContextProvider";
 import { useMyParticipations } from "../../MyParticipationsContextProvider";
 
 interface Props {

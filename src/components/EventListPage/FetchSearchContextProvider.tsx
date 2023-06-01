@@ -9,7 +9,7 @@ import { CanceledError } from "axios";
 
 const FetchSearchContext = createContext<
   [Event[], string, boolean, (filtersObj: Filters) => void]
->([[], "", false, () => {}]);
+>([[], "", false, () => { }]);
 
 export const useFetchSearch = () => useContext(FetchSearchContext);
 
@@ -81,7 +81,7 @@ const FetchSearchContextProvider = ({ children }: Props) => {
     setLoading(true);
     return Axios.get<Response>(`/events/search`, {
       signal: controller.signal,
-        params: filtersObj,
+      params: filtersObj,
     })
       .then((res) => {
         console.log(res.data.events);

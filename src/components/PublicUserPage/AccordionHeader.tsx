@@ -1,5 +1,4 @@
-import { Badge, Box, Flex, HStack, Text } from "@chakra-ui/react";
-import Rating from "../shared/Rating";
+import { Badge, Flex, HStack, Text } from "@chakra-ui/react";
 import { ReactElement } from "react";
 
 interface Props {

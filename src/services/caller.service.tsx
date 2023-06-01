@@ -3,8 +3,8 @@ import { tokenService } from "../services/token.service";
 
 const baseURL = "http://localhost:3000";
 
-export const AxiosPure = axios.create({baseURL});
-const Axios = axios.create({baseURL});
+export const AxiosPure = axios.create({ baseURL });
+const Axios = axios.create({ baseURL });
 
 Axios.interceptors.request.use((request) => {
   if (tokenService.getToken) {
@@ -21,7 +21,7 @@ Axios.interceptors.request.use((request) => {
 //   (error) => {
 //     console.log("AXIOS ERROR INTERCEPT---->", error);
 //     if(!error || !error.response || ! error.response.status) return;
-      
+
 
 //       const user = getUserData();
 //       console.log("DECODE TOKEN", user);
@@ -42,14 +42,14 @@ Axios.interceptors.request.use((request) => {
 // }
 
 Axios.interceptors.response.use(
-  (response) => { 
+  (response) => {
     return response
   },
   (error) => {
     console.log("AXIOS ERROR INTERCEPT---->", error);
     // const navigate = useNavigate();
     // navigate('/');
-    if(!error || !error.response || ! error.response.status) return;
+    if (!error || !error.response || !error.response.status) return;
     const status = error.response.status;
     if (status === 401) {
       tokenService.removeToken();

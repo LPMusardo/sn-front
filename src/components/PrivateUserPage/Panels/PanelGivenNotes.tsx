@@ -30,7 +30,7 @@ const PanelGivenNotes = () => {
 
   return (
     <MyGivenNotesContextProvider>
-      <PanelGivenNotesContent/>
+      <PanelGivenNotesContent />
     </MyGivenNotesContextProvider>
   );
 };

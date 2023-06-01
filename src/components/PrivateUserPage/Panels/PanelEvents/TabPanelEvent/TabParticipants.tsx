@@ -2,7 +2,6 @@ import {
   Avatar,
   Badge,
   Box,
-  Button,
   Flex,
   HStack,
   Link,
@@ -15,14 +14,12 @@ import {
   Text,
   Th,
   Thead,
-  Tr,
+  Tr
 } from "@chakra-ui/react";
+import { RiGroupLine } from "react-icons/ri";
 import { Link as ReachLink } from "react-router-dom";
-import Rating from "../../../../shared/Rating";
-import AddNote from "../../../../shared/AddNote";
 import { OrganizedEvent } from "../../../MyEventsContextProvider";
 import AddNoteAsOrganizer from "../AddNoteAsOrganizer";
-import { RiGroupLine } from "react-icons/ri";
 import ScoreCandidat from "./ScoreCandidat";
 
 interface Props {
@@ -35,7 +32,7 @@ const TabParticipants = ({ event }: Props) => {
 
   return (
     <TabPanel>
-      <Badge variant="subtle" colorScheme={event.participants.length===event.participants_number? "red":"yellow" } m="10px" ml="15px" p="4px">
+      <Badge variant="subtle" colorScheme={event.participants.length === event.participants_number ? "red" : "yellow"} m="10px" ml="15px" p="4px">
         <HStack>
           <RiGroupLine />
           <Text>{`${event.participants.length} / ${event.participants_number}`}</Text>
@@ -72,7 +69,7 @@ const TabParticipants = ({ event }: Props) => {
                   </Flex>
                 </Td>
                 <Td>
-                  <ScoreCandidat userId={participant.id}/>
+                  <ScoreCandidat userId={participant.id} />
                 </Td>
                 <Td>
                   <Text whiteSpace="normal" maxW="lg">
@@ -80,7 +77,7 @@ const TabParticipants = ({ event }: Props) => {
                   </Text>
                 </Td>
                 <Td>
-                  <AddNoteAsOrganizer eventId={event.id} targetId={participant.id}/>
+                  <AddNoteAsOrganizer eventId={event.id} targetId={participant.id} />
                   {/* <Button>Rate (check pas deja fait)</Button> */}
                 </Td>
               </Tr>

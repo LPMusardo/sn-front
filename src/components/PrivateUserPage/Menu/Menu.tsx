@@ -22,18 +22,18 @@ import { useNavigate } from "react-router-dom";
 
 
 
-interface Props{
-    sections : { id: number; h: string; t: string; icon:IconType, panel:any }[]
-    selectedId: number,
-    setSelectedId: Function,
+interface Props {
+  sections: { id: number; h: string; t: string; icon: IconType, panel: any }[]
+  selectedId: number,
+  setSelectedId: Function,
 }
 
-const Menu = ({sections, selectedId, setSelectedId}:Props) => {
+const Menu = ({ sections, selectedId, setSelectedId }: Props) => {
 
   const navigate = useNavigate();
 
   const txtColor = useColorModeValue("gray.600", "gray.400");
-  const [isLogged, isL, e, login, logout, getUserData] = useLogin(); 
+  const [isLogged, isL, e, login, logout, getUserData] = useLogin();
   const user = getUserData()
 
 
@@ -51,7 +51,7 @@ const Menu = ({sections, selectedId, setSelectedId}:Props) => {
               isActive={section.id == selectedId}
               //onSelect={() => setSelectedId(section.id)}
               onSelect={() => navigate(`/profile/${section.id}`)}
-              onClick={() => {}}
+              onClick={() => { }}
               key={section.id}
             >
               <Flex justifyContent="left" w="100%" direction="column">

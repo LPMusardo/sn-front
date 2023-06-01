@@ -14,7 +14,7 @@ type Props = {
   searchInput?: ReactElement;
 }
 
-const NavBar = ({searchInput }: Props) => {
+const NavBar = ({ searchInput }: Props) => {
   const navigate = useNavigate();
   const [isLogged] = useLogin()
 
@@ -35,7 +35,7 @@ const NavBar = ({searchInput }: Props) => {
         </Box>
       </Link>
       <Box w="100%" marginX={10}>
-        {searchInput || <SearchInput/>}
+        {searchInput || <SearchInput />}
       </Box>
       <ColorModeSwitch />
       <Box paddingX={5}>

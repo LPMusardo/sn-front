@@ -1,48 +1,34 @@
 import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
   Grid,
   GridItem,
-  Heading,
-  Stack,
-  Image,
-  Text,
-  Divider,
-  ButtonGroup,
-  Center,
-  Show,
-  VStack,
-  Spinner,
   Hide,
-  useToast,
+  Show,
+  Spinner,
+  VStack,
+  useToast
 } from "@chakra-ui/react";
-import LeftPanel from "../PublicUserPage/LeftPanel";
-import RightPanel from "../PublicUserPage/RightPanel";
+import { useEffect } from "react";
 import EventListingCard from "./EventListingCard";
 import { useFetchSearch } from "./FetchSearchContextProvider";
-import { useEffect } from "react";
 
 const ResultList = () => {
   const [events, error, isLoading, fetchEvents] = useFetchSearch();
 
 
-    //----------------------------- Error Toast -----------------------------
-    const toast = useToast()
-    useEffect(() => {
-      if (error) {
-        toast.closeAll();
-        toast({
-          title: 'Error Encountered',
-          description: error,
-          status: 'error',
-          isClosable: true,
-          duration: 2000,
-        });
-      }
-    }, [error])
+  //----------------------------- Error Toast -----------------------------
+  const toast = useToast()
+  useEffect(() => {
+    if (error) {
+      toast.closeAll();
+      toast({
+        title: 'Error Encountered',
+        description: error,
+        status: 'error',
+        isClosable: true,
+        duration: 2000,
+      });
+    }
+  }, [error])
 
   return (
     <>
@@ -91,7 +77,7 @@ const ResultList = () => {
           </Grid>
         </Hide>
       </Show>
-      
+
       <Show above="xl">
         <Grid
           templateColumns={{ md: "1fr 1fr", xl: "1fr 1fr 1fr" }}

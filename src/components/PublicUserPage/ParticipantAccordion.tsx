@@ -1,19 +1,18 @@
 import {
   Accordion,
-  AccordionItem,
   AccordionButton,
-  Box,
   AccordionIcon,
+  AccordionItem,
   AccordionPanel,
-  Text,
+  Box
 } from "@chakra-ui/react";
+import { IUserData } from "../../models/IUserData";
+import Rating from "../shared/Rating";
 import AccordionHeader from "./AccordionHeader";
 import ParticipantNotesTable from "./ParticipantNotesTable";
-import Rating from "../shared/Rating";
-import { IUserData } from "../../models/IUserData";
 
 interface IOrganizeAccordionProps {
-  user:IUserData;
+  user: IUserData;
 }
 
 
@@ -53,7 +52,7 @@ const OrganizeAccordion: React.FC<IOrganizeAccordionProps> = ({ user }) => {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <ParticipantNotesTable user={user}/>
+          <ParticipantNotesTable user={user} />
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
