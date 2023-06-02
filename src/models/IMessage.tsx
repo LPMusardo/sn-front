@@ -3,7 +3,7 @@ export interface IMessage {
   creationDate: string;
   owner:{
     username: string;
-    image_url: string;
+    picture: string;
   }
   userId: string;
   id: string;
