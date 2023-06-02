@@ -1,10 +1,13 @@
-# M1 IDL Project Social network (SN)
+# M1 IDL Projet Social network (SN)
 
-Le but de ce projet est de créer un réseau social en utilisant une API et une base de données MySQL.
+Le but de ce projet est de créer un réseau social en utilisant une API Rest et un client web pour cette API.
+Une base de données sera docn necessaire.
 
-Cette application permettra de créer des utilisateurs, des posts, des commentaires et des notes pour des evenements.
+L'application permettra de créer des utilisateurs, des événements, des commentaires et des notes.  
 
-Cette application web utilise react et chakra-ui.
+- La partie _front-end_ repose principalement sur React-dom, Raact-Router, et Chakra-ui.
+
+- La partie back-end_, quand à elle, repose principalement sur Express, MySQL, Sequelize, JWT
 
 ## Pour commencer
 
