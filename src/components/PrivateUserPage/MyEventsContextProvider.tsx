@@ -174,7 +174,7 @@ const MyEventsContextProvider = ({ children }: Props) => {
       return;
     }
     const final_note: Note = { ...note, ownerId: user.id };
-    console.log("FINAL NOTE:", final_note);
+    // console.log("FINAL NOTE:", final_note);
     setError("");
     setLoading(true);
     return Axios.post(`/notes/addnotefromhost`, final_note)

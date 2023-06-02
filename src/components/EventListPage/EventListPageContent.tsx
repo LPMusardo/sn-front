@@ -29,7 +29,6 @@ const EventListPage = () => {
     //   return;
     // }
     // setSearch(eventName);
-    console.log("coucou depuis ListPage");
   });
 
   return (

@@ -32,7 +32,6 @@ const EventPage = () => {
 
   let dataRelationShip = {events:{value:""}};
 if(userData?.id){
-  console.log("retrieving relationship...");
   [dataRelationShip] = useAxiosFetch({
     method: "GET",
     url: "/events/event_relationship?eventId=" + id + "&userId=" + userData?.id,
@@ -56,7 +55,6 @@ if(userData?.id){
   useEffect(() => {
     if (dataRelationShip) {
       setRelationShip(dataRelationShip.events.value);
-      console.log(dataRelationShip.events.value);
     } else {
       setRelationShip("");
     }
@@ -64,9 +62,7 @@ if(userData?.id){
 
   useEffect(() => {
     if (data) {
-      console.log("retrieving events...");
       setEvents(data.events);
-      console.log(data.events);
     } else {
       setEvents("{}" as any as IEventData);
     }
@@ -74,10 +70,7 @@ if(userData?.id){
 
   useEffect(() => {
     if (dataMessage) {
-      console.log("retrieving messages...");
       setMessages(dataMessage.messages);
-    } else {
-      console.log("no messages");
     }
   }, [dataMessage]);
 
@@ -103,11 +96,6 @@ if(userData?.id){
     }
   }, [error])
 
-  useEffect(() => {
-    if (loading) {
-      console.log("retrieving events...");
-    }
-  }, [loading]);
 
   return (
     <>

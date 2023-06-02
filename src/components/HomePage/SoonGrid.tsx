@@ -16,9 +16,7 @@ export const SoonGrid = () => {
 
   useEffect(() => {
     if (data) {
-      console.log("retrieving events...");
       setSoonEvents(data.events);
-      console.log(data.events);
     } else {
       setSoonEvents([]);
     }
@@ -31,9 +29,7 @@ export const SoonGrid = () => {
   }, [error]);
 
   useEffect(() => {
-    if (loading) {
-      console.log("retrieving categories...");
-    }
+
   }, [loading]);
 
   //----------------------------- Error Toast -----------------------------

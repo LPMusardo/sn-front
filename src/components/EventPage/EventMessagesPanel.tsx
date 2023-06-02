@@ -86,8 +86,8 @@ const Chat = ({ messages }: IChatProps) => {
                 ref={ref}
               >
                 {messages.map((message) => (
-                  <Flex my="2px" alignContent="space-between" w="100%">
-                    <Flex  key={message.id} w="100%"  marginBottom={4}>
+                  <Flex key={message.id}  my="2px" alignContent="space-between" w="100%">
+                    <Flex  w="100%"  marginBottom={4}>
 
                       <Avatar
                         name={message.owner.username}

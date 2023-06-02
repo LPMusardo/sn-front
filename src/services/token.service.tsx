@@ -7,7 +7,6 @@ const removeToken = () => {
 };
 
 const getToken = () => {
-  console.log("LE TOKEN EST", localStorage.getItem("token"));
   return localStorage.getItem("token");
 };
 

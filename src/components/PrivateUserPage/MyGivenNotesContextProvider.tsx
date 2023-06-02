@@ -76,7 +76,7 @@ const MyGivenNotesContextProvider = ({ children }: Props) => {
     })
       .then((res) => {
         if (!res || !res.data) return;
-        console.log("GIVEN NOTES:", res.data.user.givenNotes);
+        // console.log("GIVEN NOTES:", res.data.user.givenNotes);
         setGivenNotes([...res.data.user.givenNotes]);
       })
       .catch((err) => {
