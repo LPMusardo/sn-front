@@ -91,7 +91,7 @@ const Chat = ({ messages }: IChatProps) => {
 
                       <Avatar
                         name={message.owner.username}
-                        src={message.owner.image_url}
+                   src={message.owner.picture || ""}
                         boxSize={12}
                         borderRadius="full"
                         marginX={4}
