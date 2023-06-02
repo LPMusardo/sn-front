@@ -9,6 +9,7 @@ import PublicUserPage from "./components/PublicUserPage/PublicUserPage";
 import TestPageRouting from "./components/TestPage/TestPageRouting";
 import { QAPage } from "./components/QAPage/QAPage";
 import { AboutUsPage } from "./components/AboutUsPage/AboutUsPage";
+import Error404 from "./components/ErrorPages/Error404";
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="search" Component={EventListPage} />
         <Route path="Q&A" Component={QAPage} />
         <Route path="aboutus" Component={AboutUsPage} />
+        <Route path="404" Component={Error404} />
 
 
         <Route path="/profile/*" element={<PrivateUserPage />} />

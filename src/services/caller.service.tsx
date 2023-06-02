@@ -52,9 +52,19 @@ Axios.interceptors.response.use(
     // navigate('/');
     if (!error || !error.response || !error.response.status) return;
     const status = error.response.status;
+    if (status === 500  || status === 403  ) {
+      return Promise.reject(error.response.data); 
+    }
+    if (status === 404) {
+      window.location.href = "/404";
+
+    }
+
     if (status === 401) {
       tokenService.removeToken();
       window.location.href = "/login";
+      return Promise.reject(error.response.data); 
+
     }
     return Promise.reject(error);
   }

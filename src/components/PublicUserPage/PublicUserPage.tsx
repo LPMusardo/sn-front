@@ -16,7 +16,7 @@ const PublicUserPage = () => {
     url:
       "/users?id=" +
       id +
-      "&include_organizedEvents=true&include_candidateEvents=true&include_participantEvents=true&include_givenNotes=true&include_receivedNotes=true&include_messages=true",
+      "&include_organizedEvents=true&include_candidateEvents=true&include_participantEvents=true&include_givenNotes=true&include_receivedNotes=true",
   });
 
   useEffect(() => {
