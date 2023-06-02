@@ -70,7 +70,7 @@ const CategoriesGrid: React.FC = () => {
     <SimpleGrid
       columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
       padding="10px"
-      spacing={3}
+      spacing="70px"
     >
       {categories.map((category: ICategoryData) => (
         <CategoryCard
