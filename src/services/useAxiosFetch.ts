@@ -8,21 +8,22 @@ export const useAxiosFetch = (params: AxiosRequestConfig<any>) => {
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchData = async (): Promise<void> => {
-    try {
-      const response = await Axios.request(params);
-      setData(response.data);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError("Axios Error with Message: " + error.message);
-      } else {
-        setError(error);
-      }
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const fetchData = async (): Promise<any> => {
+    setError("");
+    setLoading(true);
+    return Axios.request(params)
+      .then((res) => {
+        console.log("DATA", res);
+        setData(res.data);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
 
   useEffect(() => {
     fetchData();
