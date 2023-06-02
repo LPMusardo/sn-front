@@ -34,7 +34,7 @@ const LoginContextProvider = ({ children }: { children: JSX.Element }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        setError(error.message)
         setLoading(false);
       });
     return { isLogged, error, isLoading };
