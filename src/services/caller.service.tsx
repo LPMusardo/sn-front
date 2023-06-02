@@ -50,20 +50,20 @@ Axios.interceptors.response.use(
     console.log("AXIOS ERROR INTERCEPT---->", error);
     // const navigate = useNavigate();
     // navigate('/');
-    if (!error || !error.response || !error.response.status) return;
+    if (!error.response) return Promise.reject(error);
     const status = error.response.status;
     if (status === 500  || status === 403  ) {
       return Promise.reject(error.response.data); 
     }
     if (status === 404) {
       window.location.href = "/404";
-
+      return Promise.reject(error); 
     }
-
     if (status === 401) {
       tokenService.removeToken();
       window.location.href = "/login";
-      return Promise.reject(error.response.data); 
+      // return Promise.reject(error.response.data); 
+      return Promise.reject(error); 
 
     }
     return Promise.reject(error);
