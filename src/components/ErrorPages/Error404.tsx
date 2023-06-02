@@ -1,18 +1,31 @@
-import { Heading } from "@chakra-ui/react";
-import React from "react";
 import Footer from "../shared/Footer";
 import NavBar from "../shared/NavBar/NavBar";
+import {
+  Box,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 
 const Error404 = () => {
   return (
     <>
       <NavBar />
-
-      <div>
-        <h1>404 Error: Page Not Found</h1>
-        <p>Oops! Looks like you've stumbled upon a page that doesn't exist.</p>
-        <img src="https://http.cat/404" alt="404 Cat" />
-      </div>
+      <Box
+        minH="70vh"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+      >
+        <Box>
+          <Heading fontSize="6xl" fontWeight="bold" mb={4}>
+            404 Error: Page Not Found
+          </Heading>
+          <Text fontSize="xl">
+            Ooops, looks like you are looking for a page that doesn't exist.
+          </Text>
+        </Box>
+      </Box>
       <Footer />
     </>
   );
