@@ -62,8 +62,7 @@ Axios.interceptors.response.use(
     if (status === 401) {
       tokenService.removeToken();
       window.location.href = "/login";
-      // return Promise.reject(error.response.data); 
-      return Promise.reject(error); 
+       return Promise.reject(error.response.data); 
 
     }
     return Promise.reject(error);
