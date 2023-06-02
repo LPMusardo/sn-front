@@ -84,7 +84,6 @@ const FetchSearchContextProvider = ({ children }: Props) => {
       params: filtersObj,
     })
       .then((res) => {
-        console.log(res.data.events);
         setEvents(res.data.events);
         window.scrollTo({ top: 0, behavior: 'smooth' });
       })

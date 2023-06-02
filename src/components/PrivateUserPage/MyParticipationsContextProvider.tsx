@@ -140,7 +140,7 @@ const MyParticipationsContextProvider = ({ children }: Props) => {
       return
     }
     const final_note: Note = { ...note, ownerId: user.id }
-    console.log("FINAL NOTE:", final_note);
+    // console.log("FINAL NOTE:", final_note);
     setLoading(true);
     return Axios.post(`/notes/addnotefromparticipant`, final_note)
       .then((res) => {

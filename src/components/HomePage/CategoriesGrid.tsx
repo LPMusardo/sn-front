@@ -33,7 +33,6 @@ const CategoriesGrid: React.FC = () => {
   useEffect(() => {
     if (data) {
       setCategories(data.categories);
-      console.log(data.categories);
     } else {
       setCategories([]);
     }
@@ -45,11 +44,6 @@ const CategoriesGrid: React.FC = () => {
     }
   }, [error]);
 
-  useEffect(() => {
-    if (loading) {
-      console.log("retrieving categories...");
-    }
-  }, [loading]);
 
   //----------------------------- Error Toast -----------------------------
   const toast = useToast()

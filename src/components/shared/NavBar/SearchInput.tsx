@@ -13,7 +13,7 @@ const SearchInput = () => {
 
 
   const onSubmit = () => {
-    console.log("Submit filters from OUTSIDE");
+    // console.log("Submit filters from OUTSIDE");
     // if(search){
     if (event_name) {
       // fetchEvents({event_name:search});

@@ -47,7 +47,7 @@ const FiltersPanel = ({ close }: Props) => {
 
   //----------------------------- DEBUG  -----------------------------
   useEffect(() => {
-    console.log("[always]coucou depuis FiltersPanel");
+    // console.log("[always]coucou depuis FiltersPanel");
   });
 
 
@@ -65,7 +65,7 @@ const FiltersPanel = ({ close }: Props) => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log("la location.search change: to", location.search);
+    // console.log("la location.search change: to", location.search);
     updateFormFromURL()
     handleSubmit((formObj) => fetchEvents(buildRequestObj(formObj)))();
     // handleSubmit(onSubmit)();
@@ -89,10 +89,10 @@ const FiltersPanel = ({ close }: Props) => {
     // Si event_name est pas dans l'URL demandé alors il doit pas apparaitre dans les input => on l'enlève et si il ets dans l'URL il sera remis juste après
     // setValue("event_name", "");
     // setSearch("")
-    console.log("urlParams", urlParams);
+   //  console.log("urlParams", urlParams);
     Object.keys(urlParams).forEach((key) => {
       setValue(key as any, urlParams[key]);
-      console.log("set", key, typeof urlParams[key], urlParams[key]);
+      // console.log("set", key, typeof urlParams[key], urlParams[key]);
     });
 
     //Technique afffesue du forum github pour corriger le bug de setValue qui ne fonctionne pas parfois
@@ -109,7 +109,7 @@ const FiltersPanel = ({ close }: Props) => {
   const [events, error, isLoading, fetchEvents] = useFetchSearch()
   const [searchParams, setSearchParams] = useSearchParams();
   const onSubmit = (formObj: FieldValues) => {
-    console.log("Submit filters from main", buildRequestObj(formObj));
+    // console.log("Submit filters from main", buildRequestObj(formObj));
     setSearchParams(buildRequestObj(formObj));
   };
 

@@ -64,7 +64,7 @@ async function cancelParticipation(
         },
       })
       .then((response) => {
-        console.log(response);
+        
         setRelationShip("not related");
       });
   } catch (error) {
@@ -87,7 +87,6 @@ async function cancelApplication(
         },
       })
       .then((response) => {
-        console.log(response);
         setRelationShip("not related");
       });
   } catch (error) {
@@ -110,7 +109,7 @@ async function apply(
         },
       })
       .then((response) => {
-        console.log(response);
+        
         setRelationShip("candidate");
       });
   } catch (error) {
@@ -139,7 +138,7 @@ const EventDetailsPanel = ({
   relationShip,
   setRelationShip,
 }: IEventDetailsProps) => {
-  console.log("score_avg", typeof score_avg);
+  // console.log("score_avg", typeof score_avg);
 
   return (
     <>

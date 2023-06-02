@@ -111,7 +111,7 @@ const Form = ({ close }: { close: () => void }) => {
 
 
   function onSubmit(newForm: FormData) {
-    console.log(buildRequestObj(newForm));
+    // console.log(buildRequestObj(newForm));
     submitNewEvent(buildRequestObj(newForm))
     close()
   }

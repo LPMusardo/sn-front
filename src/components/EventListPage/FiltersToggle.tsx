@@ -17,7 +17,7 @@ const FiltersToggle = () => {
   const { isOpen, onToggle } = useDisclosure();
 
   useEffect(() => {
-    console.log('coucou depuis FiltersToggle');
+    //console.log('coucou depuis FiltersToggle');
   });
 
   return (

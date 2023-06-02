@@ -21,9 +21,7 @@ const PublicUserPage = () => {
 
   useEffect(() => {
     if (data) {
-      console.log("retrieving user...");
       setUser(data.user);
-      console.log(data.user);
     } else {
       // sent to error page
       setUser({} as IUserData);
@@ -32,13 +30,12 @@ const PublicUserPage = () => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      console.log("Catched error : ",error);
     }
   }, [error]);
 
   useEffect(() => {
     if (loading) {
-      console.log("retrieving userData...");
     }
   }, [loading]);
 

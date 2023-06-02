@@ -13,7 +13,6 @@ export const useAxiosFetch = (params: AxiosRequestConfig<any>) => {
     setLoading(true);
     return Axios.request(params)
       .then((res) => {
-        console.log("DATA", res);
         setData(res.data);
       })
       .catch((err) => {

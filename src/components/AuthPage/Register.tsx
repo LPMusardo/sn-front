@@ -79,8 +79,7 @@ function Register() {
     setError("")
     setLoading(true)
     Axios.post("/users/signup", submitFormDate)
-      .then((res) => {
-        console.log(res);
+      .then((res) => {        
         navigate("/login");
       })
       .catch((error) => { console.log(error); setError(error.message) })
