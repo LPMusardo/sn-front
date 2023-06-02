@@ -28,7 +28,7 @@ const divStyle = {
 const CategoryCard = ({ name, id, imageurl }: CategoryCardProps) => {
   return (
     <Link as={ReachLink} to={`/search?MainCategoryId=${id}`}>
-      <Card size={"sm"}>
+      <Card size="sm" maxW="md">
         <CardBody>
           <Center className="square">
             <Image className="image"
