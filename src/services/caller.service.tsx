@@ -52,7 +52,7 @@ Axios.interceptors.response.use(
     // navigate('/');
     if (!error.response) return Promise.reject(error);
     const status = error.response.status;
-    if (status === 500  || status === 403  ) {
+    if (status === 500  || status === 403 || status === 400 ) {
       return Promise.reject(error.response.data); 
     }
     if (status === 404) {
@@ -66,6 +66,26 @@ Axios.interceptors.response.use(
       return Promise.reject(error); 
 
     }
+    return Promise.reject(error);
+  }
+);
+
+
+
+AxiosPure.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  (error) => {
+    console.log("AXIOS ERROR INTERCEPT---->", error);
+    // const navigate = useNavigate();
+    // navigate('/');
+    if (!error.response) return Promise.reject(error);
+    const status = error.response.status;
+    if ( status === 400 ) {
+      return Promise.reject(error.response.data); 
+    }
+
     return Promise.reject(error);
   }
 );
