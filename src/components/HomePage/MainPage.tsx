@@ -10,10 +10,11 @@ const MainPage = () => {
 
   return (
     <>
+      <NavBar />
       <Grid
         templateAreas={{
-          base: `"nav" "main"`,
-          lg: `"nav" "main"`,
+          base: `"main"`,
+          lg: `"main"`,
         }}
         templateColumns={{
           base: "1fr",
@@ -21,7 +22,6 @@ const MainPage = () => {
         }}
       >
         <GridItem area="nav">
-          <NavBar />
         </GridItem>
         <GridItem area="main">
           <Box paddingX={50}>
@@ -36,7 +36,7 @@ const MainPage = () => {
           </Box>
         </GridItem>
       </Grid>
-      <Box marginTop={100}>
+      <Box w="100%" marginTop={100}>
         <Footer />
       </Box>
     </>
