@@ -62,7 +62,10 @@ export const AboutUsPage = () => {
                 <AccordionButton>Yacine Boukhari</AccordionButton>
               </h2>
               <AccordionPanel>
-                Description of person 1 and what they did for the project.
+              Hello, I'm Yacine Boukhari and I'm a 25-year-old student at the University of Luminy.
+                <br />
+                <br />
+                In this project, I am responsible for the registration page and the login page.
               </AccordionPanel>
             </AccordionItem>
 
