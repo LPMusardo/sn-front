@@ -1,7 +1,7 @@
 # M1 IDL Projet Social network (SN)
 
 Le but de ce projet est de créer un réseau social en utilisant une API Rest et un client web pour cette API.
-Une base de données sera docn necessaire.
+Une base de données sera donc necessaire.
 
 L'application permettra de créer des utilisateurs, des événements, des commentaires et des notes.  
 
