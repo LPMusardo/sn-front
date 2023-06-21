@@ -207,7 +207,7 @@ const FiltersPanel = ({ close }: Props) => {
                     type="datetime-local"
                     borderColor="gray.400"
                     placeholder="Select Date and Time"
-                    defaultValue={getStringLocalDateTime(730)}
+                    defaultValue={getStringLocalDateTime(36000)}
                     {...register("range_date_max")}
                   />
                 </VStack>
