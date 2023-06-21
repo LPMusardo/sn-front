@@ -10,8 +10,14 @@ L'application permettra de créer des utilisateurs, des événements, des commen
 
 
 ## Playground
-Une version d'essai du site web est dispobible à l'adressse : [sn.musardo.fr](https://sn.musardo.fr)
+Une version d'essai du site web est dispobible à l'adressse : [sn.musardo.fr](https://sn.musardo.fr)   
 
+Vous pouvez utiliser le compte fictif:  
+
+- email: leo-paul.musardo@etu.univ-amu.fr
+- password: leopaul
+
+Pour parcourir le site
 
 ## Pré-requis
 Vous aurez besoin de :
