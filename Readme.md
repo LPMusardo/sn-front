@@ -15,7 +15,7 @@ Une version d'essai du site web est dispobible à l'adressse : [sn.musardo.fr](h
 
 ## Pré-requis
 Vous aurez besoin de :
-1. Mettre en palce le _backend_ de l'app (suivre ce guide)
+1. Mettre en palce le _backend_ de l'app ([suivre ce guide](https://github.com/LPMusardo/sn-back))
 1. NodeJS/npm
 
 ## Mise en place
