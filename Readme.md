@@ -6,7 +6,7 @@ L'application permettra de créer des utilisateurs, des événements, des commen
 
 - La partie _front-end_ (ce dépot git) repose principalement sur React-dom, Raact-Router, et Chakra-ui.
 
-- La partie _back-end_ (second dépot git),  quand à elle, repose principalement sur Express, MySQL, Sequelize, JWT
+- La partie _back-end_ ([Second dépot git](https://github.com/LPMusardo/sn-back)),  quand à elle, repose principalement sur Express, MySQL, Sequelize, JWT
 
 
 ## Playground
