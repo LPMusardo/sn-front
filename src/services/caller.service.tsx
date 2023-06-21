@@ -2,7 +2,7 @@ import axios from "axios";
 import { tokenService } from "../services/token.service";
 
 
-const baseURL = "http://localhost:3000";
+const baseURL = "https://snapi.musardo.fr";
 
 export const AxiosPure = axios.create({ baseURL });
 const Axios = axios.create({ baseURL });
